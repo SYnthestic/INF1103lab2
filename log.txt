@@ -1,0 +1,17 @@
+commit 38065999d0ab1166e47ee08030d9754dc8f323cf
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:07:28 2026 +0800
+
+    Fixed a small bug on Dockerfile
+
+commit d966abbea9166003524c315268370e1be48282be
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:04:41 2026 +0800
+
+    Added Dockerfile
+
+commit e87fc247d362aebd779400736fc5736cc43599c3
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 23:59:28 2026 +0800
+
+    First commit in lab 2
