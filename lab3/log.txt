@@ -1,0 +1,47 @@
+commit a6ba3a3da47f7a28cb89530e4a9303ab6863952f
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 14:23:07 2026 +0800
+
+    Docker Image Worksgit add .!
+
+commit 494aa39dd53be5ffbaf6e2659a1b6291e28bd390
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 19 02:25:01 2026 +0800
+
+    Made this work at last
+
+commit fb5ba145d11d78eb58b7f8474b3a67aa6151de25
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Sep 15 15:36:16 2026 +0800
+
+    Settled Tasks for Topic 3
+
+commit 4c098879cb011e12f311b1df571f3820434b1c8c
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 14 15:20:13 2026 +0800
+
+    added topic 3 self try
+
+commit 5e392a5b81716de66c9357faff51f1627742c9d2
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:10:59 2026 +0800
+
+    Adding images and link to repo on word docu
+
+commit 38065999d0ab1166e47ee08030d9754dc8f323cf
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:07:28 2026 +0800
+
+    Fixed a small bug on Dockerfile
+
+commit d966abbea9166003524c315268370e1be48282be
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:04:41 2026 +0800
+
+    Added Dockerfile
+
+commit e87fc247d362aebd779400736fc5736cc43599c3
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 23:59:28 2026 +0800
+
+    First commit in lab 2
