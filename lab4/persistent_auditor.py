@@ -119,6 +119,19 @@ def generate_report(failed_entries, inventory_entry):
     print(f"Transaction History: {inventory_entry}")
     print(f"Number of Failed/Rejected Entries: {failed_entries}")
 
+def save_inventory(inventory_list):
+    file_name = "inventory.txt"
+    
+    # Join the list items with a newline character
+    # and convert items to strings just in case they are numbers
+    content = "\n".join(str(item) for item in inventory_list)
+    
+    with open(file_name, "w") as file:
+        file.write(content)
+
+    print(f"File saved successfully to {file_name}")
+
+
 
 while True:
 
@@ -162,6 +175,8 @@ while True:
                 failed_entries,
                 inventory_entry
             )
+
+            save_inventory(inventory_entry)
 
             break
 
