@@ -68,9 +68,9 @@ def get_valid_input(
             failed_entries += 1
             continue
 
-        quantity = int(quantity_inp)
+        quantity_inp = int(quantity_inp)
 
-        if quantity > 500:
+        if quantity_inp > 500:
             print(
                 "Invalid input. "
                 "Please enter a number between 0 and 500."
@@ -79,20 +79,21 @@ def get_valid_input(
             continue
 
         # Quantity is valid
-        inventory_entry.append((orderid, product_inp, quantity))
-        orderid += 1
+        inventory_entry.append((orderid, product_inp, quantity_inp))
+        
 
         delivery_amount = process_delivery(
             delivery_amount,
-            quantity
+            quantity_inp
         )
 
         print(f"New order added to inventory")
-        print(f"{orderid}, {product_inp}, {quantity}")
+        print(f"{orderid}, {product_inp}, {quantity_inp}")
+        orderid += 1
 
         break
 
-    return failed_entries, delivery_amount
+    return failed_entries, delivery_amount, orderid
 
 
 def process_delivery(delivery_amount, entry_inp):
@@ -147,7 +148,7 @@ while True:
                 print("Error! Product name cannot be blank.\n")
 
             # Use the function to validate quantity
-            failed_entries, delivery_amount = get_valid_input(
+            failed_entries, delivery_amount, orderid = get_valid_input(
                 failed_entries,
                 delivery_amount,
                 inventory_entry,
