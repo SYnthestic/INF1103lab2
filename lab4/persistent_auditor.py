@@ -10,9 +10,6 @@ delivery_amount = 0
 counter = 0
 
 
-import os
-import json
-
 
 def load_inventory(filename):
     if not os.path.isfile(filename):
@@ -24,24 +21,19 @@ def load_inventory(filename):
 
         with open(filename, "r") as file:
             for line in file:
-                line = line.strip()
+                oline = line.strip()
 
-                # Skip empty lines
                 if not line:
                     continue
 
                 orderid, product, quantity = line.split(",")
 
-                inventory_entry.append({
-                    "orderid": int(orderid.strip().strip("()")),
-                    "product": product.strip(),
-                    "quantity": int(quantity.strip().strip("()"))
-                })
+                inventory_entry.append(( int(orderid.strip()), product.strip(), int(quantity.strip()) ))
 
         # Find next order ID
         if inventory_entry:
             existing_ids = [
-                item["orderid"]
+                item[0]
                 for item in inventory_entry
             ]
 
@@ -69,7 +61,7 @@ def get_valid_input(
     product_inp,
     orderid
 ):
-    # Keep asking until a valid quantity is entered
+
     while True:
         quantity_inp = input("Enter Quantity: ").strip()
 
@@ -95,17 +87,20 @@ def get_valid_input(
             failed_entries += 1
             continue
 
-        # Quantity is valid
-        inventory_entry.append((orderid, product_inp, quantity_inp))
-        
+        # Add order using the CURRENT order ID
+        inventory_entry.append(
+            (orderid, product_inp, quantity_inp)
+        )
 
         delivery_amount = process_delivery(
             delivery_amount,
             quantity_inp
         )
 
-        print(f"New order added to inventory")
+        print("New Order Added:")
         print(f"{orderid}, {product_inp}, {quantity_inp}")
+
+        # Increment AFTER displaying the current order
         orderid += 1
 
         break
@@ -133,28 +128,27 @@ def calculate_tax(delivery_amount):
 def generate_report(failed_entries, inventory_entry):
     print("\nExiting the program.")
     print(f"Total Units Processed: {len(inventory_entry)}")
-    print(f"Transaction History: {inventory_entry}")
+    print("Transaction History:")
+    for stored_orderid, product, quantity in inventory_entry:
+        print(f"{stored_orderid}, {product}, {quantity}")
     print(f"Number of Failed/Rejected Entries: {failed_entries}")
 
 def save_inventory(inventory_list):
     file_name = "inventory.txt"
-    
-    # Join the list items with a newline character
-    # and convert items to strings just in case they are numbers
-    content = "\n".join(str(item) for item in inventory_list)
-    
+
     with open(file_name, "w") as file:
-        file.write(content)
+        for orderid, product, quantity in inventory_list:
+            file.write(f"{orderid}, {product}, {quantity}\n")
 
     print(f"File saved successfully to {file_name}")
 
 
-
+inventory_entry, orderid = load_inventory(filename)
 while True:
 
     # Validate menu choice
     while True:
-        inventory_entry = load_inventory(filename)
+        
         user_choice = input(
             "Do you want to continue, or do you want to quit "
             "(continue | quit):\n"
@@ -171,6 +165,9 @@ while True:
 
             # Validate product name
             while True:
+                print("Current Orders:")
+                for stored_orderid, product, quantity in inventory_entry:
+                    print(f"{stored_orderid}, {product}, {quantity}")
                 product_inp = input("Enter Product Name: ").strip()
 
                 if product_inp:
@@ -180,12 +177,12 @@ while True:
 
             # Use the function to validate quantity
             failed_entries, delivery_amount, orderid = get_valid_input(
-                failed_entries,
-                delivery_amount,
-                inventory_entry,
-                product_inp,
-                orderid
-            )
+                                failed_entries,
+                                delivery_amount,
+                                inventory_entry,
+                                product_inp,
+                                orderid
+                                        )
 
         case "quit" | "exit" | "e":
 
