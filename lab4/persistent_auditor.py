@@ -10,35 +10,56 @@ delivery_amount = 0
 counter = 0
 
 
+import os
+import json
+
+
 def load_inventory(filename):
-    # 3. CRITICAL CHANGE: If file DOES NOT exist, start fresh with orderid 1001
     if not os.path.isfile(filename):
-        print(f"File not found. Starting a fresh inventory with Order ID: 1001")
-        return [], 1001, filename
+        print("File not found. Starting a fresh inventory.")
+        return [], 1001
 
-    # 4. If file EXISTS, try to read it
     try:
-        with open(filename, "r", encoding="utf-8") as file:
-            data = json.load(file)
+        inventory_entry = []
 
-        # 5. Find the next order_id based on existing data
-        if data and isinstance(data, list):
-            # Extract all order_id values from the list of dictionaries
-            # Defaults to 1000 if "order_id" keys are somehow missing
-            existing_ids = [item.get("order_id", 1001) for item in data]
+        with open(filename, "r") as file:
+            for line in file:
+                line = line.strip()
+
+                # Skip empty lines
+                if not line:
+                    continue
+
+                orderid, product, quantity = line.split(",")
+
+                inventory_entry.append({
+                    "orderid": int(orderid.strip().strip("()")),
+                    "product": product.strip(),
+                    "quantity": int(quantity.strip().strip("()"))
+                })
+
+        # Find next order ID
+        if inventory_entry:
+            existing_ids = [
+                item["orderid"]
+                for item in inventory_entry
+            ]
+
             next_order_id = max(existing_ids) + 1
         else:
-            # File exists but is empty array []
             next_order_id = 1001
 
-        print(
-            f"Data successfully loaded. Resuming from Order ID: {next_order_id}."
-        )
-        return data, next_order_id, filename
+        print(f"Inventory loaded successfully. Next Order ID: {next_order_id}")
+
+        return inventory_entry, next_order_id
 
     except Exception as e:
-        print(f"An error occurred: {e}. Starting fresh.")
-        return [], 1001, filename
+        print(f"Error loading inventory: {e}")
+        print("Starting a fresh inventory.")
+        return [], 1001
+
+
+
 
 
 def get_valid_input(
