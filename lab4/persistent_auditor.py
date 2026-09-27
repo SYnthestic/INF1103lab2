@@ -1,48 +1,44 @@
-
 import os
 import json
 
 quantity_inp = "0"
 orderid = 1001
 inventory_entry = []
-filename = ''
+filename = 'inventory.txt'
 failed_entries = 0
 delivery_amount = 0
 counter = 0
 
 
-def load_previous_data(jsonfile_name):
-    # Keep asking until a valid, non-empty filename is provided
-    while not jsonfile_name:
-        jsonfile_name = input(
-            "Please provide a valid JSON file name to load the data from: "
-        ).strip()
+def load_inventory(filename):
+    # 3. CRITICAL CHANGE: If file DOES NOT exist, start fresh with orderid 1001
+    if not os.path.isfile(filename):
+        print(f"File not found. Starting a fresh inventory with Order ID: 1001")
+        return [], 1001, filename
 
-        if not jsonfile_name:
-            print("Filename cannot be blank.")
-
-    # Automatically add .json extension if it is missing
-    if not str(jsonfile_name).endswith(".json"):
-        jsonfile_name = str(jsonfile_name) + ".json"
-
-    # Check whether the file exists
-    if not os.path.isfile(jsonfile_name):
-        print("This file does not exist.")
-        return [], jsonfile_name
-
+    # 4. If file EXISTS, try to read it
     try:
-        with open(jsonfile_name, "r", encoding="utf-8") as file:
+        with open(filename, "r", encoding="utf-8") as file:
             data = json.load(file)
 
-        print(f"Data successfully loaded from {jsonfile_name}.")
-        return data, jsonfile_name
+        # 5. Find the next order_id based on existing data
+        if data and isinstance(data, list):
+            # Extract all order_id values from the list of dictionaries
+            # Defaults to 1000 if "order_id" keys are somehow missing
+            existing_ids = [item.get("order_id", 1001) for item in data]
+            next_order_id = max(existing_ids) + 1
+        else:
+            # File exists but is empty array []
+            next_order_id = 1001
+
+        print(
+            f"Data successfully loaded. Resuming from Order ID: {next_order_id}."
+        )
+        return data, next_order_id, filename
 
     except Exception as e:
-        print(
-            f"An error occurred while loading data from "
-            f"{jsonfile_name}: {e}"
-        )
-        return [], jsonfile_name
+        print(f"An error occurred: {e}. Starting fresh.")
+        return [], 1001, filename
 
 
 def get_valid_input(
@@ -137,6 +133,7 @@ while True:
 
     # Validate menu choice
     while True:
+        inventory_entry = load_inventory(filename)
         user_choice = input(
             "Do you want to continue, or do you want to quit "
             "(continue | quit):\n"
@@ -179,5 +176,3 @@ while True:
             save_inventory(inventory_entry)
 
             break
-
-
