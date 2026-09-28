@@ -26,6 +26,13 @@ def load_inventory(filename):
                 if not line:
                     continue
 
+                # Read the saved total
+                if oline.startswith("Total quantity:"):
+                    delivery_amount = int(
+                        oline.split(":")[1].strip()
+                    )
+                    continue
+
                 orderid, product, quantity = line.split(",")
 
                 inventory_entry.append(( int(orderid.strip()), product.strip(), int(quantity.strip()) ))
@@ -59,12 +66,36 @@ def get_valid_input(
     failed_entries,
     delivery_amount,
     inventory_entry,
-    product_inp,
     orderid
 ):
-
     while True:
-        quantity_inp = input("Enter Quantity: ").strip()
+
+        # Display current orders
+        print("Current Orders:")
+
+        for stored_orderid, product, order_quantity in inventory_entry:
+            print(
+                f"{stored_orderid}, "
+                f"{product}, "
+                f"{order_quantity}"
+            )
+
+        print(f"Total quantity: {delivery_amount}")
+
+        # Validate product name
+        product_inp = input(
+            "Enter Product Name: "
+        ).strip()
+
+        if not product_inp:
+            print("Error! Product name cannot be blank.\n")
+            failed_entries += 1
+            continue
+
+        # Validate quantity
+        quantity_inp = input(
+            "Enter Quantity: "
+        ).strip()
 
         if quantity_inp.lower() == "exit":
             print("Please enter a quantity, not 'exit'.")
@@ -88,20 +119,25 @@ def get_valid_input(
             failed_entries += 1
             continue
 
-        # Add order using the CURRENT order ID
+        # Add complete order
         inventory_entry.append(
             (orderid, product_inp, quantity_inp)
         )
 
+        # Update total quantity
         delivery_amount = process_delivery(
             delivery_amount,
             quantity_inp
         )
 
-        print("New Order Added:")
-        print(f"{orderid}, {product_inp}, {quantity_inp}")
+        print("New order added to inventory")
+        print(
+            f"{orderid}, "
+            f"{product_inp}, "
+            f"{quantity_inp}"
+        )
 
-        # Increment AFTER displaying the current order
+        # Move to next order ID
         orderid += 1
 
         break
@@ -136,10 +172,12 @@ def generate_report(failed_entries, inventory_entry, delivery_amount):
     print("Total Transaction Amount: {}".format(delivery_amount))
     print(f"Number of Failed/Rejected Entries: {failed_entries}")
 
-def save_inventory(inventory_list):
+def save_inventory(inventory_list, delivery_amount):
     file_name = "inventory.txt"
 
     with open(file_name, "w") as file:
+        file.write(f"Total quantity: {delivery_amount}\n")
+
         for orderid, product, quantity in inventory_list:
             file.write(f"{orderid}, {product}, {quantity}\n")
 
@@ -169,28 +207,14 @@ while True:
 
         case "continue" | "c":
 
-            # Validate product name
-            while True:
-                print("Current Orders:")
-                for stored_orderid, product, order_quantity in inventory_entry:
-                    print(f"{stored_orderid}, {product}, {order_quantity}")
-                print("Total quantity: {}".format(delivery_amount))
-                product_inp = input("Enter Product Name: ").strip()
-
-                if product_inp:
-                    break
-
-                print("Error! Product name cannot be blank.\n")
-
             # Use the function to validate quantity
             failed_entries, delivery_amount, orderid = get_valid_input(
                                 failed_entries,
                                 delivery_amount,
                                 inventory_entry,
-                                product_inp,
                                 orderid
                                         )
-            process_delivery(delivery_amount, quantity_inp)
+            # process_delivery(delivery_amount, quantity_inp)
 
         case "quit" | "exit" | "e":
 
@@ -200,6 +224,6 @@ while True:
                 delivery_amount
             )
             calculate_tax(delivery_amount)
-            save_inventory(inventory_entry)
+            save_inventory(inventory_entry, delivery_amount)
 
             break
