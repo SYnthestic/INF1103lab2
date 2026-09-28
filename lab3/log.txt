@@ -1,3 +1,15 @@
+commit af7c75823f5764b63f73fb566564c8e799a87d56
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 17:26:12 2026 +0800
+
+    Deleted attempted Class OOP attempt at Lab 3
+
+commit ba2ee14d3e1879b3e6a844b15ba07d0729e27920
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 15:10:44 2026 +0800
+
+    Added log.txt for lab3
+
 commit a6ba3a3da47f7a28cb89530e4a9303ab6863952f
 Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
 Date:   Mon Sep 21 14:23:07 2026 +0800
