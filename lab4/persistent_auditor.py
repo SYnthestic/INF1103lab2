@@ -38,6 +38,7 @@ def load_inventory(filename):
             ]
 
             next_order_id = max(existing_ids) + 1
+            
         else:
             next_order_id = 1001
 
@@ -108,9 +109,9 @@ def get_valid_input(
     return failed_entries, delivery_amount, orderid
 
 
-def process_delivery(delivery_amount, entry_inp):
-    if entry_inp > 0:
-        delivery_amount += entry_inp
+def process_delivery(delivery_amount, quantity_inp):
+    if int(quantity_inp) > 0:
+        delivery_amount += int(quantity_inp)
         print(f"Delivery amount updated to: {delivery_amount}")
         return delivery_amount
 
@@ -122,15 +123,17 @@ def process_delivery(delivery_amount, entry_inp):
 def calculate_tax(delivery_amount):
     tax_rate = 0.1  # 10% tax rate
     tax_amount = delivery_amount * tax_rate
+    print("Tax Amount is: ${}".format(tax_amount))
     return tax_amount
 
 
-def generate_report(failed_entries, inventory_entry):
+def generate_report(failed_entries, inventory_entry, delivery_amount):
     print("\nExiting the program.")
     print(f"Total Units Processed: {len(inventory_entry)}")
     print("Transaction History:")
     for stored_orderid, product, quantity in inventory_entry:
         print(f"{stored_orderid}, {product}, {quantity}")
+    print("Total Transaction Amount: {}".format(delivery_amount))
     print(f"Number of Failed/Rejected Entries: {failed_entries}")
 
 def save_inventory(inventory_list):
@@ -144,10 +147,13 @@ def save_inventory(inventory_list):
 
 
 inventory_entry, orderid = load_inventory(filename)
+for stored_orderid, product, order_quantity in inventory_entry:
+    delivery_amount += order_quantity
 while True:
-
+    
     # Validate menu choice
     while True:
+        
         
         user_choice = input(
             "Do you want to continue, or do you want to quit "
@@ -166,8 +172,9 @@ while True:
             # Validate product name
             while True:
                 print("Current Orders:")
-                for stored_orderid, product, quantity in inventory_entry:
-                    print(f"{stored_orderid}, {product}, {quantity}")
+                for stored_orderid, product, order_quantity in inventory_entry:
+                    print(f"{stored_orderid}, {product}, {order_quantity}")
+                print("Total quantity: {}".format(delivery_amount))
                 product_inp = input("Enter Product Name: ").strip()
 
                 if product_inp:
@@ -183,14 +190,16 @@ while True:
                                 product_inp,
                                 orderid
                                         )
+            process_delivery(delivery_amount, quantity_inp)
 
         case "quit" | "exit" | "e":
 
             generate_report(
                 failed_entries,
-                inventory_entry
+                inventory_entry,
+                delivery_amount
             )
-
+            calculate_tax(delivery_amount)
             save_inventory(inventory_entry)
 
             break
