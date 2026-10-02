@@ -4,10 +4,16 @@ import json
 quantity_inp = "0"
 orderid = 1001
 inventory_entry = []
-filename = 'inventory.txt'
+filename = ''
 failed_entries = 0
 delivery_amount = 0
 counter = 0
+key = 0
+
+
+
+
+
 
 
 
@@ -17,6 +23,7 @@ def load_inventory(filename):
         return [], 1001
 
     try:
+        print("inventory.txt found")
         inventory_entry = []
 
         with open(filename, "r") as file:
@@ -49,7 +56,7 @@ def load_inventory(filename):
         else:
             next_order_id = 1001
 
-        print(f"Inventory loaded successfully. Next Order ID: {next_order_id}")
+        print(f"Inventory loaded successfully")
 
         return inventory_entry, next_order_id
 
@@ -58,102 +65,111 @@ def load_inventory(filename):
         print("Starting a fresh inventory.")
         return [], 1001
 
+def display_all(inventory_entry):
+    if not inventory_entry:
+        print("No products in inventory.")
+        return
+
+    print("Current Inventory:")
+    print("-"*60)
+    for orderid, product, quantity in inventory_entry:
+        print(f"{orderid}, {product}, {quantity}")
+    print("-"*60)
 
 
 
+# def get_valid_input(
+#     failed_entries,
+#     delivery_amount,
+#     inventory_entry,
+#     orderid
+# ):
+#     while True:
 
-def get_valid_input(
-    failed_entries,
-    delivery_amount,
-    inventory_entry,
-    orderid
-):
-    while True:
+#         # Display current orders
+#         print("Current Orders:")
 
-        # Display current orders
-        print("Current Orders:")
+#         for stored_orderid, product, order_quantity in inventory_entry:
+#             print(
+#                 f"{stored_orderid}, "
+#                 f"{product}, "
+#                 f"{order_quantity}"
+#             )
 
-        for stored_orderid, product, order_quantity in inventory_entry:
-            print(
-                f"{stored_orderid}, "
-                f"{product}, "
-                f"{order_quantity}"
-            )
+#         print(f"Total quantity: {delivery_amount}")
 
-        print(f"Total quantity: {delivery_amount}")
+#         # Validate product name
+#         product_inp = input(
+#             "Enter Product Name: "
+#         ).strip()
 
-        # Validate product name
-        product_inp = input(
-            "Enter Product Name: "
-        ).strip()
+#         if not product_inp:
+#             print("Error! Product name cannot be blank.\n")
+#             failed_entries += 1
+#             continue
 
-        if not product_inp:
-            print("Error! Product name cannot be blank.\n")
-            failed_entries += 1
-            continue
+#         # Validate quantity
+#         quantity_inp = input(
+#             "Enter Quantity: "
+#         ).strip()
 
-        # Validate quantity
-        quantity_inp = input(
-            "Enter Quantity: "
-        ).strip()
+#         if quantity_inp.lower() == "exit":
+#             print("Please enter a quantity, not 'exit'.")
+#             continue
 
-        if quantity_inp.lower() == "exit":
-            print("Please enter a quantity, not 'exit'.")
-            continue
+#         if not quantity_inp.isdigit():
+#             print(
+#                 "Invalid input. "
+#                 "Please enter a non-negative number."
+#             )
+#             failed_entries += 1
+#             continue
 
-        if not quantity_inp.isdigit():
-            print(
-                "Invalid input. "
-                "Please enter a non-negative number."
-            )
-            failed_entries += 1
-            continue
+#         quantity_inp = int(quantity_inp)
 
-        quantity_inp = int(quantity_inp)
+#         if quantity_inp > 500:
+#             print(
+#                 "Invalid input. "
+#                 "Please enter a number between 0 and 500."
+#             )
+#             failed_entries += 1
+#             continue
 
-        if quantity_inp > 500:
-            print(
-                "Invalid input. "
-                "Please enter a number between 0 and 500."
-            )
-            failed_entries += 1
-            continue
+#         # Add complete order
+#         inventory_entry.append(
+#             (orderid, product_inp, quantity_inp)
+#         )
 
-        # Add complete order
-        inventory_entry.append(
-            (orderid, product_inp, quantity_inp)
-        )
+#         # Update total quantity
+#         delivery_amount = process_delivery(
+#             delivery_amount,
+#             quantity_inp
+#         )
 
-        # Update total quantity
-        delivery_amount = process_delivery(
-            delivery_amount,
-            quantity_inp
-        )
+#         print("New order added to inventory")
+#         print(
+#             f"{orderid}, "
+#             f"{product_inp}, "
+#             f"{quantity_inp}"
+#         )
 
-        print("New order added to inventory")
-        print(
-            f"{orderid}, "
-            f"{product_inp}, "
-            f"{quantity_inp}"
-        )
+#         # Move to next order ID
+#         orderid += 1
 
-        # Move to next order ID
-        orderid += 1
+#         break
 
-        break
-
-    return failed_entries, delivery_amount, orderid
+#     return failed_entries, delivery_amount, orderid
 
 
-def process_delivery(delivery_amount, quantity_inp):
-    if int(quantity_inp) > 0:
-        delivery_amount += int(quantity_inp)
-        print(f"Delivery amount updated to: {delivery_amount}")
-        return delivery_amount
+# def process_delivery(delivery_amount, quantity_inp):
+#     if int(quantity_inp) > 0:
+#         delivery_amount += int(quantity_inp)
+#         print(f"Delivery amount updated to: {delivery_amount}")
+#         return delivery_amount
 
-    else:
-        print("No delivery amount added for zero or negative entries.")
-        return delivery_amount
+#     else:
+#         print("No delivery amount added for zero or negative entries.")
+#         return delivery_amount
 
 
 def calculate_tax(delivery_amount):
@@ -184,40 +200,47 @@ def save_inventory(inventory_list, delivery_amount):
     print(f"File saved successfully to {file_name}")
 
 
+
 inventory_entry, orderid = load_inventory(filename)
-for stored_orderid, product, order_quantity in inventory_entry:
-    delivery_amount += order_quantity
-while True:
-    
-    # Validate menu choice
-    while True:
-        
-        
-        user_choice = input(
-            "Do you want to continue, or do you want to quit "
-            "(continue | quit):\n"
-        ).strip().lower()
+while key != 6:
+    keyverify = False
+    while keyverify == False:
+        print('''
+            ----------- MENU ----------- 
+            1. Display All Products 
+            2. Add Product 
+            3. Update Stock 
+            4. Search Product 
+            5. Save Inventory 
+            6. Exit 
+            ----------------------------''')
+        key = input("Enter option: ")
+        if len(key) == 0:
+            print("Empty Response!")
+        elif key.isnumeric() == False:
+            print("Error! Letters detected!!")
+        elif key.isspace():
+            print("Error! Space only answer not allowed")
+        else:
+            keyverify = True
+            key = int(key)
 
-        if user_choice in ("continue", "c", "quit", "exit", "e"):
-            break
-
-        print("Error! Please enter 'continue' or 'quit'.\n")
-
-    match user_choice:
-
-        case "continue" | "c":
-
-            # Use the function to validate quantity
-            failed_entries, delivery_amount, orderid = get_valid_input(
-                                failed_entries,
-                                delivery_amount,
-                                inventory_entry,
-                                orderid
-                                        )
-            # process_delivery(delivery_amount, quantity_inp)
-
-        case "quit" | "exit" | "e":
-
+    match key:
+        case 1:
+            display_all(inventory_entry)
+        case 2: 
+            print("Adding new product...")
+        case 3:
+            print("Updating stock...")
+            # update_stock(inventory_entry)
+        case 4:
+            print("Searching product...")
+            # search_product(inventory_entry)
+        case 5:
+            print("Saving inventory...")
+            save_inventory(inventory_entry, delivery_amount)
+        case 6:
+            print("Exiting the program...")
             generate_report(
                 failed_entries,
                 inventory_entry,
