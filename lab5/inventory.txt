@@ -1,0 +1,6 @@
+Total quantity: 172
+1001, Ramen, 20
+1002, Shin Ramyun, 49
+1003, DBS Watches, 19
+1004, SIT passports, 29
+1005, OIP application forms, 55

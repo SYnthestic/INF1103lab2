@@ -4,7 +4,7 @@ import json
 quantity_inp = "0"
 orderid = 1001
 inventory_entry = []
-filename = ''
+filename = 'inventory.txt'
 failed_entries = 0
 delivery_amount = 0
 counter = 0
@@ -64,12 +64,12 @@ def load_inventory(filename):
         print(f"Error loading inventory: {e}")
         print("Starting a fresh inventory.")
         return [], 1001
+        
 
 def display_all(inventory_entry):
     if not inventory_entry:
-        print("No products in inventory.")
+        print("Inventory is empty.")
         return
-
     print("Current Inventory:")
     print("-"*60)
     for orderid, product, quantity in inventory_entry:
@@ -77,99 +77,50 @@ def display_all(inventory_entry):
     print("-"*60)
 
 
+def get_valid_input(failed_entries):
+    while True:
+        product = input("Enter Product Name: ").strip()
+        if not product:
+            print("Error! Product name cannot be blank.\n")
+            failed_entries += 1
+            continue
 
-# def get_valid_input(
-#     failed_entries,
-#     delivery_amount,
-#     inventory_entry,
-#     orderid
-# ):
-#     while True:
+        quantity = input("Enter Quantity: ").strip()
+        if not quantity.isdigit():
+            print("Invalid input. Please enter a non-negative number.")
+            failed_entries += 1
+            continue
 
-#         # Display current orders
-#         print("Current Orders:")
+        quantity = int(quantity)
+        if quantity > 500:
+            print("Invalid input. Please enter a number between 0 and 500.")
+            failed_entries += 1
+            continue
 
-#         for stored_orderid, product, order_quantity in inventory_entry:
-#             print(
-#                 f"{stored_orderid}, "
-#                 f"{product}, "
-#                 f"{order_quantity}"
-#             )
+        return product, quantity, failed_entries
 
-#         print(f"Total quantity: {delivery_amount}")
+def add_product(inventory_entry, product, quantity, orderid, delivery_amount):
+    if product in [item[1] for item in inventory_entry]:
+        print(f"{product} already exists. Use update_stock instead.")
+        return orderid, delivery_amount
 
-#         # Validate product name
-#         product_inp = input(
-#             "Enter Product Name: "
-#         ).strip()
+    inventory_entry.append((orderid, product, quantity))
+    delivery_amount = process_delivery(delivery_amount, quantity)
 
-#         if not product_inp:
-#             print("Error! Product name cannot be blank.\n")
-#             failed_entries += 1
-#             continue
-
-#         # Validate quantity
-#         quantity_inp = input(
-#             "Enter Quantity: "
-#         ).strip()
-
-#         if quantity_inp.lower() == "exit":
-#             print("Please enter a quantity, not 'exit'.")
-#             continue
-
-#         if not quantity_inp.isdigit():
-#             print(
-#                 "Invalid input. "
-#                 "Please enter a non-negative number."
-#             )
-#             failed_entries += 1
-#             continue
-
-#         quantity_inp = int(quantity_inp)
-
-#         if quantity_inp > 500:
-#             print(
-#                 "Invalid input. "
-#                 "Please enter a number between 0 and 500."
-#             )
-#             failed_entries += 1
-#             continue
-
-#         # Add complete order
-#         inventory_entry.append(
-#             (orderid, product_inp, quantity_inp)
-#         )
-
-#         # Update total quantity
-#         delivery_amount = process_delivery(
-#             delivery_amount,
-#             quantity_inp
-#         )
-
-#         print("New order added to inventory")
-#         print(
-#             f"{orderid}, "
-#             f"{product_inp}, "
-#             f"{quantity_inp}"
-#         )
-
-#         # Move to next order ID
-#         orderid += 1
-
-#         break
-
-#     return failed_entries, delivery_amount, orderid
+    print("New order added to inventory")
+    print(f"{orderid}, {product}, {quantity}")
+    return orderid + 1, delivery_amount
 
 
-# def process_delivery(delivery_amount, quantity_inp):
-#     if int(quantity_inp) > 0:
-#         delivery_amount += int(quantity_inp)
-#         print(f"Delivery amount updated to: {delivery_amount}")
-#         return delivery_amount
+def process_delivery(delivery_amount, quantity_inp):
+    if int(quantity_inp) > 0:
+        delivery_amount += int(quantity_inp)
+        print(f"Delivery amount updated to: {delivery_amount}")
+        return delivery_amount
 
-#     else:
-#         print("No delivery amount added for zero or negative entries.")
-#         return delivery_amount
+    else:
+        print("No delivery amount added for zero or negative entries.")
+        return delivery_amount
 
 
 def calculate_tax(delivery_amount):
@@ -228,8 +179,12 @@ while key != 6:
     match key:
         case 1:
             display_all(inventory_entry)
-        case 2: 
+        case 2:
             print("Adding new product...")
+            product, quantity, failed_entries = get_valid_input(failed_entries)
+            orderid, delivery_amount = add_product(
+                inventory_entry, product, quantity, orderid, delivery_amount
+            )
         case 3:
             print("Updating stock...")
             # update_stock(inventory_entry)
@@ -250,3 +205,6 @@ while key != 6:
             save_inventory(inventory_entry, delivery_amount)
 
             break
+
+        case _:
+            print("Invalid option. Please try again.")
