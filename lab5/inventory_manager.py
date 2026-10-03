@@ -22,7 +22,7 @@ FILE_PATH = os.path.join(BASE_DIR, "inventory.json")
 def load_inventory(file_name):
     if not os.path.isfile(file_name):
         print("File not found. Starting a fresh inventory.")
-        return {}, 0
+        return "P001", {}, 0
 
     try:
         print("inventory.json found.")
@@ -36,7 +36,7 @@ def load_inventory(file_name):
     except (json.JSONDecodeError, KeyError) as e:
         print(f"Error loading inventory: {e}")
         print("Starting a fresh inventory.")
-        return {}, 0
+        return "P001", {}, 0
         
 
 def display_all(inventory):
@@ -85,8 +85,6 @@ def add_product(inventory, product_id, name, price, quantity, delivery_amount):
     delivery_amount = process_delivery(delivery_amount, quantity)
 
     print("Product added successfully!")
-    
-    print(f"{product_id}, {name}, ${price:.2f}, {quantity}")
     product_id = int(product_id[1:])  # Convert product ID to integer for display]
     product_id += 1  # Increment product ID for the next product
     product_id = "P" + str(product_id).zfill(3)  # Format product ID back to PXXX format

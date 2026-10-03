@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 1435,
+    "delivery_amount": 2046,
     "inventory": {
         "P001": {
             "name": "Laptop",
@@ -24,12 +24,27 @@
         "P005": {
             "name": "Ramen",
             "price": 5.56,
-            "quantity": 97
+            "quantity": 140
         },
         "P006": {
             "name": "Forks",
             "price": 3.99,
             "quantity": 385
+        },
+        "P007": {
+            "name": "Ramen",
+            "price": 5.56,
+            "quantity": 30
+        },
+        "P008": {
+            "name": "KitKat",
+            "price": 6.75,
+            "quantity": 193
+        },
+        "P009": {
+            "name": "Shin Ramyun",
+            "price": 7.99,
+            "quantity": 345
         }
     }
 }
