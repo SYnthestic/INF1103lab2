@@ -3,7 +3,7 @@ import json
 
 quantity_inp = "0"
 orderid = 1001
-inventory_entry = []
+inventory_entry = {}
 filename = 'inventory.txt'
 failed_entries = 0
 delivery_amount = 0
@@ -20,50 +20,36 @@ key = 0
 def load_inventory(filename):
     if not os.path.isfile(filename):
         print("File not found. Starting a fresh inventory.")
-        return [], 1001
+        return {}, 1001, 0
 
     try:
-        print("inventory.txt found")
-        inventory_entry = []
+        inventory = {}
+        delivery_amount = 0
 
         with open(filename, "r") as file:
             for line in file:
-                oline = line.strip()
-
-                if not line:
+                line = line.strip()
+                if not line or line.startswith("Total quantity:"):
                     continue
 
-                # Read the saved total
-                if oline.startswith("Total quantity:"):
-                    delivery_amount = int(
-                        oline.split(":")[1].strip()
-                    )
-                    continue
+                orderid, product, price, quantity = line.split(",")
+                inventory[product.strip()] = {
+                    "orderid": int(orderid.strip()),
+                    "price": float(price.strip()),
+                    "quantity": int(quantity.strip()),
+                }
+                delivery_amount += int(quantity.strip())
 
-                orderid, product, quantity = line.split(",")
+        ids = [d["orderid"] for d in inventory.values()]
+        next_order_id = max(ids) + 1 if ids else 1001
 
-                inventory_entry.append(( int(orderid.strip()), product.strip(), int(quantity.strip()) ))
-
-        # Find next order ID
-        if inventory_entry:
-            existing_ids = [
-                item[0]
-                for item in inventory_entry
-            ]
-
-            next_order_id = max(existing_ids) + 1
-            
-        else:
-            next_order_id = 1001
-
-        print(f"Inventory loaded successfully")
-
-        return inventory_entry, next_order_id
+        print("Inventory loaded successfully")
+        return inventory, next_order_id, delivery_amount
 
     except Exception as e:
         print(f"Error loading inventory: {e}")
         print("Starting a fresh inventory.")
-        return [], 1001
+        return {}, 1001, 0
         
 
 def display_all(inventory_entry):
@@ -72,8 +58,8 @@ def display_all(inventory_entry):
         return
     print("Current Inventory:")
     print("-"*60)
-    for orderid, product, quantity in inventory_entry:
-        print(f"{orderid}, {product}, {quantity}")
+    for product, details in inventory_entry.items():
+        print(f"ID: {details['orderid']} | Name: {product} | Price: ${details['price']:.2f} | Stock: {details['quantity']}")
     print("-"*60)
 
 
@@ -82,6 +68,19 @@ def get_valid_input(failed_entries):
         product = input("Enter Product Name: ").strip()
         if not product:
             print("Error! Product name cannot be blank.\n")
+            failed_entries += 1
+            continue
+
+        price = input("Enter Price: ").strip()
+        try:
+            price = float(price)
+        except ValueError:
+            print("Invalid input. Please enter a valid price.")
+            failed_entries += 1
+            continue
+
+        if price < 0:
+            print("Invalid input. Price cannot be negative.")
             failed_entries += 1
             continue
 
@@ -97,18 +96,22 @@ def get_valid_input(failed_entries):
             failed_entries += 1
             continue
 
-        return product, quantity, failed_entries
+        return product, price, quantity, failed_entries
 
-def add_product(inventory_entry, product, quantity, orderid, delivery_amount):
-    if product in [item[1] for item in inventory_entry]:
+def add_product(inventory_entry, product, price, quantity, orderid, delivery_amount):
+    if product in inventory_entry:
         print(f"{product} already exists. Use update_stock instead.")
         return orderid, delivery_amount
 
-    inventory_entry.append((orderid, product, quantity))
+    inventory_entry[product] = {
+        "orderid": orderid,
+        "price": price,
+        "quantity": quantity
+    }
     delivery_amount = process_delivery(delivery_amount, quantity)
 
-    print("New order added to inventory")
-    print(f"{orderid}, {product}, {quantity}")
+    print("Product added successfully!")
+    print(f"{orderid}, {product}, ${price:.2f}, {quantity}")
     return orderid + 1, delivery_amount
 
 
@@ -122,6 +125,25 @@ def process_delivery(delivery_amount, quantity_inp):
         print("No delivery amount added for zero or negative entries.")
         return delivery_amount
 
+def update_stock(inventory, name, delivery_amount, failed_entries):
+    if name is None:
+        return delivery_amount, failed_entries
+
+    new_quantity = input(f"New stock quantity for {name}: ").strip()
+
+    if not new_quantity.isdigit() or int(new_quantity) > 500:
+        print("Invalid input. Please enter a number between 0 and 500.")
+        return delivery_amount, failed_entries + 1
+
+    new_quantity = int(new_quantity)
+    old_quantity = inventory[name]["quantity"]
+
+    inventory[name]["quantity"] = new_quantity
+    delivery_amount += new_quantity - old_quantity
+
+    print(f"Stock updated for {name}. New quantity: {new_quantity}")
+    return delivery_amount, failed_entries
+
 
 def calculate_tax(delivery_amount):
     tax_rate = 0.1  # 10% tax rate
@@ -130,29 +152,45 @@ def calculate_tax(delivery_amount):
     return tax_amount
 
 
-def generate_report(failed_entries, inventory_entry, delivery_amount):
-    print("\nExiting the program.")
-    print(f"Total Units Processed: {len(inventory_entry)}")
-    print("Transaction History:")
-    for stored_orderid, product, quantity in inventory_entry:
-        print(f"{stored_orderid}, {product}, {quantity}")
-    print("Total Transaction Amount: {}".format(delivery_amount))
-    print(f"Number of Failed/Rejected Entries: {failed_entries}")
-
-def save_inventory(inventory_list, delivery_amount):
+def save_inventory(inventory, delivery_amount):
     file_name = "inventory.txt"
 
     with open(file_name, "w") as file:
         file.write(f"Total quantity: {delivery_amount}\n")
+        for product, d in inventory.items():
+            file.write(f"{d['orderid']}, {product}, {d['price']}, {d['quantity']}\n")
 
-        for orderid, product, quantity in inventory_list:
-            file.write(f"{orderid}, {product}, {quantity}\n")
+    print(f"Inventory saved successfully. \n")
+    print('''
+Thank you for using Inventory Management System.
+Program terminated.''')
 
-    print(f"File saved successfully to {file_name}")
+def search_product(inventory, failed_entries):
+    id_text = input("Enter product ID: ").strip()
+
+    if not id_text.isdigit():
+        print("Invalid input. Please enter a numeric ID.")
+        return None, failed_entries + 1
+
+    order_id = int(id_text)
+
+    for name, details in inventory.items():
+        if details["orderid"] == order_id:
+            print("Product Found")
+            print("-" * 60)
+            print(f"ID: {order_id}\nName: {name}\nPrice: ${details['price']:.2f}\nStock: {details['quantity']}")
+            print("-" * 60)
+            return name, failed_entries
+
+    print("Product not found")
+    return None, failed_entries
 
 
 
-inventory_entry, orderid = load_inventory(filename)
+
+
+
+inventory_entry, orderid, delivery_amount = load_inventory(filename)
 while key != 6:
     keyverify = False
     while keyverify == False:
@@ -181,27 +219,24 @@ while key != 6:
             display_all(inventory_entry)
         case 2:
             print("Adding new product...")
-            product, quantity, failed_entries = get_valid_input(failed_entries)
+            product, price, quantity, failed_entries = get_valid_input(failed_entries)
             orderid, delivery_amount = add_product(
-                inventory_entry, product, quantity, orderid, delivery_amount
+                inventory_entry, product, price, quantity, orderid, delivery_amount
             )
         case 3:
-            print("Updating stock...")
-            # update_stock(inventory_entry)
+            print("Update Stock")
+            product, failed_entries = search_product(inventory_entry, failed_entries)
+            delivery_amount, failed_entries = update_stock(
+                inventory_entry, product, delivery_amount, failed_entries
+            )
         case 4:
-            print("Searching product...")
-            # search_product(inventory_entry)
+            print("Searching Product")
+            search_product(inventory_entry, failed_entries)
         case 5:
             print("Saving inventory...")
             save_inventory(inventory_entry, delivery_amount)
         case 6:
-            print("Exiting the program...")
-            generate_report(
-                failed_entries,
-                inventory_entry,
-                delivery_amount
-            )
-            calculate_tax(delivery_amount)
+            print("Saving inventory before exit.")
             save_inventory(inventory_entry, delivery_amount)
 
             break
