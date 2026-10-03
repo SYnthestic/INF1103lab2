@@ -17,28 +17,17 @@ key = 0
 
 
 
-def load_inventory(filename):
-    if not os.path.isfile(filename):
+def load_inventory(file_name):
+    if not os.path.isfile(file_name):
         print("File not found. Starting a fresh inventory.")
         return {}, 1001, 0
 
     try:
-        inventory = {}
-        delivery_amount = 0
+        with open(file_name, "r") as file:
+            data = json.load(file)
 
-        with open(filename, "r") as file:
-            for line in file:
-                line = line.strip()
-                if not line or line.startswith("Total quantity:"):
-                    continue
-
-                orderid, product, price, quantity = line.split(",")
-                inventory[product.strip()] = {
-                    "orderid": int(orderid.strip()),
-                    "price": float(price.strip()),
-                    "quantity": int(quantity.strip()),
-                }
-                delivery_amount += int(quantity.strip())
+        inventory = data["inventory"]
+        delivery_amount = data["delivery_amount"]
 
         ids = [d["orderid"] for d in inventory.values()]
         next_order_id = max(ids) + 1 if ids else 1001
@@ -46,7 +35,7 @@ def load_inventory(filename):
         print("Inventory loaded successfully")
         return inventory, next_order_id, delivery_amount
 
-    except Exception as e:
+    except (json.JSONDecodeError, KeyError) as e:
         print(f"Error loading inventory: {e}")
         print("Starting a fresh inventory.")
         return {}, 1001, 0
@@ -152,18 +141,16 @@ def calculate_tax(delivery_amount):
     return tax_amount
 
 
-def save_inventory(inventory, delivery_amount):
-    file_name = "inventory.txt"
-
+def save_inventory(inventory, delivery_amount, file_name="inventory.json"):
+    data = {
+        "delivery_amount": delivery_amount,
+        "inventory": inventory,
+    }
     with open(file_name, "w") as file:
-        file.write(f"Total quantity: {delivery_amount}\n")
-        for product, d in inventory.items():
-            file.write(f"{d['orderid']}, {product}, {d['price']}, {d['quantity']}\n")
+        json.dump(data, file, indent=4)
 
-    print(f"Inventory saved successfully. \n")
-    print('''
-Thank you for using Inventory Management System.
-Program terminated.''')
+    print(f"Inventory saved successfully to {file_name}")
+
 
 def search_product(inventory, failed_entries):
     id_text = input("Enter product ID: ").strip()
@@ -185,6 +172,10 @@ def search_product(inventory, failed_entries):
     print("Product not found")
     return None, failed_entries
 
+def goodbye_message():
+        print('''
+Thank you for using Inventory Management System.
+Program terminated.''')
 
 
 
@@ -238,6 +229,7 @@ while key != 6:
         case 6:
             print("Saving inventory before exit.")
             save_inventory(inventory_entry, delivery_amount)
+            goodbye_message()
 
             break
 
