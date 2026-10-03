@@ -1,0 +1,20 @@
+{
+    "delivery_amount": 574,
+    "inventory": {
+        "Ramen": {
+            "orderid": 1001,
+            "price": 5.56,
+            "quantity": 240
+        },
+        "Spoons": {
+            "orderid": 1002,
+            "price": 7.67,
+            "quantity": 200
+        },
+        "Rice Bags 10kg": {
+            "orderid": 1003,
+            "price": 15.56,
+            "quantity": 134
+        }
+    }
+}

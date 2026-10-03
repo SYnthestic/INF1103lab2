@@ -9,6 +9,8 @@ failed_entries = 0
 delivery_amount = 0
 counter = 0
 key = 0
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+FILE_PATH = os.path.join(BASE_DIR, "inventory.json")
 
 
 
@@ -141,11 +143,14 @@ def calculate_tax(delivery_amount):
     return tax_amount
 
 
-def save_inventory(inventory, delivery_amount, file_name="inventory.json"):
+def save_inventory(inventory, delivery_amount, file_name):
     data = {
         "delivery_amount": delivery_amount,
         "inventory": inventory,
     }
+
+    os.makedirs(os.path.dirname(file_name), exist_ok=True)
+
     with open(file_name, "w") as file:
         json.dump(data, file, indent=4)
 
@@ -181,7 +186,7 @@ Program terminated.''')
 
 
 
-inventory_entry, orderid, delivery_amount = load_inventory(filename)
+inventory_entry, orderid, delivery_amount = load_inventory(FILE_PATH)
 while key != 6:
     keyverify = False
     while keyverify == False:
@@ -225,10 +230,10 @@ while key != 6:
             search_product(inventory_entry, failed_entries)
         case 5:
             print("Saving inventory...")
-            save_inventory(inventory_entry, delivery_amount)
+            save_inventory(inventory_entry, delivery_amount, FILE_PATH)
         case 6:
             print("Saving inventory before exit.")
-            save_inventory(inventory_entry, delivery_amount)
+            save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             goodbye_message()
 
             break
