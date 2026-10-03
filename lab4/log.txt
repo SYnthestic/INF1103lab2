@@ -1,0 +1,125 @@
+commit 9e94e55f73c143f99a2d60fafcbfd58dc4101639
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 12:23:30 2026 +0800
+
+    Now to push everything to Git
+
+commit 6e0b7bdf0d7e1adeeb13e98c9161a6cf7298a4c8
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 12:23:13 2026 +0800
+
+    Docker tested to have worked
+
+commit d3c78bacb42334fc769efaa181cef25cd077b62e
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 12:10:51 2026 +0800
+
+    Ready to start Docker
+
+commit bbcaea9c206adf9e9b13d41999810f264cddb9b6
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 11:22:00 2026 +0800
+
+    Fixing stuff, but still got bugs
+
+commit ead27960733ebb6f19b7dd8a1c49e48962f77670
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 01:00:15 2026 +0800
+
+    Finally got all 3 functions to work. Time to get started on Docker
+
+commit b42a1ec3bc5edffaf9463b9bf3c165fac542bfb1
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 00:06:14 2026 +0800
+
+    Managed to do add, but .append murders the program
+
+commit f79a625566f27cf6daabc0840caa27396ec3326a
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Sep 27 23:51:03 2026 +0800
+
+    Added load, but with difficulties
+
+commit da423221b21cc21fd4c9994ba914623a71b054fb
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Sep 27 23:13:27 2026 +0800
+
+    Save inventory done. Now time to load inventory
+
+commit 1bbad139826a671a9ddaa849f6a535d744d1cf02
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Sep 27 22:51:23 2026 +0800
+
+    Finally got Lab 4 to store history stuff. Now need to find out how to save it
+
+commit 6618ee9a22581cb1d2020c010b23b1069cafe6c9
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Sep 25 17:53:30 2026 +0800
+
+    Finally got the list to store order id, product, and quantity
+
+commit fcc0bad001613783f04b2be0347202e843b544f7
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Sep 24 17:14:49 2026 +0800
+
+    Added a persistent auditor file and copied. Now it is ready to be worked on
+
+commit af7c75823f5764b63f73fb566564c8e799a87d56
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 17:26:12 2026 +0800
+
+    Deleted attempted Class OOP attempt at Lab 3
+
+commit ba2ee14d3e1879b3e6a844b15ba07d0729e27920
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 15:10:44 2026 +0800
+
+    Added log.txt for lab3
+
+commit a6ba3a3da47f7a28cb89530e4a9303ab6863952f
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 14:23:07 2026 +0800
+
+    Docker Image Worksgit add .!
+
+commit 494aa39dd53be5ffbaf6e2659a1b6291e28bd390
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 19 02:25:01 2026 +0800
+
+    Made this work at last
+
+commit fb5ba145d11d78eb58b7f8474b3a67aa6151de25
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Sep 15 15:36:16 2026 +0800
+
+    Settled Tasks for Topic 3
+
+commit 4c098879cb011e12f311b1df571f3820434b1c8c
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 14 15:20:13 2026 +0800
+
+    added topic 3 self try
+
+commit 5e392a5b81716de66c9357faff51f1627742c9d2
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:10:59 2026 +0800
+
+    Adding images and link to repo on word docu
+
+commit 38065999d0ab1166e47ee08030d9754dc8f323cf
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:07:28 2026 +0800
+
+    Fixed a small bug on Dockerfile
+
+commit d966abbea9166003524c315268370e1be48282be
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:04:41 2026 +0800
+
+    Added Dockerfile
+
+commit e87fc247d362aebd779400736fc5736cc43599c3
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 23:59:28 2026 +0800
+
+    First commit in lab 2
