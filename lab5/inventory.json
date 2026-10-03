@@ -1,20 +1,35 @@
 {
-    "delivery_amount": 574,
+    "delivery_amount": 1435,
     "inventory": {
-        "Ramen": {
-            "orderid": 1001,
+        "P001": {
+            "name": "Laptop",
+            "price": 1989.59,
+            "quantity": 37
+        },
+        "P002": {
+            "name": "Mouse",
+            "price": 30.34,
+            "quantity": 100
+        },
+        "P003": {
+            "name": "Wires",
+            "price": 19.0,
+            "quantity": 380
+        },
+        "P004": {
+            "name": "Spoons",
+            "price": 19.99,
+            "quantity": 380
+        },
+        "P005": {
+            "name": "Ramen",
             "price": 5.56,
-            "quantity": 240
+            "quantity": 97
         },
-        "Spoons": {
-            "orderid": 1002,
-            "price": 7.67,
-            "quantity": 200
-        },
-        "Rice Bags 10kg": {
-            "orderid": 1003,
-            "price": 15.56,
-            "quantity": 134
+        "P006": {
+            "name": "Forks",
+            "price": 3.99,
+            "quantity": 385
         }
     }
 }
