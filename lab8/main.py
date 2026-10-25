@@ -11,11 +11,11 @@ counter = 0
 key = 0
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(BASE_DIR, "inventory.json")
-from lab8.product import Product
-from lab8.inventory import Inventory
-from lab8.filehandling import FileHandling 
+from product import Product
+from inventory import Inventory
+from filehandling import FileHandling 
 
-product_id, inventory_entry, delivery_amount = Product.load_inventory(FILE_PATH)
+product_id, inventory_entry, delivery_amount = FileHandling.load_inventory(FILE_PATH)
 
 
 
@@ -48,25 +48,25 @@ while key != 6:
             Product.display_information(inventory_entry)
         case 2:
             print("Adding new product...")
-            product_id, name, price, quantity, failed_entries = Product.get_valid_input(failed_entries)
-            delivery_amount, product_id = Product.add_product(
+            product_id, name, price, quantity, failed_entries = Inventory.get_valid_input(failed_entries)
+            delivery_amount, product_id = Inventory.add_product(
                 inventory_entry, product_id, name, price, quantity, delivery_amount
             )
         case 3:
             print("Update Stock")
-            product_id, failed_entries = Product.search_product(inventory_entry, failed_entries)
+            product_id, failed_entries = Inventory.search_product(inventory_entry, failed_entries)
             delivery_amount, failed_entries = Product.update_stock(
                 inventory_entry, product_id, delivery_amount, failed_entries
             )
         case 4:
             print("Searching Product")
-            _, failed_entries = Product.search_product(inventory_entry, failed_entries)
+            _, failed_entries = Inventory.search_product(inventory_entry, failed_entries)
         case 5:
             print("Saving inventory...")
-            Product.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
+            FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
         case 6:
             print("Saving inventory before exit.")
-            Product.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
+            FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             Product.goodbye_message()
 
             break

@@ -1,19 +1,9 @@
 import os, json
+from product import Product
 
-class Inventory:
+class Inventory(Product):
     def __init__(self):
         self.inventory = {}
-        
-
-    def display_information(inventory):
-        if not inventory:
-            print("Inventory is empty.")
-            return
-        print("Current Inventory:")
-        print("-" * 60)
-        for product_id, d in inventory.items():
-            print(f"ID: {product_id} | Name: {d['name']} | Price: ${d['price']:.2f} | Stock: {d['quantity']}")
-        print("-" * 60)
 
 
     def get_valid_input(failed_entries):
@@ -48,7 +38,7 @@ class Inventory:
     def add_product(inventory, product_id, name, price, quantity, delivery_amount):
 
             inventory[product_id] = {"name": name, "price": price, "quantity": quantity}
-            delivery_amount = process_delivery(delivery_amount, quantity)
+            delivery_amount = Product.process_delivery(delivery_amount, quantity)
 
             print("Product added successfully!")
             product_id = int(product_id[1:])  # Convert product ID to integer for display]

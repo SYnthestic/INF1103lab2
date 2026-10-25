@@ -7,11 +7,16 @@ class Product:
         self.__name = name
         self.__price = price
         self.__stock = stock
-
     
-
-    
-
+    def display_information(inventory):
+            if not inventory:
+                print("Inventory is empty.")
+                return
+            print("Current Inventory:")
+            print("-" * 60)
+            for product_id, d in inventory.items():
+                print(f"ID: {product_id} | Name: {d['name']} | Price: ${d['price']:.2f} | Stock: {d['quantity']}")
+            print("-" * 60)
 
     def process_delivery(delivery_amount, quantity_inp):
         if int(quantity_inp) > 0:
