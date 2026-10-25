@@ -56,7 +56,18 @@ while key != 6:
 
     match key:
         case 1:
-            Product.display_information(inventory_entry)
+            if not inventory_entry.inventory:
+                print("Inventory is empty.")
+            else:
+                print("Current Inventory:")
+                print("-" * 60)
+                
+                # Loop through all Product object instances stored in the dictionary
+                for product in inventory_entry.inventory.values():
+                    # Call the display method directly on the Product object instance!
+                    product.display_information()
+                    
+                print("-" * 60)
         case 2:
             print("Adding new product...")
             product_id, name, price, quantity, failed_entries = Inventory.get_valid_input(failed_entries)
