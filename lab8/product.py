@@ -18,15 +18,18 @@ class Product:
                 print(f"ID: {product_id} | Name: {d['name']} | Price: ${d['price']:.2f} | Stock: {d['quantity']}")
             print("-" * 60)
 
-    def process_delivery(delivery_amount, quantity_inp):
-        if int(quantity_inp) > 0:
-            delivery_amount += int(quantity_inp)
-            print(f"Delivery amount updated to: {delivery_amount}")
-            return delivery_amount
+    def process_delivery(delivery_amount: float, quantity_inp: int) -> float:
+        # Convert inputs safely to integers/floats in case they come in as strings
+        qty = int(quantity_inp)
+        delivery = float(delivery_amount)
 
+        if qty > 0:
+            delivery += qty
+            print(f"Delivery amount updated to: {delivery}")
+            return delivery  # Return the updated flat delivery fee
         else:
             print("No delivery amount added for zero or negative entries.")
-            return delivery_amount
+            return delivery
 
     def update_stock(inventory, product_id, delivery_amount, failed_entries):
         if product_id is None:
