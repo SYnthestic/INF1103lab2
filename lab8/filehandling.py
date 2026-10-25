@@ -39,19 +39,28 @@ class FileHandling:
             return Inventory(), "invalid_file"
         return inventory, "loaded"
 
-    def save_inventory(self, inventory: Inventory) -> bool:
+    @staticmethod
+    def save_inventory(inventory, delivery_amount, file_name):
+        inv_dict = inventory.inventory if hasattr(inventory, 'inventory') else inventory
+        
+        # Convert Product objects into clear dictionary data format for JSON storage
+        serialized_inventory = {}
+        for p_id, product in inv_dict.items():
+            serialized_inventory[p_id] = {
+                "name": product.name,
+                "price": product.price,
+                "quantity": product.quantity
+            }
+
         data = {
-            "delivery_amount": inventory.delivery_amount,
-            "inventory": {
-                p.product_id: {"name": p.name, "price": p.price, "quantity": p.quantity}
-                for p in inventory
-            },
+            "delivery_amount": delivery_amount,
+            "inventory": serialized_inventory,
         }
-        tmp_path = self._path + ".tmp"
-        try:
-            with open(tmp_path, "w", encoding="utf-8") as file:
-                json.dump(data, file, indent=4)
-            os.replace(tmp_path, self._path)
-            return True
-        except OSError:
-            return False
+
+        if os.path.dirname(file_name):
+            os.makedirs(os.path.dirname(file_name), exist_ok=True)
+
+        with open(file_name, "w") as file:
+            json.dump(data, file, indent=4)
+
+        print("Inventory saved successfully.")

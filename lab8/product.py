@@ -81,33 +81,7 @@ class Product:
         tax_amount = delivery_amount * tax_rate
         print(f"Tax Amount is: ${tax_amount:.2f}")
         return tax_amount
-
-    # 5. FIXED: Serializes full Product objects into readable JSON formats
-    @staticmethod
-    def save_inventory(inventory, delivery_amount, file_name):
-        inv_dict = inventory.inventory if hasattr(inventory, 'inventory') else inventory
-        
-        # Convert Product objects into clear dictionary data format for JSON storage
-        serialized_inventory = {}
-        for p_id, product in inv_dict.items():
-            serialized_inventory[p_id] = {
-                "name": product.name,
-                "price": product.price,
-                "quantity": product.quantity
-            }
-
-        data = {
-            "delivery_amount": delivery_amount,
-            "inventory": serialized_inventory,
-        }
-
-        if os.path.dirname(file_name):
-            os.makedirs(os.path.dirname(file_name), exist_ok=True)
-
-        with open(file_name, "w") as file:
-            json.dump(data, file, indent=4)
-
-        print("Inventory saved successfully.")
+    
 
     # 6. FIXED: Marked as @staticmethod
     @staticmethod

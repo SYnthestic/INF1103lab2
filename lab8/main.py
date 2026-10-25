@@ -79,33 +79,31 @@ while key != 6:
             product = inventory_entry.search_product(input("Enter Product ID: "))
             
             if product is not None:
-                inventory_entry.update_stock(product, new_quantity)
+                inventory_entry.update_stock(product, quantity)
         case 4:
             print("Searching Product")
             # Call the method on the object instance. 
             # Python automatically passes the instance as 'self' behind the scenes!
-            product_id = input("Enter Product ID: ")
+            product_id = input("Enter Product ID: ").strip()
             product = inventory_entry.search_product(product_id)
 
             if product is None:
                 print("Product not found")
+                failed_entries = inventory_entry.failed_entries
             else:
                 print("Product Found")
                 print("-" * 60)
-                print(product.details())
+                product.display_information()
                 print("-" * 60)
                         
 
         case 5:
             print("Saving inventory...")
-            repository.save_inventory(inventory_entry)
+            FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
 
         case 6:
             print("Saving inventory before exit.")
-            if repository.save_inventory(inventory_entry):
-                print("Inventory saved successfully.")
-            else:
-                print("Could not save the inventory.")
+            FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             Product.goodbye_message()
             break
 

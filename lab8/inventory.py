@@ -89,7 +89,7 @@ class Inventory:
 
     def search_product(self, product_id: str):
         """Returns the Product, or None. Counts a failed search itself."""
-        product = self.__products.get(product_id.strip().upper())
+        product = self.inventory.get(product_id.strip().upper())
         if product is None:
-            self._failed_entries += 1
+            self.failed_entries += 1
         return product
