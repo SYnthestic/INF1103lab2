@@ -3,22 +3,28 @@ from product import Product
 
 class Inventory(Product):
     def __init__(self):
-        # Initializes an empty list to store the product objects
-        self.products = []
+        # Initializes an empty dictionary to store the product objects
+        self.inventory = {}
 
 
-    def get_valid_input(failed_entries):
+    def get_valid_input(self, failed_entries: int):
+        # 1. Auto-generate the product ID based on current inventory size
+        # e.g., If empty, ID is P001. If 1 item exists, next ID is P002.
+        next_num = len(self.inventory) + 1
+        product_id = "P" + str(next_num).zfill(3)
+
         while True:
-
+            # 2. Validate Product Name
             name = input("Enter Product Name: ").strip()
             if not name:
                 print("Error! Product name cannot be blank.\n")
                 failed_entries += 1
                 continue
 
-            price = input("Enter Price: ").strip()
+            # 3. Validate Price
+            price_input = input("Enter Price: ").strip()
             try:
-                price = float(price)
+                price = float(price_input)
             except ValueError:
                 print("Invalid input. Please enter a valid price.")
                 failed_entries += 1
@@ -28,13 +34,19 @@ class Inventory(Product):
                 failed_entries += 1
                 continue
 
-            quantity = input("Enter Quantity: ").strip()
-            if not quantity.isdigit() or int(quantity) > 500:
+            # 4. Validate Quantity
+            quantity_input = input("Enter Quantity: ").strip()
+            # Checks if numeric and handles negative check (0-500) implicitly
+            if not quantity_input.isdigit() or not (0 <= int(quantity_input) <= 500):
                 print("Invalid input. Please enter a number between 0 and 500.")
                 failed_entries += 1
                 continue
+            quantity = int(quantity_input)
 
-            return product_id, name, price, int(quantity), failed_entries
+            # 5. OOP Return: Returns the generated ID, the validated details, 
+            # and the updated tracking counter
+            return product_id, name, price, quantity, failed_entries
+
 
     def add_product(self, product: Product, delivery_amount: float = 0):
         # 1. Process delivery using the Product class's static method
