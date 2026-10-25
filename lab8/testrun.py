@@ -1,5 +1,5 @@
-from lab8.product import Product
-from lab8.inventory import Inventory
+from product import Product
+from inventory import Inventory
 
 
 inventory = Inventory() # creating the inventory object from the Inventory class 

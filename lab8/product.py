@@ -2,12 +2,12 @@ import os
 import json
 
 class Product:
-    def __init__(self, productid, name, price, stock):
-        self.__productid = productid
-        self.__name = name
-        self.__price = price
-        self.__stock = stock
-    
+    def __init__(self, product_id: str, name: str, price: float, quantity: int):
+        self.product_id = product_id
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+
     def display_information(inventory):
             if not inventory:
                 print("Inventory is empty.")
