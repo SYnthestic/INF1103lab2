@@ -1,10 +1,27 @@
 import os, json
 from product import Product
 
-class Inventory(Product):
+class Inventory:
+    """Holds products. It does not extend Product, because it HAS products."""
+
     def __init__(self):
-        # Initializes an empty dictionary to store the product objects
-        self.inventory = {}
+        self.inventory = {}          # your original name
+        self.failed_entries = 0
+
+    def display_all(self) -> None:
+        """Loops through the collection and delegates printing to each Product object."""
+        if not self.inventory:
+            print("Inventory is empty.")
+            return
+
+        print("Current Inventory:")
+        print("-" * 60)
+        
+        for product in self.inventory.values():
+            # 🟢 OOP Delegation: Tell the product instance to print itself!
+            product.display_information()
+            
+        print("-" * 60)
 
 
     def get_valid_input(self, failed_entries: int):
@@ -66,16 +83,13 @@ class Inventory(Product):
         # Return the processed delivery fee and the next suggested ID
         return processed_delivery, next_product_id
 
-    def search_product(self, failed_entries):
-            product_id = input("Enter Product ID: ").strip().upper()
+    def next_product_id(self) -> str:
+        numbers = [int(pid[1:]) for pid in self.__products if pid[1:].isdigit()]
+        return f"P{(max(numbers) + 1 if numbers else 1):03d}"
 
-            if product_id not in self.inventory:
-                print("Product not found")
-                return None, failed_entries + 1
-
-            d = self.inventory[product_id]
-            print("Product Found")
-            print("-" * 60)
-            print(f"ID: {product_id}\nName: {d['name']}\nPrice: ${d['price']:.2f}\nStock: {d['quantity']}")
-            print("-" * 60)
-            return product_id, failed_entries
+    def search_product(self, product_id: str):
+        """Returns the Product, or None. Counts a failed search itself."""
+        product = self.__products.get(product_id.strip().upper())
+        if product is None:
+            self._failed_entries += 1
+        return product

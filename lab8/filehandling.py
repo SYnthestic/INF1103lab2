@@ -1,40 +1,57 @@
 import json
 import os
 
+from inventory import Inventory
+from product import Product
+
 
 class FileHandling:
-    
-    def __init__(self, filename):
-        self.filename = filename
+    """Loads and saves an Inventory. It owns the file path and never prints."""
 
-    def save_inventory(inventory, delivery_amount, file_name):
+    def __init__(self, path: str):
+        self._path = path
+
+    @property
+    def path(self) -> str:
+        return self._path
+
+    def load_inventory(self) -> tuple[Inventory, str]:
+        """Returns (inventory, status): "loaded", "not_found" or "invalid_file".
+        The inventory is always a valid Inventory, empty if loading failed."""
+        inventory = Inventory()
+        if not os.path.isfile(self._path):
+            return inventory, "not_found"
+
+        try:
+            with open(self._path, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            for product_id, details in data["inventory"].items():
+                inventory.add_product(
+                    Product(
+                        product_id,
+                        details["name"],
+                        float(details["price"]),
+                        int(details["quantity"]),
+                    )
+                )
+        except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
+            print(f"DEBUG load error: {type(error).__name__}: {error}")
+            return Inventory(), "invalid_file"
+        return inventory, "loaded"
+
+    def save_inventory(self, inventory: Inventory) -> bool:
         data = {
-            "delivery_amount": delivery_amount,
-            "inventory": inventory,
+            "delivery_amount": inventory.delivery_amount,
+            "inventory": {
+                p.product_id: {"name": p.name, "price": p.price, "quantity": p.quantity}
+                for p in inventory
+            },
         }
-
-        os.makedirs(os.path.dirname(file_name), exist_ok=True)
-
-        with open(file_name, "w") as file:
-            json.dump(data, file, indent=4)
-
-    print(f"Inventory saved successfully to inventory.json")
-
-    def load_inventory(file_name):
-            if not os.path.isfile(file_name):
-                print("File not found. Starting a fresh inventory.")
-                return "P001", {}, 0
-    
-            try:
-                print("inventory.json found.")
-                with open(file_name, "r") as file:
-                    data = json.load(file)
-                print("Inventory loaded successfully")
-                most_recent_id = max(int(pid[1:]) for pid in data["inventory"]) + 1
-                product_id = f"P{most_recent_id:03d}"
-                return product_id, data["inventory"], data["delivery_amount"]
-    
-            except (json.JSONDecodeError, KeyError) as e:
-                print(f"Error loading inventory: {e}")
-                print("Starting a fresh inventory.")
-                return "P001", {}, 0
+        tmp_path = self._path + ".tmp"
+        try:
+            with open(tmp_path, "w", encoding="utf-8") as file:
+                json.dump(data, file, indent=4)
+            os.replace(tmp_path, self._path)
+            return True
+        except OSError:
+            return False
