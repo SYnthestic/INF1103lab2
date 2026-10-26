@@ -63,23 +63,20 @@ while key != 6:
                 print("-" * 60)
                 
                 # Loop through all Product object instances stored in the dictionary
-                for product in inventory_entry.inventory.values():
-                    # Call the display method directly on the Product object instance!
-                    product.display_information()
+                inventory_entry.display_all()
                     
                 print("-" * 60)
         case 2:
             print("Adding new product...")
-            product_id, name, price, quantity, failed_entries = Inventory.get_valid_input(failed_entries)
-            delivery_amount, product_id = Inventory.add_product(
-                inventory_entry, product_id, name, price, quantity, delivery_amount
-            )
+            product_id, name, price, quantity, failed_entries = inventory_entry.get_valid_input(failed_entries)
+            new_product = Product(product_id, name, price, quantity)
+            delivery_amount, product_id = inventory_entry.add_product(new_product, delivery_amount)
         case 3:
             print("Update Stock")
             product = inventory_entry.search_product(input("Enter Product ID: "))
             
             if product is not None:
-                inventory_entry.update_stock(product, quantity)
+                product.update_stock(product, quantity)
         case 4:
             print("Searching Product")
             # Call the method on the object instance. 
