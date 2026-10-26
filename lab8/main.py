@@ -28,6 +28,45 @@ else:
     print("Inventory loaded successfully.")
 
 
+def get_valid_input(inventory_entry, failed_entries: int):
+    # 1. FIXED: Access the inventory container from the passed object instance
+    next_num = len(inventory_entry.inventory) + 1
+    product_id = "P" + str(next_num).zfill(3)
+
+    while True:
+        # 2. Validate Product Name
+        name = input("Enter Product Name: ").strip()
+        if not name:
+            print("Error! Product name cannot be blank.\n")
+            failed_entries += 1
+            continue
+
+        # 3. Validate Price
+        price_input = input("Enter Price: ").strip()
+        try:
+            price = float(price_input)
+        except ValueError:
+            print("Invalid input. Please enter a valid price.")
+            failed_entries += 1
+            continue
+        if price < 0:
+            print("Invalid input. Price cannot be negative.")
+            failed_entries += 1
+            continue
+
+        # 4. Validate Quantity
+        quantity_input = input("Enter Stock Quantity: ").strip()
+        if not quantity_input.isdigit() or not (0 <= int(quantity_input) <= 500):
+            print("Invalid input. Please enter a number between 0 and 500.")
+            failed_entries += 1
+            continue
+        stock = int(quantity_input)
+
+        # 5. Return the clean, validated variables back to the main loop
+        return product_id, name, price, stock, failed_entries
+
+
+
 
 
 
@@ -68,15 +107,25 @@ while key != 6:
                 print("-" * 60)
         case 2:
             print("Adding new product...")
-            product_id, name, price, quantity, failed_entries = inventory_entry.get_valid_input(failed_entries)
-            new_product = Product(product_id, name, price, quantity)
+            product_id, name, price, stock, failed_entries = get_valid_input(inventory_entry, failed_entries)
+            new_product = Product(product_id, name, price, stock)
             delivery_amount, product_id = inventory_entry.add_product(new_product, delivery_amount)
         case 3:
             print("Update Stock")
-            product = inventory_entry.search_product(input("Enter Product ID: "))
+            # 1. Ask the user for the ID and query our inventory search method
+            product_id = input("Enter Product ID to update: ").strip().upper()
+            product = inventory_entry.search_product(product_id)
             
-            if product is not None:
-                product.update_stock(product, quantity)
+            if product is None:
+                print("Product not found.")
+                failed_entries += 1
+            else:
+                # 2. If the product object exists, run our updated stock modifier
+                # Python automatically maps inventory_entry to 'self' behind the scenes
+                delivery_amount, failed_entries = Product.update_stock(
+                    inventory_entry, product.product_id, delivery_amount, failed_entries
+                )
+
         case 4:
             print("Searching Product")
             # Call the method on the object instance. 

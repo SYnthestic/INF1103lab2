@@ -31,7 +31,7 @@ class FileHandling:
                         product_id,
                         details["name"],
                         float(details["price"]),
-                        int(details["quantity"]),
+                        int(details["stock"]),
                     )
                 )
         except (OSError, ValueError, KeyError, TypeError, AttributeError) as error:
@@ -49,7 +49,7 @@ class FileHandling:
             serialized_inventory[p_id] = {
                 "name": product.name,
                 "price": product.price,
-                "quantity": product.quantity
+                "stock": product.stock
             }
 
         data = {

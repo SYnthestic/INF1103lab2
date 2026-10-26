@@ -1,40 +1,35 @@
-import os
-import json
-
 class Product:
-    def __init__(self, product_id: str, name: str, price: float, quantity: int):
+    def __init__(self, product_id: str, name: str, price: float, stock: int):
         self.__product_id = product_id
         self.__name = name
         self.__price = price
-        self.__quantity = quantity
+        self.__stock = 0
+        self.update_stock(stock)
 
-    # Public getters using property decorators
     @property
     def product_id(self): return self.__product_id
-
     @property
     def name(self): return self.__name
-
     @property
     def price(self): return self.__price
-
-    # Getter and Setter for quantity so update_stock can modify it
     @property
-    def quantity(self): return self.__quantity
-    
-    @quantity.setter
-    def quantity(self, value: int): self.__quantity = value
+    def stock(self): return self.__stock
 
-    # 1. FIXED: Prints this SPECIFIC product instance's details
+    def update_stock(self, quantity: int) -> None:
+        if isinstance(quantity, bool) or not isinstance(quantity, int):
+            raise TypeError("Quantity must be a whole number.")
+        if not 0 <= quantity <= 500:
+            raise ValueError("Quantity must be between 0 and 500.")
+        self.__stock = quantity
+
     def display_information(self) -> None:
         print(
             f"ID: {self.product_id} | "
             f"Name: {self.name} | "
             f"Price: ${self.price:.2f} | "
-            f"Stock: {self.quantity}"
+            f"Stock: {self.stock}"
         )
 
-    # 2. FIXED: Marked as @staticmethod since it acts as a utility calculation
     @staticmethod
     def process_delivery(delivery_amount: float, quantity_inp: int) -> float:
         qty = int(quantity_inp)
@@ -48,33 +43,7 @@ class Product:
             print("No delivery amount added for zero or negative entries.")
             return delivery
 
-    # 3. FIXED: Changed dictionary syntax to object attributes and property setters
-    @staticmethod
-    def update_stock(inventory, product_id, delivery_amount, failed_entries):
-        # Handle cases where inventory is an Inventory class instance or raw dictionary
-        inv_dict = inventory.inventory if hasattr(inventory, 'inventory') else inventory
 
-        if product_id is None or product_id not in inv_dict:
-            return delivery_amount, failed_entries
-
-        product = inv_dict[product_id]
-        new_quantity = input("New Stock Quantity: ").strip()
-
-        if not new_quantity.isdigit() or int(new_quantity) > 500:
-            print("Invalid input. Please enter a number between 0 and 500.")
-            return delivery_amount, failed_entries + 1
-
-        new_quantity = int(new_quantity)
-        old_quantity = product.quantity
-        
-        # Updates the encapsulated quantity variable via the setter property
-        product.quantity = new_quantity
-        delivery_amount += new_quantity - old_quantity
-
-        print("Stock updated successfully!")
-        return delivery_amount, failed_entries
-
-    # 4. FIXED: Marked as @staticmethod
     @staticmethod
     def calculate_tax(delivery_amount):
         tax_rate = 0.1  
@@ -83,7 +52,6 @@ class Product:
         return tax_amount
     
 
-    # 6. FIXED: Marked as @staticmethod
     @staticmethod
     def goodbye_message():
         print('''
