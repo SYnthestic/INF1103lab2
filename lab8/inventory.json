@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 2056,
+    "delivery_amount": 0,
     "inventory": {
         "P001": {
             "name": "Laptop",
@@ -75,6 +75,11 @@
             "name": "XXC100",
             "price": 49000.0,
             "stock": 4
+        },
+        "P016": {
+            "name": "CCB10",
+            "price": 290000.0,
+            "stock": 1
         }
     }
 }

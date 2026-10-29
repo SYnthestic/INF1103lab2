@@ -106,8 +106,8 @@ while key != 6:
             print("Adding new product...")
             product_id, name, price, stock, failed_entries = get_valid_input(inventory_entry, failed_entries)
             new_product = Product(product_id, name, price, stock)
-            inventory_entry.add_product(new_product)
-            delivery_amount = Product.process_delivery(inventory_entry)
+            delivery_amount = inventory_entry.add_product(new_product)
+            # delivery_amount = Product.process_delivery(inventory_entry)
 
         case 3:
             print("Update Stock")
@@ -141,7 +141,6 @@ while key != 6:
 
         case 5:
             print("Saving inventory...")
-            print(delivery_amount)
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
 
         case 6:
