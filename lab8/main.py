@@ -98,9 +98,6 @@ while key != 6:
             if not inventory_entry.inventory:
                 print("Inventory is empty.")
             else:
-                print("Current Inventory:")
-                print("-" * 60)
-                
                 # Loop through all Product object instances stored in the dictionary
                 inventory_entry.display_all()
                     
@@ -109,22 +106,21 @@ while key != 6:
             print("Adding new product...")
             product_id, name, price, stock, failed_entries = get_valid_input(inventory_entry, failed_entries)
             new_product = Product(product_id, name, price, stock)
-            delivery_amount, product_id = inventory_entry.add_product(new_product, delivery_amount)
+            inventory_entry.add_product(new_product)
+            delivery_amount = Product.process_delivery(inventory_entry)
+
         case 3:
             print("Update Stock")
-            # 1. Ask the user for the ID and query our inventory search method
             product_id = input("Enter Product ID to update: ").strip().upper()
             product = inventory_entry.search_product(product_id)
-            
+
             if product is None:
                 print("Product not found.")
                 failed_entries += 1
+            elif not product.update_stock():
+                failed_entries += 1
             else:
-                # 2. If the product object exists, run our updated stock modifier
-                # Python automatically maps inventory_entry to 'self' behind the scenes
-                delivery_amount, failed_entries = Product.update_stock(
-                    inventory_entry, product.product_id, delivery_amount, failed_entries
-                )
+                delivery_amount = Product.process_delivery(inventory_entry)
 
         case 4:
             print("Searching Product")
@@ -145,6 +141,7 @@ while key != 6:
 
         case 5:
             print("Saving inventory...")
+            print(delivery_amount)
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
 
         case 6:

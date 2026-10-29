@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 1.0,
+    "delivery_amount": 2056,
     "inventory": {
         "P001": {
             "name": "Laptop",
@@ -34,7 +34,7 @@
         "P007": {
             "name": "Ramen",
             "price": 5.56,
-            "stock": 30
+            "stock": 40
         },
         "P008": {
             "name": "KitKat",
@@ -65,6 +65,16 @@
             "name": "PXC400",
             "price": 45100.0,
             "stock": 1
+        },
+        "P014": {
+            "name": "XCX290",
+            "price": 192000.0,
+            "stock": 2
+        },
+        "P015": {
+            "name": "XXC100",
+            "price": 49000.0,
+            "stock": 4
         }
     }
 }

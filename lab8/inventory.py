@@ -25,22 +25,18 @@ class Inventory:
 
 
 
-    def add_product(self, product: Product, delivery_amount: float = 0):
-        # 1. Process delivery using the Product class's static method
-        # Pass the quantity and delivery amount straight from the object
-        processed_delivery = Product.process_delivery(delivery_amount, product.stock)
-        
-        # 2. Store the actual Product object directly using its ID as the key
+    def add_product(self, product: Product):
+        # 1. Store the product first so it's included in the total
         self.inventory[product.product_id] = product
-        
         print(f"Product '{product.name}' added successfully!")
-        
-        # 3. Calculate what the NEXT product ID should be automatically
-        current_numeric_id = int(product.product_id[1:])  # e.g., "P001" -> 1
-        next_numeric_id = current_numeric_id + 1          # 1 -> 2
-        next_product_id = "P" + str(next_numeric_id).zfill(3)  # 2 -> "P002"
-        
-        # Return the processed delivery fee and the next suggested ID
+
+        # 2. Recalculate delivery from EVERYTHING in the dictionary
+        processed_delivery = Product.process_delivery(self)
+
+        # 3. Calculate the next product ID
+        current_numeric_id = int(product.product_id[1:])      # "P001" -> 1
+        next_product_id = "P" + str(current_numeric_id + 1).zfill(3)
+
         return processed_delivery, next_product_id
 
     def next_product_id(self) -> str:
@@ -53,3 +49,6 @@ class Inventory:
         if product is None:
             self.failed_entries += 1
         return product
+
+    def total_delivery(self) -> int:
+        return sum(product.stock for product in self.inventory.values())

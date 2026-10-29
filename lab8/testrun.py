@@ -7,3 +7,5 @@ product1 = Product("P001", "Laptop", 1200.00, 15) # creating product from Produc
 product2 = Product("P002", "Mouse", 25.50, 40) 
 inventory.add_product(product1) # pass the product to inventory class to store in a list 
 inventory.add_product(product2) 
+product3 = Product("P004", "Monitor", 299.99, 10) # Lab 6 test run object
+inventory.add_product(product3)

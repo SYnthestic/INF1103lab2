@@ -4,7 +4,7 @@ class Product:
         self.__name = name
         self.__price = price
         self.__stock = 0
-        self.update_stock(stock)
+        self.validate_stock(stock)
 
     @property
     def product_id(self): return self.__product_id
@@ -15,12 +15,25 @@ class Product:
     @property
     def stock(self): return self.__stock
 
-    def update_stock(self, quantity: int) -> None:
+    def validate_stock(self, quantity: int) -> None:
+        """Validated setter. Raises TypeError / ValueError on bad input."""
         if isinstance(quantity, bool) or not isinstance(quantity, int):
             raise TypeError("Quantity must be a whole number.")
         if not 0 <= quantity <= 500:
             raise ValueError("Quantity must be between 0 and 500.")
         self.__stock = quantity
+
+    def update_stock(self) -> bool:
+        """Prompt for a new quantity and update this product's stock.
+        Returns True on success, False on failure."""
+        try:
+            self.validate_stock(int(input("Enter new stock quantity: ").strip()))
+        except (ValueError, TypeError) as e:
+            print(f"Error: {e}")
+            return False
+
+        print(f"Stock updated. New stock: {self.stock}")
+        return True
 
     def display_information(self) -> None:
         print(
@@ -31,17 +44,10 @@ class Product:
         )
 
     @staticmethod
-    def process_delivery(delivery_amount: float, quantity_inp: int) -> float:
-        qty = int(quantity_inp)
-        delivery = float(delivery_amount)
-
-        if qty > 0:
-            delivery += qty
-            print(f"Delivery amount updated to: {delivery}")
-            return delivery  
-        else:
-            print("No delivery amount added for zero or negative entries.")
-            return delivery
+    def process_delivery(inventory) -> int:
+        total = inventory.total_delivery()
+        print(f"Delivery amount updated to: {total}")
+        return total
 
 
     @staticmethod
