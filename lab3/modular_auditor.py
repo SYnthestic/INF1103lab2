@@ -16,12 +16,12 @@ def get_valid_input(failed_entries, delivery_amount, inventory_entry, entry_inp)
         failed_entries += 1
     else:
         inventory_entry.append(int(entry_inp))
-        delivery_amount = process_delivery(delivery_amount, int(entry_inp))
+        delivery_amount = (delivery_amount, int(entry_inp))
         print(f"Entry {entry_inp} added to inventory.")
 
     return failed_entries, delivery_amount
 
-def process_delivery(delivery_amount, entry_inp):
+def (delivery_amount, entry_inp):
     if entry_inp > 0:
         delivery_amount += entry_inp
         print(f"Delivery amount updated to: {delivery_amount}")
