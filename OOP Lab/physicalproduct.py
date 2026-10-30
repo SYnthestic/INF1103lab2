@@ -1,10 +1,16 @@
 import io
 import sys
 from product import Product
-class PhysicalProduct(Product):
+from canbeshipped import CanBeShipped
+class PhysicalProduct(Product, CanBeShipped):
     def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float):
         super().__init__(product_id, name, price, stock)
         self.weight = weight
+
+    #Calculates the shipping cost
+    def calculate_shipping_cost(self):
+        self.calculated_shipping_cost = self.weight * 1.01 + 3
+        return self.calculated_shipping_cost
 
     @classmethod
     def from_ui(cls, product_id, name, price, stock):
@@ -20,7 +26,3 @@ class PhysicalProduct(Product):
     def get_fulfilment_info(self):
             '''PhysicalProduct returns a message explaining that the product requires physical shipping. '''
             return "Your product is delivered physically and requires physical shipping"
-
-    def calculate_shipping_cost(self):
-        self.calculated_shipping_cost = self.weight * 1.01 + 3 #$3.00 as a baseline tax
-        return self.calculated_shipping_cost

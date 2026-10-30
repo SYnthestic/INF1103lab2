@@ -31,7 +31,6 @@ else:
 
 
 def get_valid_input(inventory_entry, failed_entries: int):
-    # 1. FIXED: Access the inventory container from the passed object instance
     next_num = len(inventory_entry.inventory) + 1
     product_id = "P" + str(next_num).zfill(3)
 
@@ -119,12 +118,18 @@ while key != 6:
             
             try:
                 new_product = product_class.from_ui(product_id, name, price, stock)
-                if is_physical:
-                    shipping_price = new_product.calculate_shipping_cost()
-                    print(f"Calculated Shipping Cost: ${shipping_price:.2f}")
 
+                if is_physical:
+                    # Triggers your custom weight calculation formulas
+                    product_fee = new_product.calculate_shipping_cost()
+                    print(f"This item's shipping cost: ${product_fee:.2f}")
+
+                # Your original stock-based delivery logic remains completely untouched here
                 delivery_amount, next_id = inventory_entry.add_product(new_product)
-                print(new_product.get_fulfilment_info())
+                print(new_product.get_fulfilment_info()) 
+
+                # If you need to print the combined shipping costs for the whole inventory:
+                print(f"Total Inventory Shipping Fees: ${inventory_entry.total_shipping_fees():.2f}")
 
                 
             except (ValueError, TypeError) as validation_err:

@@ -1,5 +1,6 @@
 import os, json
 from product import Product
+from canbeshipped import CanBeShipped
 
 class Inventory:
     """Holds products. It does not extend Product, because it HAS products."""
@@ -79,3 +80,14 @@ class Inventory:
 
     def total_delivery(self) -> int:
         return sum(product.stock for product in self.inventory.values())
+
+    def total_shipping_fees(self) -> float:
+        """Calculates the total monetary shipping fees for all shippable items."""
+        total_fee = 0.0
+        for product in self.inventory.values():
+            # Safeguard: only trigger calculation for shippable items
+            if isinstance(product, CanBeShipped):
+                total_fee += product.calculate_shipping_cost() * product.stock
+        return total_fee
+
+    

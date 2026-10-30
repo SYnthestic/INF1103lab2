@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 3424,
+    "delivery_amount": 3427,
     "inventory": {
         "P001": {
             "name": "Laptop",
@@ -154,6 +154,13 @@
             "stock": 23,
             "type": "digital",
             "download_size": 233.34
+        },
+        "P023": {
+            "name": "T-34 Tank",
+            "price": 19029000.0,
+            "stock": 3,
+            "type": "physical",
+            "weight": 190380.0
         }
     }
 }
