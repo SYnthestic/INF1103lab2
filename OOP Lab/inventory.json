@@ -1,0 +1,85 @@
+{
+    "delivery_amount": 0,
+    "inventory": {
+        "P001": {
+            "name": "Laptop",
+            "price": 1989.59,
+            "stock": 110
+        },
+        "P002": {
+            "name": "Mouse",
+            "price": 30.34,
+            "stock": 100
+        },
+        "P003": {
+            "name": "Wires",
+            "price": 19.0,
+            "stock": 380
+        },
+        "P004": {
+            "name": "Spoons",
+            "price": 19.99,
+            "stock": 380
+        },
+        "P005": {
+            "name": "Ramen",
+            "price": 5.56,
+            "stock": 100
+        },
+        "P006": {
+            "name": "Forks",
+            "price": 3.99,
+            "stock": 385
+        },
+        "P007": {
+            "name": "Ramen",
+            "price": 5.56,
+            "stock": 40
+        },
+        "P008": {
+            "name": "KitKat",
+            "price": 6.75,
+            "stock": 193
+        },
+        "P009": {
+            "name": "Shin Ramyun",
+            "price": 7.99,
+            "stock": 345
+        },
+        "P010": {
+            "name": "PTC1030",
+            "price": 93020.0,
+            "stock": 10
+        },
+        "P011": {
+            "name": "PXA190",
+            "price": 29100.0,
+            "stock": 3
+        },
+        "P012": {
+            "name": "PXC390",
+            "price": 32900.0,
+            "stock": 3
+        },
+        "P013": {
+            "name": "PXC400",
+            "price": 45100.0,
+            "stock": 1
+        },
+        "P014": {
+            "name": "XCX290",
+            "price": 192000.0,
+            "stock": 2
+        },
+        "P015": {
+            "name": "XXC100",
+            "price": 49000.0,
+            "stock": 4
+        },
+        "P016": {
+            "name": "CCB10",
+            "price": 290000.0,
+            "stock": 1
+        }
+    }
+}
