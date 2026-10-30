@@ -122,6 +122,7 @@ while key != 6:
                 
                 # 2. Let the inventory handle the stock verification checks
                 delivery_amount, next_id = inventory_entry.add_product(new_product)
+                print(new_product.get_fulfilment_info()) 
                 
             except (ValueError, TypeError) as validation_err:
                 print(f"Insertion Error: {validation_err}")

@@ -19,4 +19,5 @@ class PhysicalProduct(Product):
         print(base_info + f" | Weight: {self.weight}kg")
 
     def get_fulfilment_info(self):
-        return f"Physical shipping weight: {self.weight}kg"
+            '''PhysicalProduct returns a message explaining that the product requires physical shipping. '''
+            return "Your product is delivered physically and requires physical shipping"
