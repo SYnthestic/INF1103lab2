@@ -26,18 +26,56 @@ class Inventory:
 
 
     def add_product(self, product: Product):
-        # 1. Store the product first so it's included in the total
+        # ❌ CHANGE THIS LINE:
+        # product.validate_stock(product, product.stock)
+        
+        #  FIXED LINE (Use 'self' because it lives inside Inventory now):
+        self.validate_stock(product, product.stock)
+
+        # 2. Store the product first so it's included in the total
         self.inventory[product.product_id] = product
         print(f"Product '{product.name}' added successfully!")
 
-        # 2. Recalculate delivery from EVERYTHING in the dictionary
+        # 3. Recalculate delivery from EVERYTHING in the dictionary
         processed_delivery = Product.process_delivery(self)
 
-        # 3. Calculate the next product ID
+        # 4. Calculate the next product ID
         current_numeric_id = int(product.product_id[1:])      # "P001" -> 1
         next_product_id = "P" + str(current_numeric_id + 1).zfill(3)
 
         return processed_delivery, next_product_id
+
+    def validate_stock(self, product, quantity: int) -> None:
+        """Validated setter. Raises TypeError / ValueError on bad input."""
+        if isinstance(quantity, bool) or not isinstance(quantity, int):
+            raise TypeError("Quantity must be a whole number.")
+        if not 0 <= quantity <= 500:
+            raise ValueError("Quantity must be between 0 and 500.")
+        
+        product.stock = quantity 
+
+    def update_stock(self, product_id: str) -> bool:
+        """Finds product by ID, gathers user input, and validates update."""
+        # ❌ CHANGE THIS: product = self._products.get(product_id)
+        
+        #  FIXED LINE (Use 'self.inventory' to match your class variable):
+        product = self.inventory.get(product_id)
+        
+        if not product:
+            print(f"Error: Product {product_id} not found.")
+            return False
+
+        try:
+            new_qty = int(input("Enter new stock quantity: ").strip())
+            # Forward the product instance over to your moved validation method
+            self.validate_stock(product, new_qty)
+        except (ValueError, TypeError) as e:
+            print(f"Error: {e}")
+            return False
+
+        print(f"Stock updated. New stock: {product.stock}")
+        return True
+
 
     def next_product_id(self) -> str:
         numbers = [int(pid[1:]) for pid in self.__products if pid[1:].isdigit()]

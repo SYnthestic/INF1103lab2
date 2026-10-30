@@ -2,6 +2,8 @@ import os
 import json
 
 from product import Product
+from digitalproduct import DigitalProduct
+from physicalproduct import PhysicalProduct
 from inventory import Inventory
 from filehandling import FileHandling 
 
@@ -105,22 +107,45 @@ while key != 6:
         case 2:
             print("Adding new product...")
             product_id, name, price, stock, failed_entries = get_valid_input(inventory_entry, failed_entries)
-            new_product = Product(product_id, name, price, stock)
-            delivery_amount = inventory_entry.add_product(new_product)
-            # delivery_amount = Product.process_delivery(inventory_entry)
+            
+            print("Select Product Type:")
+            print("1. Physical Product")
+            print("2. Digital Product")
+            user_choice = input("Enter choice (1-2): ").strip()
+            
+            is_digital = (user_choice == "2") 
+            product_class = DigitalProduct if is_digital else PhysicalProduct
+            
+            try:
+                # 1. Build the object structure safely
+                new_product = product_class.from_ui(product_id, name, price, stock)
+                
+                # 2. Let the inventory handle the stock verification checks
+                delivery_amount, next_id = inventory_entry.add_product(new_product)
+                
+            except (ValueError, TypeError) as validation_err:
+                print(f"Insertion Error: {validation_err}")
+                # Keep track of bad operational steps if your lab tracks them
+                failed_entries += 1 
+
 
         case 3:
             print("Update Stock")
-            product_id = input("Enter Product ID to update: ").strip().upper()
-            product = inventory_entry.search_product(product_id)
+            target_id = input("Enter Product ID to update stock: ").strip()
 
-            if product is None:
+            # 1. Check if the ID is empty before doing anything else
+            if not target_id:
                 print("Product not found.")
                 failed_entries += 1
-            elif not product.update_stock():
-                failed_entries += 1
             else:
-                delivery_amount = Product.process_delivery(inventory_entry)
+                # 2. Call the method EXACTLY ONCE and store the result (True/False)
+                success = inventory_entry.update_stock(target_id)
+
+                # 3. Check the stored result variable
+                if not success:
+                    failed_entries += 1
+                else:
+                    delivery_amount = Product.process_delivery(inventory_entry)
 
         case 4:
             print("Searching Product")

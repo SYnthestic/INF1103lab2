@@ -1,93 +1,159 @@
 {
-    "delivery_amount": [
-        2347,
-        "P018"
-    ],
+    "delivery_amount": 3424,
     "inventory": {
         "P001": {
             "name": "Laptop",
             "price": 1989.59,
-            "stock": 110
+            "stock": 110,
+            "type": "physical",
+            "weight": 0.0
         },
         "P002": {
             "name": "Mouse",
             "price": 30.34,
-            "stock": 100
+            "stock": 100,
+            "type": "physical",
+            "weight": 0.0
         },
         "P003": {
             "name": "Wires",
             "price": 19.0,
-            "stock": 380
+            "stock": 380,
+            "type": "physical",
+            "weight": 0.0
         },
         "P004": {
             "name": "Spoons",
             "price": 19.99,
-            "stock": 380
+            "stock": 380,
+            "type": "physical",
+            "weight": 0.0
         },
         "P005": {
             "name": "Ramen",
             "price": 5.56,
-            "stock": 100
+            "stock": 100,
+            "type": "physical",
+            "weight": 0.0
         },
         "P006": {
             "name": "Forks",
             "price": 3.99,
-            "stock": 385
+            "stock": 385,
+            "type": "physical",
+            "weight": 0.0
         },
         "P007": {
             "name": "Ramen",
             "price": 5.56,
-            "stock": 40
+            "stock": 40,
+            "type": "physical",
+            "weight": 0.0
         },
         "P008": {
             "name": "KitKat",
             "price": 6.75,
-            "stock": 193
+            "stock": 193,
+            "type": "physical",
+            "weight": 0.0
         },
         "P009": {
             "name": "Shin Ramyun",
             "price": 7.99,
-            "stock": 345
+            "stock": 345,
+            "type": "physical",
+            "weight": 0.0
         },
         "P010": {
             "name": "PTC1030",
             "price": 93020.0,
-            "stock": 10
+            "stock": 10,
+            "type": "physical",
+            "weight": 0.0
         },
         "P011": {
             "name": "PXA190",
             "price": 29100.0,
-            "stock": 3
+            "stock": 3,
+            "type": "physical",
+            "weight": 0.0
         },
         "P012": {
             "name": "PXC390",
             "price": 32900.0,
-            "stock": 3
+            "stock": 3,
+            "type": "physical",
+            "weight": 0.0
         },
         "P013": {
             "name": "PXC400",
             "price": 45100.0,
-            "stock": 1
+            "stock": 1,
+            "type": "physical",
+            "weight": 0.0
         },
         "P014": {
             "name": "XCX290",
             "price": 192000.0,
-            "stock": 2
+            "stock": 2,
+            "type": "physical",
+            "weight": 0.0
         },
         "P015": {
             "name": "XXC100",
             "price": 49000.0,
-            "stock": 4
+            "stock": 4,
+            "type": "physical",
+            "weight": 0.0
         },
         "P016": {
             "name": "CCB10",
             "price": 290000.0,
-            "stock": 1
+            "stock": 1,
+            "type": "physical",
+            "weight": 0.0
         },
         "P017": {
             "name": "Note 6",
             "price": 800.0,
-            "stock": 290
+            "stock": 290,
+            "type": "physical",
+            "weight": 0.0
+        },
+        "P018": {
+            "name": "eBook 1",
+            "price": 120.0,
+            "stock": 59,
+            "type": "digital",
+            "download_size": 246.65
+        },
+        "P019": {
+            "name": "eBook20",
+            "price": 49.0,
+            "stock": 200,
+            "type": "digital",
+            "download_size": 500.2
+        },
+        "P020": {
+            "name": "Running Shoes",
+            "price": 299.99,
+            "stock": 450,
+            "type": "physical",
+            "weight": 2.87
+        },
+        "P021": {
+            "name": "eBook22",
+            "price": 22.0,
+            "stock": 345,
+            "type": "physical",
+            "weight": 1.22
+        },
+        "P022": {
+            "name": "eBook23",
+            "price": 23.0,
+            "stock": 23,
+            "type": "digital",
+            "download_size": 233.34
         }
     }
 }

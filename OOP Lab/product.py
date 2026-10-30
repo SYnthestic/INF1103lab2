@@ -1,39 +1,32 @@
-class Product:
+from abc import ABC, abstractmethod
+
+class Product(ABC):
     def __init__(self, product_id: str, name: str, price: float, stock: int):
         self.__product_id = product_id
         self.__name = name
         self.__price = price
-        self.__stock = 0
-        self.validate_stock(stock)
+        # Direct assignment using the property setter interface safely
+        self.stock = stock  
 
     @property
     def product_id(self): return self.__product_id
+    
     @property
     def name(self): return self.__name
+    
     @property
     def price(self): return self.__price
+    
     @property
-    def stock(self): return self.__stock
+    def stock(self):
+        # Fallback initializer to guarantee it exists even if accessed early
+        if not hasattr(self, '_stock'):
+            self._stock = 0
+        return self._stock
 
-    def validate_stock(self, quantity: int) -> None:
-        """Validated setter. Raises TypeError / ValueError on bad input."""
-        if isinstance(quantity, bool) or not isinstance(quantity, int):
-            raise TypeError("Quantity must be a whole number.")
-        if not 0 <= quantity <= 500:
-            raise ValueError("Quantity must be between 0 and 500.")
-        self.__stock = quantity
-
-    def update_stock(self) -> bool:
-        """Prompt for a new quantity and update this product's stock.
-        Returns True on success, False on failure."""
-        try:
-            self.validate_stock(int(input("Enter new stock quantity: ").strip()))
-        except (ValueError, TypeError) as e:
-            print(f"Error: {e}")
-            return False
-
-        print(f"Stock updated. New stock: {self.stock}")
-        return True
+    @stock.setter
+    def stock(self, value):
+        self._stock = value
 
     # 1. This method builds the raw text and returns it
     def get_information_string(self) -> str:
@@ -47,6 +40,10 @@ class Product:
     # 2. This method simply prints whatever the method above returns
     def display_information(self) -> None:
         print(self.get_information_string())
+
+    @abstractmethod
+    def get_fulfilment_info():
+        pass
 
     @staticmethod
     def process_delivery(inventory) -> int:
