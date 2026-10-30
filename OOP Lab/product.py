@@ -5,7 +5,6 @@ class Product(ABC):
         self.__product_id = product_id
         self.__name = name
         self.__price = price
-        # Direct assignment using the property setter interface safely
         self.stock = stock  
 
     @property
@@ -19,7 +18,6 @@ class Product(ABC):
     
     @property
     def stock(self):
-        # Fallback initializer to guarantee it exists even if accessed early
         if not hasattr(self, '_stock'):
             self._stock = 0
         return self._stock
@@ -28,7 +26,6 @@ class Product(ABC):
     def stock(self, value):
         self._stock = value
 
-    # 1. This method builds the raw text and returns it
     def get_information_string(self) -> str:
         return (
             f"ID: {self.product_id} | "
@@ -37,7 +34,6 @@ class Product(ABC):
             f"Stock: {self.stock}"
         )
 
-    # 2. This method simply prints whatever the method above returns
     def display_information(self) -> None:
         print(self.get_information_string())
 

@@ -3,7 +3,6 @@ import sys
 from product import Product
 class PhysicalProduct(Product):
     def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float):
-        # Safely pass parameters up to the parent constructor
         super().__init__(product_id, name, price, stock)
         self.weight = weight
 
@@ -21,3 +20,7 @@ class PhysicalProduct(Product):
     def get_fulfilment_info(self):
             '''PhysicalProduct returns a message explaining that the product requires physical shipping. '''
             return "Your product is delivered physically and requires physical shipping"
+
+    def calculate_shipping_cost(self):
+        self.calculated_shipping_cost = self.weight * 1.01 + 3 #$3.00 as a baseline tax
+        return self.calculated_shipping_cost

@@ -18,7 +18,6 @@ class Inventory:
         print("-" * 60)
         
         for product in self.inventory.values():
-            # 🟢 OOP Delegation: Tell the product instance to print itself!
             product.display_information()
             
         print("-" * 60)
@@ -26,20 +25,13 @@ class Inventory:
 
 
     def add_product(self, product: Product):
-        # ❌ CHANGE THIS LINE:
-        # product.validate_stock(product, product.stock)
-        
-        #  FIXED LINE (Use 'self' because it lives inside Inventory now):
         self.validate_stock(product, product.stock)
 
-        # 2. Store the product first so it's included in the total
         self.inventory[product.product_id] = product
         print(f"Product '{product.name}' added successfully!")
 
-        # 3. Recalculate delivery from EVERYTHING in the dictionary
         processed_delivery = Product.process_delivery(self)
 
-        # 4. Calculate the next product ID
         current_numeric_id = int(product.product_id[1:])      # "P001" -> 1
         next_product_id = "P" + str(current_numeric_id + 1).zfill(3)
 
@@ -56,9 +48,6 @@ class Inventory:
 
     def update_stock(self, product_id: str) -> bool:
         """Finds product by ID, gathers user input, and validates update."""
-        # ❌ CHANGE THIS: product = self._products.get(product_id)
-        
-        #  FIXED LINE (Use 'self.inventory' to match your class variable):
         product = self.inventory.get(product_id)
         
         if not product:

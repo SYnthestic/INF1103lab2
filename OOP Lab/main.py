@@ -114,15 +114,18 @@ while key != 6:
             user_choice = input("Enter choice (1-2): ").strip()
             
             is_digital = (user_choice == "2") 
+            is_physical = (user_choice == "1")
             product_class = DigitalProduct if is_digital else PhysicalProduct
             
             try:
-                # 1. Build the object structure safely
                 new_product = product_class.from_ui(product_id, name, price, stock)
-                
-                # 2. Let the inventory handle the stock verification checks
+                if is_physical:
+                    shipping_price = new_product.calculate_shipping_cost()
+                    print(f"Calculated Shipping Cost: ${shipping_price:.2f}")
+
                 delivery_amount, next_id = inventory_entry.add_product(new_product)
-                print(new_product.get_fulfilment_info()) 
+                print(new_product.get_fulfilment_info())
+
                 
             except (ValueError, TypeError) as validation_err:
                 print(f"Insertion Error: {validation_err}")
@@ -139,7 +142,6 @@ while key != 6:
                 print("Product not found.")
                 failed_entries += 1
             else:
-                # 2. Call the method EXACTLY ONCE and store the result (True/False)
                 success = inventory_entry.update_stock(target_id)
 
                 # 3. Check the stored result variable
