@@ -35,13 +35,18 @@ class Product:
         print(f"Stock updated. New stock: {self.stock}")
         return True
 
-    def display_information(self) -> None:
-        print(
+    # 1. This method builds the raw text and returns it
+    def get_information_string(self) -> str:
+        return (
             f"ID: {self.product_id} | "
             f"Name: {self.name} | "
             f"Price: ${self.price:.2f} | "
             f"Stock: {self.stock}"
         )
+
+    # 2. This method simply prints whatever the method above returns
+    def display_information(self) -> None:
+        print(self.get_information_string())
 
     @staticmethod
     def process_delivery(inventory) -> int:
