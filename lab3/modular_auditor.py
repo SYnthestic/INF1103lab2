@@ -21,7 +21,7 @@ def get_valid_input(failed_entries, delivery_amount, inventory_entry, entry_inp)
 
     return failed_entries, delivery_amount
 
-def (delivery_amount, entry_inp):
+def process_delivery(delivery_amount, entry_inp):
     if entry_inp > 0:
         delivery_amount += entry_inp
         print(f"Delivery amount updated to: {delivery_amount}")

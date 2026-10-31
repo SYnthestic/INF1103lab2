@@ -159,7 +159,7 @@ def process_delivery(delivery_amount, quantity_inp):
 def calculate_tax(delivery_amount):
     tax_rate = 0.1  # 10% tax rate
     tax_amount = delivery_amount * tax_rate
-    print("Tax Amount is: ${}".format(tax_amount))
+    print(f"Tax Amount is: ${tax_amount}")
     return tax_amount
 
 

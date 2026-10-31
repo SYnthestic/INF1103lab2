@@ -1,3 +1,81 @@
+commit 887a46bed6ab7e15950b34cb1f8bc263b6e19c33
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 21:00:38 2026 +0800
+
+    Finally have a working UML file, tested on Docker, and consolidated everything. Including even the Docu. Just need log.txt and this is ready to submit
+
+commit 91fe9b059c7e9d6bf535f7c05e14e8ce6762e62e
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 16:56:13 2026 +0800
+
+    Finally. Had to use an online editor to conform PNG to expectaions because pyreverse cannot do abstracts and interfaces
+
+commit e81bdec0dfcd186227c7da562255ed5b27832995
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 16:22:41 2026 +0800
+
+    Renamed folder. NEed to find a way to make the diagram acknowledge abstract relations
+
+commit 02737a6741abb407c78ee0be50a66223347c9a30
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 13:07:12 2026 +0800
+
+    Added a SubscriptionProduct class. Still needs refinement
+
+commit 684ca6bbb993183a393591cd1656fdf42686fa70
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 12:23:14 2026 +0800
+
+    Stopped instantiating Product directly, tested everything and it works!
+
+commit c9c48645e28a98fae9d470580a8df359c982eea8
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 01:38:08 2026 +0800
+
+    Added and tested total shipping fees
+
+commit a5c8ae5333826488cde3a95aee43fc7bc5c05722
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 00:00:25 2026 +0800
+
+    Managed to add shipping cost. Only need to integrate this to the main app
+
+commit 9d1de6505c74cff06a708074f283245e8535e7b9
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 17:19:29 2026 +0800
+
+    Managed to integrate get_fulfilment_info into overall program
+
+commit e2c21616f5d6ee7a7601f06b42a76cd0263a6aa7
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 17:10:23 2026 +0800
+
+    Painful, but put update_stock and validate_stock into Inventory class
+
+commit 960d1b1c01f85d4affeb534abc3154d2120d7099
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:54:32 2026 +0800
+
+    Tested testrun. Both child classes appear to work! Time to integrate it to main.py!
+
+commit e49d965f247e490eb8db6e708860ec630a1a5330
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:46:19 2026 +0800
+
+    Did abit of refinement. Still haven't tested or integrated child classes to main
+
+commit 62bfd600b7d098fa1f53d197522839b944943f5e
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:31:45 2026 +0800
+
+    Added the 2 child classes. Haven't tested yet
+
+commit 103de067bef13433ffc6149fe447061f98eac898
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:22:16 2026 +0800
+
+    Commiting change in folder name
+
 commit 477bcc3bc617d233e828eb6ca7dab3e3fab50863
 Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
 Date:   Fri Oct 30 01:28:38 2026 +0800
