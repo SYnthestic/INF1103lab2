@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 4345,
+    "delivery_amount": 4347,
     "inventory": {
         "P001": {
             "name": "Laptop",
@@ -189,6 +189,13 @@
             "stock": 473,
             "type": "physical",
             "weight": 3.28
+        },
+        "P028": {
+            "name": "Class Subscription",
+            "price": 12.12,
+            "stock": 2,
+            "type": "subscription",
+            "duration_months": 36
         }
     }
 }

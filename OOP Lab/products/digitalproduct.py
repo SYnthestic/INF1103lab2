@@ -1,6 +1,8 @@
 from product import Product
+from product_registry import register_product
 
 
+@register_product("Digital")
 class DigitalProduct(Product):
     def __init__(self, product_id: str, name: str, price: float, stock: int, download_size: float): 
         super().__init__(

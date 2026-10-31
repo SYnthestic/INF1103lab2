@@ -1,9 +1,10 @@
 import json
 import os
 
-from digitalproduct import DigitalProduct
+from products.digitalproduct import DigitalProduct
 from inventory import Inventory
-from physicalproduct import PhysicalProduct
+from products.physicalproduct import PhysicalProduct
+from products.subscriptionproduct import SubscriptionProduct
 
 
 class FileHandling:
@@ -55,6 +56,14 @@ class FileHandling:
                         int(details["stock"]),
                         download_size=size
                     )
+                elif product_type == "subscription":
+                    product = SubscriptionProduct(
+                        product_id,
+                        details["name"],
+                        float(details["price"]),
+                        int(details["stock"]),
+                        int(details["duration_months"]),
+                    )
                 else:
                     continue # Skip unknown custom formats entirely
 
@@ -100,6 +109,9 @@ class FileHandling:
             elif isinstance(product, PhysicalProduct):
                 product_data["type"] = "physical"
                 product_data["weight"] = product.weight
+            elif isinstance(product, SubscriptionProduct):
+                product_data["type"] = "subscription"
+                product_data["duration_months"] = product.duration_months
             else:
                 pass  # Leaves out 'type' for legacy generic objects
 

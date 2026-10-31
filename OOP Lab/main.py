@@ -1,9 +1,7 @@
 import os
 
-from digitalproduct import DigitalProduct
 from filehandling import FileHandling
-from physicalproduct import PhysicalProduct
-from product import Product
+from product_registry import get_product_types
 
 quantity_inp = "0"
 product_id = "P001"
@@ -27,6 +25,17 @@ elif load_status == "invalid_file":
 else:
     print("Inventory loaded successfully.")
 
+def select_product_class():
+    types = list(get_product_types().items())
+    print("Select Product Type:")
+    for number, (label, _) in enumerate(types, start=1):
+        print(f"{number}. {label} Product")
+
+    choice = input(f"Enter choice (1-{len(types)}): ").strip()
+    try:
+        return types[int(choice) - 1][1]
+    except (ValueError, IndexError):
+        return None
 
 def get_valid_input(inventory_entry, failed_entries: int):
     next_num = len(inventory_entry.inventory) + 1
@@ -109,29 +118,17 @@ while key != 6:
         case 2:
             print("Adding new product...")
             product_id, name, price, stock, failed_entries = get_valid_input(inventory_entry, failed_entries)
-            
-            print("Select Product Type:")
-            print("1. Physical Product")
-            print("2. Digital Product")
-            user_choice = input("Enter choice (1-2): ").strip()
-            
-            is_digital = (user_choice == "2") 
-            is_physical = (user_choice == "1")
-            product_class = DigitalProduct if is_digital else PhysicalProduct
-            
+
+            product_class = select_product_class()
+            if product_class is None:
+                print("Invalid choice.")
+                continue  # or return, depending on where this code lives
+
             try:
                 new_product = product_class.from_ui(product_id, name, price, stock)
 
-                if is_physical:
-                    # Triggers your custom weight calculation formulas
-                    product_fee = new_product.calculate_shipping_cost()
-                    print(f"This item's shipping cost: ${product_fee:.2f}")
-
-                # Your original stock-based delivery logic remains completely untouched here
                 delivery_amount, next_id = inventory_entry.add_product(new_product)
-                print(new_product.get_fulfilment_info()) 
-
-                # If you need to print the combined shipping costs for the whole inventory:
+                print(new_product.get_fulfilment_info())
                 print(f"Total Inventory Shipping Fees: ${inventory_entry.total_shipping_fees():.2f}")
 
                 
