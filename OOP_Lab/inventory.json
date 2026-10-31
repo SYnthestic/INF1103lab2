@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 0,
+    "delivery_amount": 4829,
     "inventory": {
         "P001": {
             "name": "Laptop",
@@ -196,6 +196,13 @@
             "stock": 2,
             "type": "subscription",
             "duration_months": 36
+        },
+        "P029": {
+            "name": "FocusTown App",
+            "price": 1.19,
+            "stock": 456,
+            "type": "digital",
+            "download_size": 565.23
         }
     }
 }
