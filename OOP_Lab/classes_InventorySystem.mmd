@@ -1,0 +1,26 @@
+classDiagram
+  class FileHandling {
+    path : str
+    load_inventory() tuple[Inventory, str]
+    save_inventory(inventory, delivery_amount, file_name)
+  }
+  class Inventory {
+    failed_entries : int
+    inventory : dict
+    add_product(product: Product, delivery_amount: float)
+    display_all() None
+    get_valid_input(failed_entries: int)
+    next_product_id() str
+    search_product(product_id: str)
+  }
+  class Product {
+    name
+    price
+    product_id
+    quantity
+    calculate_tax(delivery_amount)
+    display_information() None
+    goodbye_message()
+    process_delivery(delivery_amount: float, quantity_inp: int) float
+    update_stock(inventory_entry, product_id, delivery_amount, failed_entries)
+  }
