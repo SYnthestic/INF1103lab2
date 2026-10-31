@@ -1,0 +1,80 @@
+@startuml classes_IMS
+set namespaceSeparator none
+
+class "Product" as product.Product <<abstract>> {
+  name
+  price
+  product_id
+  stock
+  type_name : str
+  display_information() -> None
+  {abstract}from_dict(product_id: str, details: dict) -> 'Product'
+  {abstract}get_fulfilment_info()
+  get_information_string() -> str
+  to_dict() -> dict
+}
+
+class "CanBeShipped" as canbeshipped.CanBeShipped <<interface>> {
+  {abstract}calculate_shipping_cost()
+}
+
+class "DigitalProduct" as products.digitalproduct.DigitalProduct {
+  download_size : float
+  display_information() -> None
+  from_dict(product_id, details)
+  from_ui(product_id, name, price, stock)
+  get_fulfilment_info()
+  to_dict() -> dict
+}
+
+class "FileHandling" as filehandling.FileHandling {
+  path : str
+  load_inventory() -> tuple[Inventory, str]
+  save_inventory(inventory, delivery_amount, file_name)
+}
+
+class "Inventory" as inventory.Inventory {
+  failed_entries : int
+  inventory : dict
+  add_product(product: Product)
+  calculate_tax() -> float
+  display_all() -> None
+  next_product_id() -> str
+  process_delivery() -> int
+  search_product(product_id: str)
+  total_delivery() -> int
+  total_shipping_fees() -> float
+  update_stock(product_id: str) -> bool
+  validate_stock(product, quantity: int) -> None
+}
+
+class "PhysicalProduct" as products.physicalproduct.PhysicalProduct {
+  calculated_shipping_cost
+  weight : float
+  calculate_shipping_cost()
+  display_information() -> None
+  from_dict(product_id, details)
+  from_ui(product_id, name, price, stock)
+  get_fulfilment_info()
+  to_dict() -> dict
+}
+
+class "SubscriptionProduct" as products.subscriptionproduct.SubscriptionProduct {
+  duration_months : int
+  subscription_fee : float
+  display_information() -> None
+  from_dict(product_id, details)
+  from_ui(product_id, name, price, stock)
+  get_fulfilment_info() -> str
+  to_dict() -> dict
+}
+
+products.digitalproduct.DigitalProduct --|> product.Product
+products.subscriptionproduct.SubscriptionProduct --|> product.Product
+products.physicalproduct.PhysicalProduct --|> product.Product
+
+products.physicalproduct.PhysicalProduct ..|> canbeshipped.CanBeShipped : Interface Realisation
+
+inventory.Inventory "1" o-- "0..*" product.Product : Aggregation
+
+@enduml

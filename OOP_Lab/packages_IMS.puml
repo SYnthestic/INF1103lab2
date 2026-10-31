@@ -1,0 +1,45 @@
+@startuml packages_IMS
+set namespaceSeparator none
+package "__init__" as __init__ {
+}
+package "canbeshipped" as canbeshipped {
+}
+package "filehandling" as filehandling {
+}
+package "fix_puml" as fix_puml {
+}
+package "inventory" as inventory {
+}
+package "main" as main {
+}
+package "product" as product {
+}
+package "product_registry" as product_registry {
+}
+package "products" as products {
+}
+package "products.digitalproduct" as products.digitalproduct {
+}
+package "products.physicalproduct" as products.physicalproduct {
+}
+package "products.subscriptionproduct" as products.subscriptionproduct {
+}
+package "testrun" as testrun {
+}
+filehandling --> inventory
+filehandling --> products.digitalproduct
+filehandling --> products.physicalproduct
+filehandling --> products.subscriptionproduct
+inventory --> canbeshipped
+inventory --> product
+main --> filehandling
+main --> product_registry
+products.digitalproduct --> product
+products.digitalproduct --> product_registry
+products.physicalproduct --> canbeshipped
+products.physicalproduct --> product
+products.physicalproduct --> product_registry
+products.subscriptionproduct --> product
+products.subscriptionproduct --> product_registry
+testrun --> inventory
+@enduml

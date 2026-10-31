@@ -1,23 +1,23 @@
 @startuml packages
 set namespaceSeparator none
-package "OOP Lab.canbeshipped" as OOP Lab.canbeshipped {
+package "OOP_Lab.canbeshipped" as OOP_Lab.canbeshipped {
 }
-package "OOP Lab.filehandling" as OOP Lab.filehandling {
+package "OOP_Lab.filehandling" as OOP_Lab.filehandling {
 }
-package "OOP Lab.inventory" as OOP Lab.inventory {
+package "OOP_Lab.inventory" as OOP_Lab.inventory {
 }
-package "OOP Lab.product" as OOP Lab.product {
+package "OOP_Lab.product" as OOP_Lab.product {
 }
-package "OOP Lab.products.digitalproduct" as OOP Lab.products.digitalproduct {
+package "OOP_Lab.products.digitalproduct" as OOP_Lab.products.digitalproduct {
 }
-package "OOP Lab.products.physicalproduct" as OOP Lab.products.physicalproduct {
+package "OOP_Lab.products.physicalproduct" as OOP_Lab.products.physicalproduct {
 }
-package "OOP Lab.products.subscriptionproduct" as OOP Lab.products.subscriptionproduct {
+package "OOP_Lab.products.subscriptionproduct" as OOP_Lab.products.subscriptionproduct {
 }
-OOP Lab.filehandling --> OOP Lab.inventory
-OOP Lab.filehandling --> OOP Lab.products.digitalproduct
-OOP Lab.filehandling --> OOP Lab.products.physicalproduct
-OOP Lab.filehandling --> OOP Lab.products.subscriptionproduct
-OOP Lab.inventory --> OOP Lab.canbeshipped
-OOP Lab.inventory --> OOP Lab.product
+OOP_Lab.filehandling --> OOP_Lab.inventory
+OOP_Lab.filehandling --> OOP_Lab.products.digitalproduct
+OOP_Lab.filehandling --> OOP_Lab.products.physicalproduct
+OOP_Lab.filehandling --> OOP_Lab.products.subscriptionproduct
+OOP_Lab.inventory --> OOP_Lab.canbeshipped
+OOP_Lab.inventory --> OOP_Lab.product
 @enduml
