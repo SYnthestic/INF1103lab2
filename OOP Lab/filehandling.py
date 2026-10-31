@@ -1,9 +1,9 @@
 import json
 import os
 
-from inventory import Inventory
-from physicalproduct import PhysicalProduct 
 from digitalproduct import DigitalProduct
+from inventory import Inventory
+from physicalproduct import PhysicalProduct
 
 
 class FileHandling:
@@ -62,7 +62,7 @@ class FileHandling:
                 # stock crash the entire file import sequence.
                 try:
                     # Capturing the returned tuple unpack so Python doesn't throw a ValueError
-                    processed_delivery, next_id = inventory.add_product(product)
+                    _processed_delivery, _next_id = inventory.add_product(product)
                 except (ValueError, TypeError) as val_error:
                     print(f"DEBUG skip product {product_id}: {val_error}")
                     continue

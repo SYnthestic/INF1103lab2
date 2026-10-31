@@ -1,6 +1,6 @@
-import os, json
-from product import Product
 from canbeshipped import CanBeShipped
+from product import Product
+
 
 class Inventory:
     """Holds products. It does not extend Product, because it HAS products."""
@@ -23,17 +23,24 @@ class Inventory:
             
         print("-" * 60)
 
+    def process_delivery(self) -> int:
+        """Recalculates delivery metrics from the internal inventory context."""
+        # Clean OOP: Call its own method using 'self'
+        #Sending this over from Product to Inventory, aka here
+        total = self.total_delivery()
+        print(f"Delivery amount updated to: {total}")
+        return total
 
 
     def add_product(self, product: Product):
         self.validate_stock(product, product.stock)
-
         self.inventory[product.product_id] = product
         print(f"Product '{product.name}' added successfully!")
 
-        processed_delivery = Product.process_delivery(self)
+        
+        processed_delivery = self.process_delivery()
 
-        current_numeric_id = int(product.product_id[1:])      # "P001" -> 1
+        current_numeric_id = int(product.product_id[1:])
         next_product_id = "P" + str(current_numeric_id + 1).zfill(3)
 
         return processed_delivery, next_product_id
@@ -77,6 +84,18 @@ class Inventory:
         if product is None:
             self.failed_entries += 1
         return product
+
+    def calculate_tax(self) -> float:
+        """Calculates a 10% tax based on the current system-wide delivery amount."""
+        tax_rate = 0.1
+        
+        # 1. Grab the current delivery amount directly from this inventory instance
+        current_delivery = self.total_delivery() 
+        
+        # 2. Perform the math
+        tax_amount = current_delivery * tax_rate
+        print(f"Tax Amount is: ${tax_amount:.2f}")
+        return tax_amount
 
     def total_delivery(self) -> int:
         return sum(product.stock for product in self.inventory.values())

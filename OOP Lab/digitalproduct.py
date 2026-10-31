@@ -1,6 +1,5 @@
-import io
-import sys
 from product import Product
+
 
 class DigitalProduct(Product):
     def __init__(self, product_id: str, name: str, price: float, stock: int, download_size: float): 

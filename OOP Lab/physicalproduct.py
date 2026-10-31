@@ -1,7 +1,7 @@
-import io
-import sys
-from product import Product
 from canbeshipped import CanBeShipped
+from product import Product
+
+
 class PhysicalProduct(Product, CanBeShipped):
     def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float):
         super().__init__(product_id, name, price, stock)
@@ -20,8 +20,14 @@ class PhysicalProduct(Product, CanBeShipped):
         return cls(product_id, name, price, stock, weight)
 
     def display_information(self) -> None:
+        # 1. Get the shared baseline details (ID, Name, Price, Stock)
         base_info = super().get_information_string()
-        print(base_info + f" | Weight: {self.weight}kg")
+        
+        # 2. Calculate this specific item's individual shipping cost
+        item_shipping_cost = self.calculate_shipping_cost()
+        
+        # 3. Print the combined metrics cleanly with correct labels
+        print(base_info + f" | Weight: {self.weight:.2f}kg | Shipping Cost: ${item_shipping_cost:.2f}")
 
     def get_fulfilment_info(self):
             '''PhysicalProduct returns a message explaining that the product requires physical shipping. '''

@@ -1,8 +1,7 @@
 
+from digitalproduct import DigitalProduct
 from inventory import Inventory
 from physicalproduct import PhysicalProduct
-from digitalproduct import DigitalProduct
-
 
 inventory = Inventory() # creating the inventory object from the Inventory class 
 # 3. Create the object from the SUBCLASS instead of the parent class

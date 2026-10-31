@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Product(ABC):
     def __init__(self, product_id: str, name: str, price: float, stock: int):
         self.__product_id = product_id
@@ -40,24 +41,3 @@ class Product(ABC):
     @abstractmethod
     def get_fulfilment_info():
         pass
-
-    @staticmethod
-    def process_delivery(inventory) -> int:
-        total = inventory.total_delivery()
-        print(f"Delivery amount updated to: {total}")
-        return total
-
-
-    @staticmethod
-    def calculate_tax(delivery_amount):
-        tax_rate = 0.1  
-        tax_amount = delivery_amount * tax_rate
-        print(f"Tax Amount is: ${tax_amount:.2f}")
-        return tax_amount
-    
-
-    @staticmethod
-    def goodbye_message():
-        print('''
-    Thank you for using Inventory Management System.
-    Program terminated.''')

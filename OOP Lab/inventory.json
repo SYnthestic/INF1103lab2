@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 3427,
+    "delivery_amount": 4345,
     "inventory": {
         "P001": {
             "name": "Laptop",
@@ -161,6 +161,34 @@
             "stock": 3,
             "type": "physical",
             "weight": 190380.0
+        },
+        "P024": {
+            "name": "Panzer Tiger Tank",
+            "price": 42901900.0,
+            "stock": 5,
+            "type": "physical",
+            "weight": 561020.0
+        },
+        "P025": {
+            "name": "Panzer V Panther Tank",
+            "price": 37294090.0,
+            "stock": 1,
+            "type": "physical",
+            "weight": 372910.0
+        },
+        "P026": {
+            "name": "Panther Tank eBook operations manual",
+            "price": 187.39,
+            "stock": 439,
+            "type": "digital",
+            "download_size": 892.45
+        },
+        "P027": {
+            "name": "Kar-98k",
+            "price": 189.45,
+            "stock": 473,
+            "type": "physical",
+            "weight": 3.28
         }
     }
 }

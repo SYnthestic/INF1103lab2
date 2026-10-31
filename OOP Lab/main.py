@@ -1,11 +1,9 @@
 import os
-import json
 
-from product import Product
 from digitalproduct import DigitalProduct
+from filehandling import FileHandling
 from physicalproduct import PhysicalProduct
-from inventory import Inventory
-from filehandling import FileHandling 
+from product import Product
 
 quantity_inp = "0"
 product_id = "P001"
@@ -65,6 +63,11 @@ def get_valid_input(inventory_entry, failed_entries: int):
 
         # 5. Return the clean, validated variables back to the main loop
         return product_id, name, price, stock, failed_entries
+
+def display_goodbye_message():
+    print('''
+    Thank you for using Inventory Management System.
+    Program terminated.''')
 
 
 
@@ -153,7 +156,7 @@ while key != 6:
                 if not success:
                     failed_entries += 1
                 else:
-                    delivery_amount = Product.process_delivery(inventory_entry)
+                    delivery_amount = inventory_entry.process_delivery()
 
         case 4:
             print("Searching Product")
@@ -179,7 +182,7 @@ while key != 6:
         case 6:
             print("Saving inventory before exit.")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
-            Product.goodbye_message()
+            display_goodbye_message()
             break
 
         case _:
