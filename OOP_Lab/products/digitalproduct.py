@@ -1,15 +1,23 @@
 from product import Product
 from product_registry import register_product
+from supplier import Supplier
 
 
 @register_product("Digital")
 class DigitalProduct(Product):
-    def __init__(self, product_id: str, name: str, price: float, stock: int, download_size: float): 
+    def __init__(self,
+                  product_id: str,
+                    name: str,
+                      price: float,
+                        stock: int,
+                          supplier: Supplier | None = None,
+                            download_size: float = 0.0): 
         super().__init__(
             product_id=product_id,
             name=name,
             price=price,
-            stock=stock
+            stock=stock,
+            supplier=supplier
         )
         self.download_size = download_size # in MB, which is float
 

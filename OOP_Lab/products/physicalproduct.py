@@ -1,13 +1,24 @@
+
 from canbeshipped import CanBeShipped
 from product import Product
 from product_registry import register_product
+from supplier import Supplier
 
 
 @register_product("Physical")
 class PhysicalProduct(Product, CanBeShipped):
-    def __init__(self, product_id: str, name: str, price: float, stock: int, weight: float):
-        super().__init__(product_id, name, price, stock)
+    def __init__(
+        self,
+        product_id: str,
+        name: str,
+        price: float,
+        stock: int,
+        supplier: Supplier | None = None,
+        weight: float = 0.0,
+    ):
+        super().__init__(product_id, name, price, stock, supplier=supplier)
         self.weight = weight
+
 
     #Calculates the shipping cost
     def calculate_shipping_cost(self):

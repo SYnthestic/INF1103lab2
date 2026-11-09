@@ -1,3 +1,9 @@
+commit 1513e2c0b8d3eac8631dc3c6978f1783dd015ad0
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 21:01:12 2026 +0800
+
+    Settling README
+
 commit 887a46bed6ab7e15950b34cb1f8bc263b6e19c33
 Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
 Date:   Sat Oct 31 21:00:38 2026 +0800

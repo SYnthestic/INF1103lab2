@@ -1,12 +1,13 @@
 from product import Product
 from product_registry import register_product
+from supplier import Supplier
 
 
 @register_product("Subscription")
 class SubscriptionProduct(Product):
-    def __init__(self, product_id: str, name: str, price: float, stock: int,
-                 duration_months: int):
-        super().__init__(product_id, name, price, stock)
+    def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier | None = None,
+                 duration_months: int = 0):
+        super().__init__(product_id, name, price, stock, supplier=supplier)
         self.duration_months = duration_months
 
     @property
