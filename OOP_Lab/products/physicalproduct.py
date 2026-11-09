@@ -7,17 +7,13 @@ from supplier import Supplier
 
 @register_product("Physical")
 class PhysicalProduct(Product, CanBeShipped):
-    def __init__(
-        self,
-        product_id: str,
-        name: str,
-        price: float,
-        stock: int,
-        supplier: Supplier | None = None,
-        weight: float = 0.0,
-    ):
-        super().__init__(product_id, name, price, stock, supplier=supplier)
+    type_name = "physical"
+    def __init__(self, product_id: str, name: str, price: float, stock: int,
+             supplier: Supplier, weight: float = 0.0):
+        super().__init__(product_id, name, price, stock, supplier)
         self.weight = weight
+
+        
 
 
     #Calculates the shipping cost
@@ -26,11 +22,11 @@ class PhysicalProduct(Product, CanBeShipped):
         return self.calculated_shipping_cost
 
     @classmethod
-    def from_ui(cls, product_id, name, price, stock):
+    def from_ui(cls, product_id, name, price, stock, supplier):
         """OOP Factory Method: Solves the missing argument by gathering it polymorphically."""
         size_input = input("Enter weight (in kg): ").strip()
         weight = float(size_input) if size_input else 0.0
-        return cls(product_id, name, price, stock, weight)
+        return cls(product_id, name, price, stock, supplier, weight)
 
     def to_dict(self) -> dict:
             data = super().to_dict()
@@ -40,7 +36,7 @@ class PhysicalProduct(Product, CanBeShipped):
     @classmethod
     def from_dict(cls, product_id, details):
             return cls(product_id, details["name"], float(details["price"]),
-                int(details["stock"]), int(details["weight"]))
+                int(details["stock"]), Supplier.from_dict(details.get("supplier")), float(details.get("weight", 0.0)))
 
     def display_information(self) -> None:
         # 1. Get the shared baseline details (ID, Name, Price, Stock)

@@ -2,6 +2,7 @@ import os
 
 from filehandling import FileHandling
 from product_registry import get_product_types
+from supplier import Supplier
 
 quantity_inp = "0"
 product_id = "P001"
@@ -73,6 +74,15 @@ def get_valid_input(inventory_entry, failed_entries: int):
         # 5. Return the clean, validated variables back to the main loop
         return product_id, name, price, stock, failed_entries
 
+def get_supplier() -> Supplier:
+    while True:
+        supplier_id = input("Enter Supplier ID: ").strip()
+        supplier_name = input("Enter Supplier Name: ").strip()
+        supplier_email = input("Enter Supplier Contact Email: ").strip()
+        if supplier_id and supplier_name and supplier_email:
+            return Supplier(supplier_id, supplier_name, supplier_email)
+        print("Error! Supplier ID, name, and email cannot be blank.\n")
+
 def display_goodbye_message():
     print('''
     Thank you for using Inventory Management System.
@@ -122,10 +132,12 @@ while key != 6:
             product_class = select_product_class()
             if product_class is None:
                 print("Invalid choice.")
-                continue  # or return, depending on where this code lives
+                continue
+
+            supplier = get_supplier()
 
             try:
-                new_product = product_class.from_ui(product_id, name, price, stock)
+                new_product = product_class.from_ui(product_id, name, price, stock, supplier)
 
                 delivery_amount, next_id = inventory_entry.add_product(new_product)
                 print(new_product.get_fulfilment_info())

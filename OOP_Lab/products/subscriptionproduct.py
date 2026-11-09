@@ -5,7 +5,8 @@ from supplier import Supplier
 
 @register_product("Subscription")
 class SubscriptionProduct(Product):
-    def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier | None = None,
+    type_name = "subscription"
+    def __init__(self, product_id: str, name: str, price: float, stock: int, supplier: Supplier,
                  duration_months: int = 0):
         super().__init__(product_id, name, price, stock, supplier=supplier)
         self.duration_months = duration_months
@@ -16,7 +17,7 @@ class SubscriptionProduct(Product):
         return self.price
 
     @classmethod
-    def from_ui(cls, product_id, name, price, stock):
+    def from_ui(cls, product_id, name, price, stock, supplier):
         """Factory method: prompts for the extra field this type needs."""
         while True:
             try:
@@ -26,7 +27,7 @@ class SubscriptionProduct(Product):
                 print("Duration must be greater than 0.")
             except ValueError:
                 print("Please enter a whole number.")
-        return cls(product_id, name, price, stock, duration)
+        return cls(product_id, name, price, stock, supplier, duration)
 
     def to_dict(self) -> dict:
         data = super().to_dict()
@@ -36,7 +37,7 @@ class SubscriptionProduct(Product):
     @classmethod
     def from_dict(cls, product_id, details):
         return cls(product_id, details["name"], float(details["price"]),
-                   int(details["stock"]), int(details["duration_months"]))
+                   int(details["stock"]), Supplier.from_dict(details.get("supplier")),int(details["duration_months"]))
 
     def display_information(self) -> None:
         base_info = super().get_information_string()

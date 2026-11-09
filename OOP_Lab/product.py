@@ -38,6 +38,7 @@ class Product(ABC):
             "name": self.name,
             "price": self.price,
             "stock": self.stock,
+            "supplier": self.supplier.to_dict() if self.supplier else None,
         }
 
     def get_information_string(self) -> str:
@@ -45,7 +46,8 @@ class Product(ABC):
             f"ID: {self.product_id} | "
             f"Name: {self.name} | "
             f"Price: ${self.price:.2f} | "
-            f"Stock: {self.stock}"
+            f"Stock: {self.stock} | "
+            f"Supplier: {self.supplier.name if self.supplier else 'N/A'}"
         )
 
     def display_information(self) -> None:
