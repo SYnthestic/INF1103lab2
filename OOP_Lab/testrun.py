@@ -38,7 +38,7 @@ product7 = PhysicalProduct("P008", "CAC290", 43810.0, 1, default_supplier, weigh
 inventory.add_product(product7)
 
 print("--- Displaying All Initial Products ---")
-inventory.display_all()
+inventory.display_all_products()
 print("-" * 60)
 
 # ==========================================

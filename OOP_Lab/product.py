@@ -54,7 +54,7 @@ class Product(ABC):
         print(self.get_information_string())
 
     @abstractmethod
-    def get_fulfilment_info():
+    def get_fulfilment_info(self) -> str:
         pass
 
     @classmethod

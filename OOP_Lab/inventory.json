@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 0,
+    "delivery_amount": 14,
     "inventory": {
         "P001": {
             "type": "physical",

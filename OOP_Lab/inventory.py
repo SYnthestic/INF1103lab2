@@ -54,7 +54,7 @@ class Inventory:
         self.inventory.remove(product)
         return product
 
-    def display_all(self) -> None:
+    def display_all_products(self) -> None:
         for product in self.inventory:
             product.display_information()
 

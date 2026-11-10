@@ -3,6 +3,7 @@ import os
 from filehandling import FileHandling
 from product_registry import get_product_types
 from supplier import Supplier
+from product import Product
 
 quantity_inp = "0"
 product_id = "P001"
@@ -87,6 +88,15 @@ def get_supplier() -> Supplier:
             return Supplier(supplier_id, supplier_name, supplier_email)
         print("Error! Supplier ID, name, and email cannot be blank.\n")
 
+# Place this with your other helper functions at the top of main.py
+def show_product_details(product: Product) -> None:
+    """Polymorphically prints a product's shared catalog information
+
+    followed by its specific subclass fulfillment details.
+    """
+    product.display_information()
+    print(product.get_fulfilment_info())
+
 def display_goodbye_message():
     print('''
     Thank you for using Inventory Management System.
@@ -123,7 +133,7 @@ while key != 7:
             if not inventory_entry.inventory:
                 print("Inventory is empty.")
             else:
-                inventory_entry.display_all()
+                inventory_entry.display_all_products()
                 print("-" * 60)
         case 2:
             print("Adding new product...")
@@ -172,7 +182,10 @@ while key != 7:
             else:
                 print("Product Found")
                 print("-" * 60)
-                product.display_information()
+                
+                # INTEGRATION POINT: Call the polymorphic function here
+                show_product_details(product)
+                
                 print("-" * 60)
 
         case 5:
