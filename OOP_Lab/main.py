@@ -39,7 +39,11 @@ def select_product_class():
         return None
 
 def get_valid_input(inventory_entry, failed_entries: int):
-    next_num = len(inventory_entry.inventory) + 1
+    # Dynamic ID assignment based on maximum current element suffix to protect against deletion gaps
+    if not inventory_entry.inventory:
+        next_num = 1
+    else:
+        next_num = max(int(p.product_id[1:]) for p in inventory_entry.inventory) + 1
     product_id = "P" + str(next_num).zfill(3)
 
     while True:
@@ -90,10 +94,7 @@ def display_goodbye_message():
 
 
 
-
-
-
-while key != 6:
+while key != 7:
     keyverify = False
     while keyverify == False:
         print('''
@@ -122,9 +123,7 @@ while key != 6:
             if not inventory_entry.inventory:
                 print("Inventory is empty.")
             else:
-                # Loop through all Product object instances stored in the dictionary
                 inventory_entry.display_all()
-                    
                 print("-" * 60)
         case 2:
             print("Adding new product...")
@@ -144,25 +143,19 @@ while key != 6:
                 print(new_product.get_fulfilment_info())
                 print(f"Total Inventory Shipping Fees: ${inventory_entry.total_shipping_fees():.2f}")
 
-                
             except (ValueError, TypeError) as validation_err:
                 print(f"Insertion Error: {validation_err}")
-                # Keep track of bad operational steps if your lab tracks them
                 failed_entries += 1 
-
 
         case 3:
             print("Update Stock")
             target_id = input("Enter Product ID to update stock: ").strip()
 
-            # 1. Check if the ID is empty before doing anything else
             if not target_id:
                 print("Product not found.")
                 failed_entries += 1
             else:
                 success = inventory_entry.update_stock(target_id)
-
-                # 3. Check the stored result variable
                 if not success:
                     failed_entries += 1
                 else:
@@ -170,8 +163,6 @@ while key != 6:
 
         case 4:
             print("Searching Product")
-            # Call the method on the object instance. 
-            # Python automatically passes the instance as 'self' behind the scenes!
             product_id = input("Enter Product ID: ").strip()
             product = inventory_entry.search_product(product_id)
 
@@ -202,7 +193,6 @@ while key != 6:
                 else:
                     delivery_amount = inventory_entry.process_delivery()
                     print(f"Product '{removed.name}' ({removed.product_id}) removed successfully.")
-
 
         case 6:
             print("Saving inventory...")

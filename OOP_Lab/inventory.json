@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 0,
+    "delivery_amount": 12,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -360,6 +360,18 @@
                 "contact_email": "ww3combat@gmail.com"
             },
             "weight": 28000.0
+        },
+        "P031": {
+            "type": "physical",
+            "name": "RMS Titanic",
+            "price": 399000000.0,
+            "stock": 1,
+            "supplier": {
+                "supplier_id": "S-003",
+                "name": "Harland and Wolff Shipyard",
+                "contact_email": "hnwships@yahoo.co.uk"
+            },
+            "weight": 46318000.0
         }
     }
 }
