@@ -102,8 +102,9 @@ while key != 6:
 2. Add Product 
 3. Update Stock 
 4. Search Product 
-5. Save Inventory 
-6. Exit 
+5. Remove Product
+6. Save Inventory 
+7. Exit 
 ----------------------------''')
         key = input("Enter option: ")
         if len(key) == 0:
@@ -182,13 +183,32 @@ while key != 6:
                 print("-" * 60)
                 product.display_information()
                 print("-" * 60)
-                        
 
         case 5:
+            print("Removing Product")
+            if not inventory_entry.inventory:
+                print("Inventory is empty.")
+                continue
+
+            product_id = input("Enter Product ID to remove: ").strip()
+            if not product_id:
+                print("Error! Product ID cannot be blank.")
+                failed_entries += 1
+            else:
+                removed = inventory_entry.remove_product(product_id)
+                if removed is None:
+                    print("Product not found.")
+                    failed_entries += 1
+                else:
+                    delivery_amount = inventory_entry.process_delivery()
+                    print(f"Product '{removed.name}' ({removed.product_id}) removed successfully.")
+
+
+        case 6:
             print("Saving inventory...")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
 
-        case 6:
+        case 7:
             print("Saving inventory before exit.")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             display_goodbye_message()

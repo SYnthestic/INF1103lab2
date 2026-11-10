@@ -34,7 +34,17 @@ class FileHandling:
             with open(self._path, "r", encoding="utf-8") as file:
                 data = json.load(file)
 
-            for product_id, details in data["inventory"].items():
+            raw_inventory = data.get("inventory", [])
+
+            # Support both dict format {product_id: details} and list format [details, ...]
+            if isinstance(raw_inventory, dict):
+                entries = raw_inventory.items()
+            elif isinstance(raw_inventory, list):
+                entries = [(item.get("product_id", ""), item) for item in raw_inventory]
+            else:
+                return Inventory(), "invalid_file"
+
+            for product_id, details in entries:
                 # 1. Deduce the product type from modern tag or legacy keys
                 product_type = details.get("type")
                 if not product_type:
@@ -65,20 +75,11 @@ class FileHandling:
         return inventory, "loaded"
 
     @staticmethod
-    def save_inventory(inventory, delivery_amount, file_name):
-        # 1. Safely extract the inner products dictionary from the Inventory instance
-        if hasattr(inventory, '_products'):
-            inv_dict = inventory._products
-        elif hasattr(inventory, 'products'):
-            inv_dict = inventory.products
-        elif hasattr(inventory, 'inventory'):
-            inv_dict = inventory.inventory
-        else:
-            inv_dict = inventory
+    def save_inventory(inventory: Inventory, delivery_amount, file_name: str) -> None:
+        product_list = inventory.inventory if hasattr(inventory, "inventory") else inventory
 
-        # 2. Each product describes its own saved form
         serialized_inventory = {
-            p_id: product.to_dict() for p_id, product in inv_dict.items()
+            product.product_id: product.to_dict() for product in product_list
         }
 
         data = {
