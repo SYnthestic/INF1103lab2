@@ -1,23 +1,11 @@
 {
-    "delivery_amount": 12,
+    "delivery_amount": 0,
     "inventory": {
         "P001": {
             "type": "physical",
             "name": "Laptop",
             "price": 1989.59,
             "stock": 110,
-            "supplier": {
-                "supplier_id": "UNKNOWN",
-                "name": "Unknown Supplier",
-                "contact_email": "N/A"
-            },
-            "weight": 0.0
-        },
-        "P002": {
-            "type": "physical",
-            "name": "Mouse",
-            "price": 30.34,
-            "stock": 100,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -372,6 +360,30 @@
                 "contact_email": "hnwships@yahoo.co.uk"
             },
             "weight": 46318000.0
+        },
+        "P032": {
+            "type": "digital",
+            "name": "Test 1",
+            "price": 1.0,
+            "stock": 1,
+            "supplier": {
+                "supplier_id": "1",
+                "name": "1",
+                "contact_email": "1"
+            },
+            "download_size": 1.0
+        },
+        "P033": {
+            "type": "physical",
+            "name": "Boeing 707",
+            "price": 2930000000.0,
+            "stock": 1,
+            "supplier": {
+                "supplier_id": "S-005",
+                "name": "Boeing",
+                "contact_email": "boeing@airplen.com"
+            },
+            "weight": 120000.0
         }
     }
 }

@@ -164,7 +164,7 @@ while key != 7:
         case 4:
             print("Searching Product")
             product_id = input("Enter Product ID: ").strip()
-            product = inventory_entry.search_product(product_id)
+            product = inventory_entry.find_product(product_id)
 
             if product is None:
                 print("Product not found")

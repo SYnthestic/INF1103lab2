@@ -41,7 +41,7 @@ class "Inventory" as inventory.Inventory {
   display_all() -> None
   next_product_id() -> str
   process_delivery() -> int
-  search_product(product_id: str)
+  find_product(product_id: str)
   total_delivery() -> int
   total_shipping_fees() -> float
   update_stock(product_id: str) -> bool

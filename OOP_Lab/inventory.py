@@ -8,19 +8,38 @@ class Inventory:
         self.inventory: list[Product] = []
         self.failed_entries = 0
 
-    def add_product(self, product: Product):
+    def add_product(self, product: Product) -> tuple[int, str]:
+        """Ensures no duplicate IDs are added, appends the product,
+
+        and returns the next delivery amount along with the lowest unused product ID.
+        """
+    # 1. Enforce unique ID constraint (prevents index corruption)
         for existing in self.inventory:
             if existing.product_id == product.product_id:
                 raise ValueError(f"Product ID {product.product_id} already exists.")
 
+        # 2. Append to our core polymorphic storage list
         self.inventory.append(product)
 
+        # 3. Recalculate operational delivery metrics
         delivery_amount = self.process_delivery()
-        next_num = len(self.inventory) + 1
+
+        # 4. Extract all active ID integers currently in use into a set
+        # Example: If inventory has ['P001', 'P003'], used_ids becomes {1, 3}
+        used_ids = {int(p.product_id[1:]) for p in self.inventory if p.product_id[1:].isdigit()}
+
+        # 5. Search incrementally starting at 1 to find the absolute lowest gap
+        next_num = 1
+        while next_num in used_ids:
+            next_num += 1
+
+        # 6. Format back to standard zero-padded identifier (e.g., 2 -> 'P002')
         next_id = "P" + str(next_num).zfill(3)
+
         return delivery_amount, next_id
 
-    def search_product(self, product_id: str) -> Product | None:
+
+    def find_product(self, product_id: str) -> Product | None:
         for product in self.inventory:
             if product.product_id == product_id:
                 return product
@@ -29,7 +48,7 @@ class Inventory:
 
     #Remove product
     def remove_product(self, product_id: str):
-        product = self.search_product(product_id)
+        product = self.find_product(product_id)
         if product is None:
             return None
         self.inventory.remove(product)
@@ -40,7 +59,7 @@ class Inventory:
             product.display_information()
 
     def update_stock(self, product_id: str) -> bool:
-        product = self.search_product(product_id)
+        product = self.find_product(product_id)
         if product is None:
             print("Product not found.")
             return False
