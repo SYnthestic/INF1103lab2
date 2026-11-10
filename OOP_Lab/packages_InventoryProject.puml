@@ -1,0 +1,52 @@
+@startuml packages_InventoryProject
+set namespaceSeparator none
+package "OOP_Lab" as OOP_Lab {
+}
+package "OOP_Lab.canbeshipped" as OOP_Lab.canbeshipped {
+}
+package "OOP_Lab.filehandling" as OOP_Lab.filehandling {
+}
+package "OOP_Lab.inventory" as OOP_Lab.inventory {
+}
+package "OOP_Lab.main" as OOP_Lab.main {
+}
+package "OOP_Lab.order" as OOP_Lab.order {
+}
+package "OOP_Lab.orderline" as OOP_Lab.orderline {
+}
+package "OOP_Lab.product" as OOP_Lab.product {
+}
+package "OOP_Lab.product_registry" as OOP_Lab.product_registry {
+}
+package "OOP_Lab.products" as OOP_Lab.products {
+}
+package "OOP_Lab.products.digitalproduct" as OOP_Lab.products.digitalproduct {
+}
+package "OOP_Lab.products.physicalproduct" as OOP_Lab.products.physicalproduct {
+}
+package "OOP_Lab.products.subscriptionproduct" as OOP_Lab.products.subscriptionproduct {
+}
+package "OOP_Lab.supplier" as OOP_Lab.supplier {
+}
+package "OOP_Lab.testrun" as OOP_Lab.testrun {
+}
+OOP_Lab.filehandling --> OOP_Lab.inventory
+OOP_Lab.filehandling --> OOP_Lab.product_registry
+OOP_Lab.filehandling --> OOP_Lab.products
+OOP_Lab.inventory --> OOP_Lab.canbeshipped
+OOP_Lab.inventory --> OOP_Lab.product
+OOP_Lab.main --> OOP_Lab.filehandling
+OOP_Lab.main --> OOP_Lab.product_registry
+OOP_Lab.main --> OOP_Lab.supplier
+OOP_Lab.order --> OOP_Lab.orderline
+OOP_Lab.order --> OOP_Lab.product
+OOP_Lab.orderline --> OOP_Lab.product
+OOP_Lab.product --> OOP_Lab.supplier
+OOP_Lab.testrun --> OOP_Lab.inventory
+OOP_Lab.testrun --> OOP_Lab.order
+OOP_Lab.testrun --> OOP_Lab.orderline
+OOP_Lab.testrun --> OOP_Lab.products.digitalproduct
+OOP_Lab.testrun --> OOP_Lab.products.physicalproduct
+OOP_Lab.testrun --> OOP_Lab.products.subscriptionproduct
+OOP_Lab.testrun --> OOP_Lab.supplier
+@enduml

@@ -1,0 +1,86 @@
+@startuml classes_InventoryProject
+set namespaceSeparator none
+class "CanBeShipped" as OOP_Lab.canbeshipped.CanBeShipped {
+  {abstract}calculate_shipping_cost()
+}
+class "DigitalProduct" as OOP_Lab.products.digitalproduct.DigitalProduct {
+  download_size : float
+  type_name : str
+  display_information() -> None
+  from_dict(product_id, details)
+  from_ui(product_id, name, price, stock, supplier)
+  get_fulfilment_info()
+  to_dict() -> dict
+}
+class "FileHandling" as OOP_Lab.filehandling.FileHandling {
+  path : str
+  load_inventory() -> tuple[Inventory, str]
+  save_inventory(inventory: Inventory, delivery_amount, file_name: str) -> None
+}
+class "Inventory" as OOP_Lab.inventory.Inventory {
+  failed_entries : int
+  inventory : list[Product]
+  add_product(product: Product) -> tuple[int, str]
+  display_all() -> None
+  find_product(product_id: str) -> Product | None
+  process_delivery() -> int
+  remove_product(product_id: str)
+  total_shipping_fees() -> float
+  update_stock(product_id: str) -> bool
+}
+class "Order" as OOP_Lab.order.Order {
+  order_id : str
+  order_lines : list[OrderLine]
+  add_order_line(product: Product, quantity: int) -> None
+  calculate_total() -> float
+  remove_order_line(product_id: str) -> bool
+}
+class "OrderLine" as OOP_Lab.orderline.OrderLine {
+  product : Product
+  quantity : int
+  calculate_subtotal() -> float
+  display_information() -> None
+}
+class "PhysicalProduct" as OOP_Lab.products.physicalproduct.PhysicalProduct {
+  calculated_shipping_cost : float
+  type_name : str
+  weight : float
+  calculate_shipping_cost()
+  display_information() -> None
+  from_dict(product_id, details)
+  from_ui(product_id, name, price, stock, supplier)
+  get_fulfilment_info()
+  to_dict() -> dict
+}
+class "Product" as OOP_Lab.product.Product {
+  name
+  price
+  product_id
+  stock
+  supplier : Supplier | None
+  type_name : str
+  display_information() -> None
+  {abstract}from_dict(product_id: str, details: dict) -> 'Product'
+  {abstract}get_fulfilment_info()
+  get_information_string() -> str
+  to_dict() -> dict
+}
+class "SubscriptionProduct" as OOP_Lab.products.subscriptionproduct.SubscriptionProduct {
+  duration_months : int
+  subscription_fee : float
+  type_name : str
+  display_information() -> None
+  from_dict(product_id, details)
+  from_ui(product_id, name, price, stock, supplier)
+  get_fulfilment_info() -> str
+  to_dict() -> dict
+}
+class "Supplier" as OOP_Lab.supplier.Supplier {
+  contact_email
+  name
+  supplier_id
+  display_information() -> None
+  from_dict(details: dict | None) -> 'Supplier'
+  to_dict() -> dict
+}
+@enduml
