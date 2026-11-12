@@ -126,10 +126,24 @@ def create_customer_order(inventory_entry, order_counter: int) -> Order:
             print("Product not found in inventory.")
             continue
 
-        qty_input = input(f"Enter quantity for {product.name} (Available: {product.stock}): ").strip()
-        if not qty_input.isdigit() or int(qty_input) <= 0 or int(qty_input) > product.stock:
-            print("Invalid quantity.")
+        elif product.stock == 0: ## It can only be 0 if the product is in the inventory but has no stock left. Negative stock is not possible
+            print(f"Product '{product.name}' is out of stock.")
             continue
+
+        qty_input = input(f"Enter quantity for {product.name} (Available: {product.stock}): ").strip()
+        if not qty_input.isdigit():
+            print("Invalid input. Please enter a valid number.")
+            continue
+
+        elif int(qty_input) <= 0:
+            print("Requested quantity is invalid. Please enter a positive number.")
+            continue
+
+        elif int(qty_input) > product.stock:
+            print(f"Insufficient stock. Only {product.stock} available.")
+            continue
+
+        
 
         qty = int(qty_input)
         # 1. Order creates and manages its own OrderLine internally

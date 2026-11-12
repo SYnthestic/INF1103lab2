@@ -5,7 +5,7 @@
             "type": "physical",
             "name": "Laptop",
             "price": 1989.59,
-            "stock": 24,
+            "stock": 270,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -29,7 +29,7 @@
             "type": "physical",
             "name": "Spoons",
             "price": 19.99,
-            "stock": 380,
+            "stock": 370,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -101,7 +101,7 @@
             "type": "physical",
             "name": "PTC1030",
             "price": 93020.0,
-            "stock": 10,
+            "stock": 7,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -137,7 +137,7 @@
             "type": "physical",
             "name": "PXC400",
             "price": 45100.0,
-            "stock": 1,
+            "stock": 0,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -149,7 +149,7 @@
             "type": "physical",
             "name": "XCX290",
             "price": 192000.0,
-            "stock": 2,
+            "stock": 1,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -221,7 +221,7 @@
             "type": "physical",
             "name": "Running Shoes",
             "price": 299.99,
-            "stock": 349,
+            "stock": 148,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -245,7 +245,7 @@
             "type": "digital",
             "name": "eBook23",
             "price": 23.0,
-            "stock": 23,
+            "stock": 3,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -353,7 +353,7 @@
             "type": "physical",
             "name": "RMS Titanic",
             "price": 399000000.0,
-            "stock": 2,
+            "stock": 1,
             "supplier": {
                 "supplier_id": "S-003",
                 "name": "Harland and Wolff Shipyard",
@@ -377,7 +377,7 @@
             "type": "physical",
             "name": "Boeing 707",
             "price": 2930000000.0,
-            "stock": 1,
+            "stock": 192,
             "supplier": {
                 "supplier_id": "S-005",
                 "name": "Boeing",
@@ -396,6 +396,30 @@
                 "contact_email": "ussrwarcombat@sovietunion.su"
             },
             "weight": 10390.0
+        },
+        "P035": {
+            "type": "physical",
+            "name": "AK-47",
+            "price": 199.0,
+            "stock": 450,
+            "supplier": {
+                "supplier_id": "S-302",
+                "name": "Kalashnikov",
+                "contact_email": "kalashnikov@rambler.ru"
+            },
+            "weight": 4.47
+        },
+        "P036": {
+            "type": "digital",
+            "name": "Piano Sheet eBook",
+            "price": 32.0,
+            "stock": 455,
+            "supplier": {
+                "supplier_id": "S-101",
+                "name": "Pianissimo Club",
+                "contact_email": "pianissimo@sit.singaporetech.edu.sg"
+            },
+            "download_size": 29.49
         }
     }
 }
