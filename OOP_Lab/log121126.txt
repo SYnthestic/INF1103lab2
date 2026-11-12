@@ -1,0 +1,437 @@
+commit 42e479184a4c6d782ca3939200a5dfc0b34c14f6
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Nov 12 21:11:35 2026 +0800
+
+    Make sure no files left uncommitted
+
+commit 14661cd2e9d73df8afefcbcc45ab3897842d2900
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Nov 12 21:11:13 2026 +0800
+
+    Tested one more time after ruff check --fix. Now I'm ready to submit
+
+commit aba5e525d9b3a6a93358bdead4361be08503a934
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Nov 12 21:07:35 2026 +0800
+
+    Forced UML to acknowledge the relationships. Finallygit add .git add .!
+
+commit 021f3db2d047375017f636b01b412003a345bee2
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Nov 12 20:56:20 2026 +0800
+
+    Make everything commit so no unstaged files left
+
+commit beb74cc072ffe54428f822d2361a36c6d951e9e8
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Nov 12 20:43:48 2026 +0800
+
+    Done with implementing Order in the program. Testing verifies it works. The painful part now is docu and making sure the UML Diagram acknowledges relationships, which it still wont
+
+commit 31124de0105af127427b2b71a328edad0a556357
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Nov 12 15:19:53 2026 +0800
+
+    Decided to add persistence to orders. And also show past orders as well
+
+commit a127e0b520a1017901b5194bfad3c0989c880884
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Nov 10 23:54:55 2026 +0800
+
+    Just got up until Task 6 in Lab 10. Will be starting work on Lab 7:
+
+commit b7eb8754ea878dcf888895e6a427280c02d687ab
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Nov 10 23:14:12 2026 +0800
+
+    I'll settle the Relations later. But just know I have UML now:
+
+commit 4ee3a63b68990ce0607d0ffefadc03d8372ea815
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Nov 10 22:53:22 2026 +0800
+
+    Changed search_product to find_product to conform to the lab content
+
+commit 1d6b36e82713fe2aeef94cf67767c5f380cba009
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Nov 10 22:04:37 2026 +0800
+
+    Added Order and OrderLine. And integrated them into main.py
+
+commit ae5930992c450a22fa66c87285f3bbbc0a85b9bd
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Nov 10 13:38:29 2026 +0800
+
+    Remove product is tested to work
+
+commit 11907ea3965e092efe53a1017c8be177dbfbea06
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Nov 10 00:03:24 2026 +0800
+
+    Integrated Supplier into main program
+
+commit b8509dec13cc9fc839e8ad6390eb9411cf7f3315
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Nov 9 21:55:40 2026 +0800
+
+    Test Run proves Supplier and Products are separate objects and can exist independently. Need to integrate this into program
+
+commit 1513e2c0b8d3eac8631dc3c6978f1783dd015ad0
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 21:01:12 2026 +0800
+
+    Settling README
+
+commit 887a46bed6ab7e15950b34cb1f8bc263b6e19c33
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 21:00:38 2026 +0800
+
+    Finally have a working UML file, tested on Docker, and consolidated everything. Including even the Docu. Just need log.txt and this is ready to submit
+
+commit 91fe9b059c7e9d6bf535f7c05e14e8ce6762e62e
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 16:56:13 2026 +0800
+
+    Finally. Had to use an online editor to conform PNG to expectaions because pyreverse cannot do abstracts and interfaces
+
+commit e81bdec0dfcd186227c7da562255ed5b27832995
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 16:22:41 2026 +0800
+
+    Renamed folder. NEed to find a way to make the diagram acknowledge abstract relations
+
+commit 02737a6741abb407c78ee0be50a66223347c9a30
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 13:07:12 2026 +0800
+
+    Added a SubscriptionProduct class. Still needs refinement
+
+commit 684ca6bbb993183a393591cd1656fdf42686fa70
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 12:23:14 2026 +0800
+
+    Stopped instantiating Product directly, tested everything and it works!
+
+commit c9c48645e28a98fae9d470580a8df359c982eea8
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 01:38:08 2026 +0800
+
+    Added and tested total shipping fees
+
+commit a5c8ae5333826488cde3a95aee43fc7bc5c05722
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 31 00:00:25 2026 +0800
+
+    Managed to add shipping cost. Only need to integrate this to the main app
+
+commit 9d1de6505c74cff06a708074f283245e8535e7b9
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 17:19:29 2026 +0800
+
+    Managed to integrate get_fulfilment_info into overall program
+
+commit e2c21616f5d6ee7a7601f06b42a76cd0263a6aa7
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 17:10:23 2026 +0800
+
+    Painful, but put update_stock and validate_stock into Inventory class
+
+commit 960d1b1c01f85d4affeb534abc3154d2120d7099
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:54:32 2026 +0800
+
+    Tested testrun. Both child classes appear to work! Time to integrate it to main.py!
+
+commit e49d965f247e490eb8db6e708860ec630a1a5330
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:46:19 2026 +0800
+
+    Did abit of refinement. Still haven't tested or integrated child classes to main
+
+commit 62bfd600b7d098fa1f53d197522839b944943f5e
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:31:45 2026 +0800
+
+    Added the 2 child classes. Haven't tested yet
+
+commit 103de067bef13433ffc6149fe447061f98eac898
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 11:22:16 2026 +0800
+
+    Commiting change in folder name
+
+commit 477bcc3bc617d233e828eb6ca7dab3e3fab50863
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 01:28:38 2026 +0800
+
+    Lab 6 complete. Time to submit
+
+commit c61f1e31419afea31a2b282a1a394de7e857d920
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 00:32:26 2026 +0800
+
+    To commit and push every single thing to GIT
+
+commit c36af3fa9cab2aeee97cebda4d35f855fe1c98ee
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 30 00:31:54 2026 +0800
+
+    I think all is settled alr! :)
+
+commit 5b97d354ad71569c3126ef2dc7437ed05b437cac
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Oct 29 23:26:25 2026 +0800
+
+    Almost forgot to add a Dockerfile
+
+commit ba68bb4e7b5c9dbfbc4b7d4583d9155161909a3e
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Oct 29 23:20:55 2026 +0800
+
+    We verified everything works!
+
+commit c029ba4ba2157e12577686d1bbaceee2dfc0212d
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Oct 27 00:07:41 2026 +0800
+
+    Transferred get_valid_input to main.py to improve the Single Responsibility Principle of inventory.py
+
+commit 3bc185b2bb3112a7ccd9ddf69bde723447c745ac
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Oct 26 13:59:26 2026 +0800
+
+    Managed to make add product work. Verified that the Product ID also iterates as expected
+
+commit f36f0d82dd6403c36a474238fb0ffd20d588386a
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 23:57:42 2026 +0800
+
+    Managed to get Options 5 and 6 to workgit add . YAYgit add .
+
+commit 60a7a23c8e0e0805f923096ea3b1d2d3c565bf4f
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 23:32:36 2026 +0800
+
+    Option 1 now works
+
+commit 352756172db8659e48a171c82e4fe4e1730493d0
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 23:26:50 2026 +0800
+
+    Still strugglign with problems..
+
+commit 61ec6c3bf8a9212309ca7ca3926831045111bf76
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 21:15:21 2026 +0800
+
+    Inventory Class functions converted to OOP. Time to focus on Prouduct Class
+
+commit 7bb376b9695704ec87a1709e8b1e51af7aae9e70
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 21:11:59 2026 +0800
+
+    Think the function are in the proper classes. Time to do OOP conversion
+
+commit 9347d22a7a7c8336d001fb5b3b1d774679433c11
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 20:59:51 2026 +0800
+
+    Made some conversions, still yielding error
+
+commit ee87913788f4701ce6a22eba2f851b5f0769d3de
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 20:52:26 2026 +0800
+
+    Trying to ensure all functions are in the correct classes
+
+commit bac8b957c55d6e4c2405cb56004df8f6008391ff
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 25 20:39:15 2026 +0800
+
+    Prepared the classes. Will likely need major work to function. Did not test for functionality yet.
+
+commit c9d401d2f80263727c39903eb8bf2ed195c07390
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 4 00:09:34 2026 +0800
+
+    Saved docker image screenshot to Word
+
+commit 01e3acd33436196de3ce472dd421066739c1fd3b
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 4 00:08:03 2026 +0800
+
+    Pushing any remaining unlinked files
+
+commit a9c8484d6fa7f484fa2d3c8d6250e5a6382c1f50
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Oct 4 00:06:46 2026 +0800
+
+    Tested Docker. It works! But still cannot get Docker Container to save inventory.json.
+
+commit a4678af1c8900ed52cfb7f2e72071a0a4d36f242
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 3 23:35:50 2026 +0800
+
+    Made it closer to what the lab 5 demands. Now it is ready to be Dockerised
+
+commit 98b64ae41ea866d0ca07aae4db676140b78184f9
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 3 16:53:39 2026 +0800
+
+    All is good! Now it is ready to be Dockerised
+
+commit 461ab7249d56e94a6319e7df8232c21d1c576097
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 3 16:42:28 2026 +0800
+
+    Managed to get overall stuff to work, but loading dict wont work
+
+commit a8c8211b3e67f327bbedf2738c759786806653f7
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Oct 3 16:36:45 2026 +0800
+
+    Managed to get most functions to work. Now need to convert list to dictionary
+
+commit 106b30aa16796ee600d85df9ce0ac58dbb91dea6
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 2 17:42:02 2026 +0800
+
+    Managed to add the add_product() function
+
+commit 2ab8c199d55c0a020abfec3a3ea4e238f1c87892
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 2 17:28:44 2026 +0800
+
+    Settling on match case to do the main menu
+
+commit edf65077a2f96fc9346c4bc774df1fbe3baf85a1
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Oct 2 16:37:01 2026 +0800
+
+    Prepared the Lab 5 for embryonic development
+
+commit 9e94e55f73c143f99a2d60fafcbfd58dc4101639
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 12:23:30 2026 +0800
+
+    Now to push everything to Git
+
+commit 6e0b7bdf0d7e1adeeb13e98c9161a6cf7298a4c8
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 12:23:13 2026 +0800
+
+    Docker tested to have worked
+
+commit d3c78bacb42334fc769efaa181cef25cd077b62e
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 12:10:51 2026 +0800
+
+    Ready to start Docker
+
+commit bbcaea9c206adf9e9b13d41999810f264cddb9b6
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 11:22:00 2026 +0800
+
+    Fixing stuff, but still got bugs
+
+commit ead27960733ebb6f19b7dd8a1c49e48962f77670
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 01:00:15 2026 +0800
+
+    Finally got all 3 functions to work. Time to get started on Docker
+
+commit b42a1ec3bc5edffaf9463b9bf3c165fac542bfb1
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 28 00:06:14 2026 +0800
+
+    Managed to do add, but .append murders the program
+
+commit f79a625566f27cf6daabc0840caa27396ec3326a
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Sep 27 23:51:03 2026 +0800
+
+    Added load, but with difficulties
+
+commit da423221b21cc21fd4c9994ba914623a71b054fb
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Sep 27 23:13:27 2026 +0800
+
+    Save inventory done. Now time to load inventory
+
+commit 1bbad139826a671a9ddaa849f6a535d744d1cf02
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sun Sep 27 22:51:23 2026 +0800
+
+    Finally got Lab 4 to store history stuff. Now need to find out how to save it
+
+commit 6618ee9a22581cb1d2020c010b23b1069cafe6c9
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Sep 25 17:53:30 2026 +0800
+
+    Finally got the list to store order id, product, and quantity
+
+commit fcc0bad001613783f04b2be0347202e843b544f7
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Thu Sep 24 17:14:49 2026 +0800
+
+    Added a persistent auditor file and copied. Now it is ready to be worked on
+
+commit af7c75823f5764b63f73fb566564c8e799a87d56
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 17:26:12 2026 +0800
+
+    Deleted attempted Class OOP attempt at Lab 3
+
+commit ba2ee14d3e1879b3e6a844b15ba07d0729e27920
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 15:10:44 2026 +0800
+
+    Added log.txt for lab3
+
+commit a6ba3a3da47f7a28cb89530e4a9303ab6863952f
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 21 14:23:07 2026 +0800
+
+    Docker Image Worksgit add .!
+
+commit 494aa39dd53be5ffbaf6e2659a1b6291e28bd390
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 19 02:25:01 2026 +0800
+
+    Made this work at last
+
+commit fb5ba145d11d78eb58b7f8474b3a67aa6151de25
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Tue Sep 15 15:36:16 2026 +0800
+
+    Settled Tasks for Topic 3
+
+commit 4c098879cb011e12f311b1df571f3820434b1c8c
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Mon Sep 14 15:20:13 2026 +0800
+
+    added topic 3 self try
+
+commit 5e392a5b81716de66c9357faff51f1627742c9d2
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:10:59 2026 +0800
+
+    Adding images and link to repo on word docu
+
+commit 38065999d0ab1166e47ee08030d9754dc8f323cf
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:07:28 2026 +0800
+
+    Fixed a small bug on Dockerfile
+
+commit d966abbea9166003524c315268370e1be48282be
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Sat Sep 12 00:04:41 2026 +0800
+
+    Added Dockerfile
+
+commit e87fc247d362aebd779400736fc5736cc43599c3
+Author: Samuel Yam <2603176@sit.singaporetech.edu.sg>
+Date:   Fri Sep 11 23:59:28 2026 +0800
+
+    First commit in lab 2
