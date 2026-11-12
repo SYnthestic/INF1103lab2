@@ -139,10 +139,10 @@ def save_inventory(inventory, delivery_amount, file_name):
     with open(file_name, "w") as file:
         json.dump(data, file, indent=4)
 
-    print(f"Inventory saved successfully to inventory.json")
+    print("Inventory saved successfully to inventory.json")
 
 
-def search_product(inventory, failed_entries):
+def find_product(inventory, failed_entries):
     product_id = input("Enter Product ID: ").strip().upper()
 
     if product_id not in inventory:
@@ -200,13 +200,13 @@ while key != 6:
             )
         case 3:
             print("Update Stock")
-            product_id, failed_entries = search_product(inventory_entry, failed_entries)
+            product_id, failed_entries = find_product(inventory_entry, failed_entries)
             delivery_amount, failed_entries = update_stock(
                 inventory_entry, product_id, delivery_amount, failed_entries
             )
         case 4:
             print("Searching Product")
-            _, failed_entries = search_product(inventory_entry, failed_entries)
+            _, failed_entries = find_product(inventory_entry, failed_entries)
         case 5:
             print("Saving inventory...")
             save_inventory(inventory_entry, delivery_amount, FILE_PATH)
