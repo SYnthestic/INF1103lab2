@@ -1,0 +1,16 @@
+{
+    "orders": [
+        {
+            "order_id": "ORD-001",
+            "order_lines": [
+                {
+                    "product_id": "P020",
+                    "name": "Running Shoes",
+                    "quantity": 1,
+                    "subtotal": 299.99
+                }
+            ],
+            "order_total": 299.99
+        }
+    ]
+}

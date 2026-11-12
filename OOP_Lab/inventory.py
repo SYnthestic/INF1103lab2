@@ -42,9 +42,11 @@ class Inventory:
     def find_product(self, product_id: str) -> Product | None:
         for product in self.inventory:
             if product.product_id == product_id:
+                print(product.get_fulfilment_info())
                 return product
         self.failed_entries += 1
         return None
+
 
     #Remove product
     def remove_product(self, product_id: str):
@@ -57,6 +59,7 @@ class Inventory:
     def display_all_products(self) -> None:
         for product in self.inventory:
             product.display_information()
+            print(product.get_fulfilment_info())
 
     def update_stock(self, product_id: str) -> bool:
         product = self.find_product(product_id)

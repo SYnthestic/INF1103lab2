@@ -1,6 +1,7 @@
 import json
 import os
 
+from order import Order
 import products  # noqa: F401  (auto-imports every module in products/ so they register)
 from inventory import Inventory
 from product_registry import get_product_types
@@ -94,3 +95,29 @@ class FileHandling:
             json.dump(data, file, indent=4)
 
         print("Inventory saved successfully.")
+
+    @staticmethod
+    def save_orders(orders: list[Order], file_name: str) -> None:
+        serialized_orders = [order.to_dict() for order in orders]
+
+        if os.path.dirname(file_name):
+            os.makedirs(os.path.dirname(file_name), exist_ok=True)
+
+        with open(file_name, "w", encoding="utf-8") as file:
+            json.dump({"orders": serialized_orders}, file, indent=4)
+
+        print("Orders saved successfully.")
+
+    @staticmethod
+    def load_orders(file_name: str, inventory: Inventory) -> list[Order]:
+        if not os.path.isfile(file_name):
+            return []
+
+        try:
+            with open(file_name, "r", encoding="utf-8") as file:
+                data = json.load(file)
+            return [Order.from_dict(item, inventory) for item in data.get("orders", [])]
+        except (OSError, ValueError, KeyError, TypeError) as error:
+            print(f"DEBUG order load error: {type(error).__name__}: {error}")
+            return []
+

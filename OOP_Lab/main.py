@@ -4,21 +4,28 @@ from filehandling import FileHandling
 from product_registry import get_product_types
 from supplier import Supplier
 from product import Product
+from order import Order
 
 quantity_inp = "0"
 product_id = "P001"
 
-filename = 'inventory.txt'
+
+
 failed_entries = 0
 delivery_amount = 0
 counter = 0
-key = 0
+order_counter = 1
+key = -1
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(BASE_DIR, "inventory.json")
+ORDER_FILE_PATH = os.path.join(BASE_DIR, "orders.json")
+
 
 
 repository = FileHandling(FILE_PATH)
 inventory_entry, load_status = repository.load_inventory()
+inventory_entry, load_status = repository.load_inventory()
+orders = FileHandling.load_orders(ORDER_FILE_PATH, inventory_entry)
 
 if load_status == "not_found":
     print("File not found. Starting a fresh inventory.")
@@ -27,6 +34,8 @@ elif load_status == "invalid_file":
 else:
     print("Inventory loaded successfully.")
 
+
+##Helper Functions
 def select_product_class():
     types = list(get_product_types().items())
     print("Select Product Type:")
@@ -102,20 +111,79 @@ def display_goodbye_message():
     Thank you for using Inventory Management System.
     Program terminated.''')
 
+def create_customer_order(inventory_entry, order_counter: int) -> Order:
+    order_id = "ORD-" + str(order_counter).zfill(3)
+    order = Order(order_id)  # 1. Create the Order container
+
+    while True:
+        prod_id = input("Enter Product ID to add to order (or 'done' to finish): ").strip()
+        if prod_id.lower() == "done":
+            break
+
+        # 2. Fetch existing Product from Inventory (Aggregation: OrderLine refers to it, doesn't own it)
+        product = inventory_entry.find_product(prod_id)
+        if product is None:
+            print("Product not found in inventory.")
+            continue
+
+        qty_input = input(f"Enter quantity for {product.name} (Available: {product.stock}): ").strip()
+        if not qty_input.isdigit() or int(qty_input) <= 0 or int(qty_input) > product.stock:
+            print("Invalid quantity.")
+            continue
+
+        qty = int(qty_input)
+        # 1. Order creates and manages its own OrderLine internally
+        order.add_order_line(product, qty)
+        product.stock -= qty  # Deduct purchased stock from inventory
+        print(f"Added {qty} x {product.name} to {order.order_id}.")
+
+    # 3. Display line items and ask Order to calculate its total via OrderLine objects
+    print("\n" + "=" * 60)
+    print(f"ORDER SUMMARY: {order.order_id}")
+    print("=" * 60)
+    if not order.order_lines:
+        print("No items in order.")
+    else:
+        for line in order.order_lines:
+            line.display_information()
+        print("-" * 60)
+        print(f"Order Total: ${order.calculate_total():.2f}")
+    print("=" * 60)
+    return order
+
+def show_orders(orders: list[Order]) -> None:
+    """Displays all recorded orders and their line items."""
+    if not orders:
+        print("No orders found.")
+        return
+
+    for order in orders:
+        print("\n" + "=" * 60)
+        print(f"ORDER SUMMARY: {order.order_id}")
+        print("=" * 60)
+        for line in order.order_lines:
+            line.display_information()
+        print("-" * 60)
+        print(f"Order Total: ${order.calculate_total():.2f}")
+        print("=" * 60)
 
 
-while key != 7:
+
+
+while key != 8:
     keyverify = False
     while keyverify == False:
         print('''
 ----------- MENU ----------- 
+0. Show Orders
 1. Display All Products 
 2. Add Product 
 3. Update Stock 
 4. Search Product 
 5. Remove Product
-6. Save Inventory 
-7. Exit 
+6. Create Order
+7. Save Inventory & Orders
+8. Exit 
 ----------------------------''')
         key = input("Enter option: ")
         if len(key) == 0:
@@ -129,6 +197,8 @@ while key != 7:
             key = int(key)
 
     match key:
+        case 0:
+            show_orders(orders)
         case 1:
             if not inventory_entry.inventory:
                 print("Inventory is empty.")
@@ -206,14 +276,24 @@ while key != 7:
                 else:
                     delivery_amount = inventory_entry.process_delivery()
                     print(f"Product '{removed.name}' ({removed.product_id}) removed successfully.")
-
         case 6:
-            print("Saving inventory...")
-            FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
+            if not inventory_entry.inventory:
+                print("Inventory is empty. Add products before creating an order.")
+            else:
+                next_order_num = max((int(o.order_id.split("-")[1]) for o in orders), default=0) + 1
+                new_order = create_customer_order(inventory_entry, next_order_num)
+                if new_order.order_lines:
+                    orders.append(new_order)
 
         case 7:
-            print("Saving inventory before exit.")
+            print("Saving inventory and Orders...")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
+            FileHandling.save_orders(orders, ORDER_FILE_PATH)
+
+        case 8:
+            print("Saving inventory and orders before exit.")
+            FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
+            FileHandling.save_orders(orders, ORDER_FILE_PATH)
             display_goodbye_message()
             break
 

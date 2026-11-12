@@ -1,5 +1,10 @@
 from orderline import OrderLine
 from product import Product
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from inventory import Inventory
+
 
 
 class Order:
@@ -9,7 +14,11 @@ class Order:
         self.order_lines: list[OrderLine] = []
 
     def add_order_line(self, product: Product, quantity: int) -> None:
-        """Creates an OrderLine inside the Order, establishing Composition."""
+        """Creates or updates an OrderLine inside the Order, establishing Composition."""
+        for line in self.order_lines:
+            if line.product.product_id == product.product_id:
+                line.quantity += quantity
+                return
         order_line = OrderLine(product, quantity)
         self.order_lines.append(order_line)
 
@@ -24,3 +33,19 @@ class Order:
                 self.order_lines.remove(line)
                 return True
         return False
+
+    def to_dict(self) -> dict:
+        return {
+            "order_id": self.order_id,
+            "order_lines": [line.to_dict() for line in self.order_lines],
+            "order_total": self.calculate_total(),
+        }
+
+    @classmethod
+    def from_dict(cls, data: dict, inventory: "Inventory") -> "Order":
+        order = cls(data["order_id"])
+        for line_data in data.get("order_lines", []):
+            product = inventory.find_product(line_data["product_id"])
+            if product is not None:
+                order.add_order_line(product, line_data["quantity"])
+        return order

@@ -39,3 +39,11 @@ class OrderLine:
             f"Quantity: {self.quantity} | "
             f"Subtotal: ${self.calculate_subtotal():.2f}"
         )
+
+    def to_dict(self) -> dict:
+        return {
+            "product_id": self.product.product_id,
+            "name": self.product.name,
+            "quantity": self.quantity,
+            "subtotal": self.calculate_subtotal(),
+        }

@@ -1,11 +1,11 @@
 {
-    "delivery_amount": 14,
+    "delivery_amount": 0,
     "inventory": {
         "P001": {
             "type": "physical",
             "name": "Laptop",
             "price": 1989.59,
-            "stock": 110,
+            "stock": 24,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -17,7 +17,7 @@
             "type": "physical",
             "name": "Wires",
             "price": 19.0,
-            "stock": 380,
+            "stock": 280,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -197,7 +197,7 @@
             "type": "digital",
             "name": "eBook 1",
             "price": 120.0,
-            "stock": 59,
+            "stock": 49,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -221,7 +221,7 @@
             "type": "physical",
             "name": "Running Shoes",
             "price": 299.99,
-            "stock": 450,
+            "stock": 349,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -281,7 +281,7 @@
             "type": "physical",
             "name": "Panzer V Panther Tank",
             "price": 37294090.0,
-            "stock": 1,
+            "stock": 0,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -329,7 +329,7 @@
             "type": "digital",
             "name": "FocusTown App",
             "price": 1.19,
-            "stock": 456,
+            "stock": 356,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -341,7 +341,7 @@
             "type": "physical",
             "name": "SAS-10",
             "price": 293000.0,
-            "stock": 1,
+            "stock": 0,
             "supplier": {
                 "supplier_id": "S-001",
                 "name": "World War 3 Combat Vehicle Coy",
@@ -353,7 +353,7 @@
             "type": "physical",
             "name": "RMS Titanic",
             "price": 399000000.0,
-            "stock": 1,
+            "stock": 2,
             "supplier": {
                 "supplier_id": "S-003",
                 "name": "Harland and Wolff Shipyard",
@@ -384,6 +384,18 @@
                 "contact_email": "boeing@airplen.com"
             },
             "weight": 120000.0
+        },
+        "P034": {
+            "type": "physical",
+            "name": "P-1 Seagap",
+            "price": 2930000.0,
+            "stock": 44,
+            "supplier": {
+                "supplier_id": "S-049",
+                "name": "USSR War Aircraft",
+                "contact_email": "ussrwarcombat@sovietunion.su"
+            },
+            "weight": 10390.0
         }
     }
 }

@@ -21,7 +21,7 @@ class "Inventory" as OOP_Lab.inventory.Inventory {
   failed_entries : int
   inventory : list[Product]
   add_product(product: Product) -> tuple[int, str]
-  display_all() -> None
+  display_all_products() -> None
   find_product(product_id: str) -> Product | None
   process_delivery() -> int
   remove_product(product_id: str)
@@ -61,7 +61,7 @@ class "Product" as OOP_Lab.product.Product {
   type_name : str
   display_information() -> None
   {abstract}from_dict(product_id: str, details: dict) -> 'Product'
-  {abstract}get_fulfilment_info()
+  {abstract}get_fulfilment_info() -> str
   get_information_string() -> str
   to_dict() -> dict
 }
@@ -83,4 +83,14 @@ class "Supplier" as OOP_Lab.supplier.Supplier {
   from_dict(details: dict | None) -> 'Supplier'
   to_dict() -> dict
 }
-@enduml
+
+(Get-Content classes_InventoryProject.puml) -replace '@enduml', "
+OOP_Lab.product.Product <|-- OOP_Lab.products.physicalproduct.PhysicalProduct
+OOP_Lab.product.Product <|-- OOP_Lab.products.digitalproduct.DigitalProduct
+OOP_Lab.product.Product <|-- OOP_Lab.products.subscriptionproduct.SubscriptionProduct
+OOP_Lab.canbeshipped.CanBeShipped <|.. OOP_Lab.products.physicalproduct.PhysicalProduct
+OOP_Lab.order.Order `"1`" *-- `"0..*`" OOP_Lab.orderline.OrderLine
+OOP_Lab.inventory.Inventory `"1`" o-- `"0..*`" OOP_Lab.product.Product
+OOP_Lab.supplier.Supplier `"1`" o-- `"0..*`" OOP_Lab.product.Product
+OOP_Lab.orderline.OrderLine `"0..*`" o-- `"1`" OOP_Lab.product.Product
+@enduml" | Set-Content classes_InventoryProject.puml

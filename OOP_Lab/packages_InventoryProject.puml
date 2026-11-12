@@ -36,6 +36,7 @@ OOP_Lab.filehandling --> OOP_Lab.products
 OOP_Lab.inventory --> OOP_Lab.canbeshipped
 OOP_Lab.inventory --> OOP_Lab.product
 OOP_Lab.main --> OOP_Lab.filehandling
+OOP_Lab.main --> OOP_Lab.product
 OOP_Lab.main --> OOP_Lab.product_registry
 OOP_Lab.main --> OOP_Lab.supplier
 OOP_Lab.order --> OOP_Lab.orderline
