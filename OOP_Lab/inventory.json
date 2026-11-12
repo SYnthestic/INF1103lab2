@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 0,
+    "delivery_amount": 15,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -269,7 +269,7 @@
             "type": "physical",
             "name": "Panzer Tiger Tank",
             "price": 42901900.0,
-            "stock": 5,
+            "stock": 1,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -329,7 +329,7 @@
             "type": "digital",
             "name": "FocusTown App",
             "price": 1.19,
-            "stock": 356,
+            "stock": 126,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -353,7 +353,7 @@
             "type": "physical",
             "name": "RMS Titanic",
             "price": 399000000.0,
-            "stock": 1,
+            "stock": 0,
             "supplier": {
                 "supplier_id": "S-003",
                 "name": "Harland and Wolff Shipyard",
@@ -377,7 +377,7 @@
             "type": "physical",
             "name": "Boeing 707",
             "price": 2930000000.0,
-            "stock": 192,
+            "stock": 169,
             "supplier": {
                 "supplier_id": "S-005",
                 "name": "Boeing",
@@ -401,7 +401,7 @@
             "type": "physical",
             "name": "AK-47",
             "price": 199.0,
-            "stock": 450,
+            "stock": 500,
             "supplier": {
                 "supplier_id": "S-302",
                 "name": "Kalashnikov",
@@ -409,17 +409,17 @@
             },
             "weight": 4.47
         },
-        "P036": {
-            "type": "digital",
-            "name": "Piano Sheet eBook",
-            "price": 32.0,
-            "stock": 455,
+        "P037": {
+            "type": "physical",
+            "name": "ROK-SWC Patch",
+            "price": 4.99,
+            "stock": 115,
             "supplier": {
-                "supplier_id": "S-101",
-                "name": "Pianissimo Club",
-                "contact_email": "pianissimo@sit.singaporetech.edu.sg"
+                "supplier_id": "S-1948",
+                "name": "ROKA Association",
+                "contact_email": "roka@rok.yahoo.com.kr"
             },
-            "download_size": 29.49
+            "weight": 0.55
         }
     }
 }

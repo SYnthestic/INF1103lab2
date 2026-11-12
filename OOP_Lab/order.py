@@ -1,6 +1,7 @@
+from typing import TYPE_CHECKING
+
 from orderline import OrderLine
 from product import Product
-from typing import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from inventory import Inventory

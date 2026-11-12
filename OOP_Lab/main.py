@@ -1,10 +1,10 @@
 import os
 
 from filehandling import FileHandling
+from order import Order
+from product import Product
 from product_registry import get_product_types
 from supplier import Supplier
-from product import Product
-from order import Order
 
 quantity_inp = "0"
 product_id = "P001"

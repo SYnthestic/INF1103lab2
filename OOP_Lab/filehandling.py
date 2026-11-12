@@ -1,9 +1,9 @@
 import json
 import os
 
-from order import Order
 import products  # noqa: F401  (auto-imports every module in products/ so they register)
 from inventory import Inventory
+from order import Order
 from product_registry import get_product_types
 
 

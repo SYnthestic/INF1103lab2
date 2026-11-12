@@ -1,11 +1,9 @@
 from inventory import Inventory
+from order import Order  # Ensure these match your local filenames/paths
 from products.digitalproduct import DigitalProduct
 from products.physicalproduct import PhysicalProduct
 from products.subscriptionproduct import SubscriptionProduct
 from supplier import Supplier
-from order import Order  # Ensure these match your local filenames/paths
-from orderline import OrderLine
-
 
 # Create a shared default supplier for your initial legacy laboratory test data
 default_supplier = Supplier("SUP-00", "Default Depot", "warehouse@depot.com")
