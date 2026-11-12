@@ -1,4 +1,4 @@
 Build Docker: docker build -t inf1103-labs-smart-auditor .
 Run Docker: docker run --rm -it -v "${PWD}:/app" -w /app inf1103-labs-smart-auditor
 
-UMD Diagram: pyreverse -o png main.py canbeshipped.py filehandling.py product.py inventory.py product_registry.py products/physicalproduct.py products/digitalproduct.py products/subscriptionproduct.py
+UMD Diagram: pyreverse -o png -p OOP_Lab_UML (Get-ChildItem -Recurse -Filter *.py | Where-Object { $_.FullName -notmatch '\\\.venv\\' } | Resolve-Path -Relative)   
