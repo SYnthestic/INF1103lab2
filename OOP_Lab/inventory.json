@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 0,
+    "delivery_amount": 16,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -401,7 +401,7 @@
             "type": "physical",
             "name": "AK-47",
             "price": 199.0,
-            "stock": 500,
+            "stock": 180,
             "supplier": {
                 "supplier_id": "S-302",
                 "name": "Kalashnikov",
@@ -413,13 +413,26 @@
             "type": "physical",
             "name": "ROK-SWC Patch",
             "price": 4.99,
-            "stock": 115,
+            "stock": 68,
             "supplier": {
                 "supplier_id": "S-1948",
                 "name": "ROKA Association",
                 "contact_email": "roka@rok.yahoo.com.kr"
             },
             "weight": 0.55
+        },
+        "P038": {
+            "type": "housing",
+            "name": "Pinnacle @ Duxton 5 room flat",
+            "price": 2392000.0,
+            "stock": 1,
+            "supplier": {
+                "supplier_id": "S-101",
+                "name": "HDB",
+                "contact_email": "hdb@gmail.com"
+            },
+            "rental_duration_days": 365,
+            "rental_area": 120.0
         }
     }
 }
