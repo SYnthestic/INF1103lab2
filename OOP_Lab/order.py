@@ -2,6 +2,8 @@ from typing import TYPE_CHECKING
 
 from orderline import OrderLine
 from product import Product
+from strategies.discount_strategy import DiscountStrategy
+from strategies.no_strategy import NoDiscount
 
 if TYPE_CHECKING:
     from inventory import Inventory
@@ -22,10 +24,17 @@ class Order:
                 return
         order_line = OrderLine(product, quantity)
         self.order_lines.append(order_line)
+        self.discount: DiscountStrategy = NoDiscount()
 
-    def calculate_total(self) -> float:
+    def calculate_total(self) -> float: 
         """Calculates the total cost of the order by summing the subtotals of each OrderLine."""
-        return sum(line.calculate_subtotal() for line in self.order_lines)
+        total = sum(line.calculate_subtotal() for line in self.order_lines) 
+        return self.discount.apply(total)
+
+    def set_discount(self, discount_strategy: DiscountStrategy) -> None:
+        """Sets the discount strategy for the order."""
+        self.discount = discount_strategy
+
 
     def remove_order_line(self, product_id: str) -> bool:
         """Finds and removes an OrderLine by its product ID."""

@@ -4,6 +4,9 @@ from products.digitalproduct import DigitalProduct
 from products.physicalproduct import PhysicalProduct
 from products.subscriptionproduct import SubscriptionProduct
 from supplier import Supplier
+# Add these imports at the top of your file (adjust folder name if needed)
+from strategies.bulk_discount import BulkDiscount
+from strategies.percentage_discount import PercentageDiscount
 
 # Create a shared default supplier for your initial legacy laboratory test data
 default_supplier = Supplier("SUP-00", "Default Depot", "warehouse@depot.com")
@@ -156,3 +159,35 @@ del order1
 print("Order 1 deleted from memory.")
 print(f"Verification: The raw product '{product1.name}' is unaffected and still exists with a stock of {product1.stock}.")
 print("=== ALL COMPOSITION TESTS COMPLETED SUCCESSFULLY ===")
+
+
+# ==========================================
+# SUB-TASK: DISCOUNT STRATEGY PREDICTION TEST
+# ==========================================
+print("\n=== STARTING DISCOUNT STRATEGY TEST ===")
+
+# Create test products whose order lines will add up to exactly 250.00
+# Example: 1 x $150.00 + 2 x $50.00 = $250.00
+test_item_1 = PhysicalProduct("P-TEST1", "Mechanical Keyboard", 150.00, 10, default_supplier, weight=1.2)
+test_item_2 = PhysicalProduct("P-TEST2", "USB-C Hub", 50.00, 20, default_supplier, weight=0.3)
+
+# 1. Create an order whose lines add up to 250
+discount_order = Order("ORD-DISC-01")
+discount_order.add_order_line(test_item_1, 1)  # 150.00
+discount_order.add_order_line(test_item_2, 2)  # 100.00 -> Raw Subtotal = 250.00
+
+print(f"Raw Subtotal (NoDiscount): ${discount_order.calculate_total():.2f}")
+
+# 2. Apply BulkDiscount(200, 20) -> Expected: 250 - 20 = 230.00
+discount_order.set_discount(BulkDiscount(200, 20))
+bulk_total = discount_order.calculate_total()
+print(f"Total with BulkDiscount(200, 20): ${bulk_total:.2f} (Expected: $230.00)")
+assert bulk_total == 230.0, f"Expected 230.0, got {bulk_total}"
+
+# 3. Call set_discount(PercentageDiscount(10)) on the SAME order -> Expected: 250 * 0.90 = 225.00
+discount_order.set_discount(PercentageDiscount(10))
+percent_total = discount_order.calculate_total()
+print(f"Total after switching to PercentageDiscount(10): ${percent_total:.2f} (Expected: $225.00)")
+assert percent_total == 225.0, f"Expected 225.0, got {percent_total}"
+
+print("=== ALL DISCOUNT STRATEGY TESTS COMPLETED SUCCESSFULLY ===")
