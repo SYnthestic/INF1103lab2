@@ -45,6 +45,7 @@ class Product(ABC):
         return (
             f"ID: {self.product_id} | "
             f"Name: {self.name} | "
+            f"Product Class: {type(self).__name__} | "
             f"Price: ${self.price:.2f} | "
             f"Stock: {self.stock} | "
             f"Supplier: {self.supplier.name if self.supplier else 'N/A'}"

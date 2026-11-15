@@ -11,7 +11,7 @@ if TYPE_CHECKING:
 class Order:
     def __init__(self, order_id: str):
         self.order_id: str = order_id
-        # COMPOSITION: The Order directly owns and manages the lifecycle of these OrderLine items.
+        # Composition: The Order directly owns and manages the lifecycle of these OrderLine items. As such, they are created and destroyed with the Order.
         self.order_lines: list[OrderLine] = []
 
     def add_order_line(self, product: Product, quantity: int) -> None:

@@ -6,7 +6,7 @@ class OrderLine:
 
     def __init__(self, product: Product, quantity: int):
         # Input Validation to ensure data integrity
-        if quantity <= 0:
+        if quantity <= 0: #Obviously an invalid order line if the quantity is zero or negative
             raise ValueError("Ordered quantity must be greater than zero.")
 
         # Encapsulation matching the Product class style
@@ -24,7 +24,7 @@ class OrderLine:
     @quantity.setter
     def quantity(self, value: int) -> None:
         if value <= 0:
-            raise ValueError("Quantity must be greater than zero.")
+            raise ValueError("Quantity must be greater than zero.") #No such thing as a negative or zero quantity in an order line
         self.__quantity = value
 
     def calculate_subtotal(self) -> float:

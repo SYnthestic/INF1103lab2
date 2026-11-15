@@ -113,14 +113,14 @@ def display_goodbye_message():
 
 def create_customer_order(inventory_entry, order_counter: int) -> Order:
     order_id = "ORD-" + str(order_counter).zfill(3)
-    order = Order(order_id)  # 1. Create the Order container
+    order = Order(order_id)  # 1. Create the Order
 
     while True:
         prod_id = input("Enter Product ID to add to order (or 'done' to finish): ").strip()
         if prod_id.lower() == "done":
             break
 
-        # 2. Fetch existing Product from Inventory (Aggregation: OrderLine refers to it, doesn't own it)
+        # 2. Fetch existing Product from Inventory (Aggregation: OrderLine refers to it, so it doesn't own it)
         product = inventory_entry.find_product(prod_id)
         if product is None:
             print("Product not found in inventory.")
