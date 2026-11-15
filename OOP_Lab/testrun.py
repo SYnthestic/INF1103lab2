@@ -7,6 +7,11 @@ from supplier import Supplier
 # Add these imports at the top of your file (adjust folder name if needed)
 from strategies.bulk_discount import BulkDiscount
 from strategies.percentage_discount import PercentageDiscount
+from strategies.elderly_discount import ElderlyDiscount
+from strategies.student_discount import StudentDiscount
+from strategies.disability_discount import DisabilityDiscount
+from strategies.nsf_discount import NSFDiscount
+
 
 # Create a shared default supplier for your initial legacy laboratory test data
 default_supplier = Supplier("SUP-00", "Default Depot", "warehouse@depot.com")
@@ -189,5 +194,23 @@ discount_order.set_discount(PercentageDiscount(10))
 percent_total = discount_order.calculate_total()
 print(f"Total after switching to PercentageDiscount(10): ${percent_total:.2f} (Expected: $225.00)")
 assert percent_total == 225.0, f"Expected 225.0, got {percent_total}"
+# 4. Test custom concession strategies on the SAME $250.00 order
+discount_order.set_discount(ElderlyDiscount())
+elderly_total = discount_order.calculate_total()
+print(f"Total with ElderlyDiscount: ${elderly_total:.2f}")
+
+discount_order.set_discount(StudentDiscount())
+student_total = discount_order.calculate_total()
+print(f"Total with StudentDiscount: ${student_total:.2f}")
+
+discount_order.set_discount(DisabilityDiscount())
+disabled_total = discount_order.calculate_total()
+print(f"Total with DisabledDiscount: ${disabled_total:.2f}")
+
+discount_order.set_discount(NSFDiscount())
+nsf_total = discount_order.calculate_total()
+print(f"Total with NSFDiscount: ${nsf_total:.2f}")
+
+
 
 print("=== ALL DISCOUNT STRATEGY TESTS COMPLETED SUCCESSFULLY ===")
