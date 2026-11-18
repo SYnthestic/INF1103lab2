@@ -42,7 +42,6 @@ class Inventory:
     def find_product(self, product_id: str) -> Product | None:
         for product in self.inventory:
             if product.product_id == product_id:
-                print(product.get_fulfilment_info())
                 return product
         self.failed_entries += 1
         return None

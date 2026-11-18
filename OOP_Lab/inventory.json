@@ -29,7 +29,7 @@
             "type": "physical",
             "name": "Spoons",
             "price": 19.99,
-            "stock": 370,
+            "stock": 70,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -221,7 +221,7 @@
             "type": "physical",
             "name": "Running Shoes",
             "price": 299.99,
-            "stock": 148,
+            "stock": 193,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -257,7 +257,7 @@
             "type": "physical",
             "name": "T-34 Tank",
             "price": 19029000.0,
-            "stock": 3,
+            "stock": 89,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -305,7 +305,7 @@
             "type": "physical",
             "name": "Kar-98k",
             "price": 189.45,
-            "stock": 499,
+            "stock": 49,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -377,7 +377,7 @@
             "type": "physical",
             "name": "Boeing 707",
             "price": 2930000000.0,
-            "stock": 169,
+            "stock": 39,
             "supplier": {
                 "supplier_id": "S-005",
                 "name": "Boeing",
@@ -389,7 +389,7 @@
             "type": "physical",
             "name": "P-1 Seagap",
             "price": 2930000.0,
-            "stock": 44,
+            "stock": 14,
             "supplier": {
                 "supplier_id": "S-049",
                 "name": "USSR War Aircraft",

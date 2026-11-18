@@ -3,6 +3,7 @@ from order import Order  # Ensure these match your local filenames/paths
 from products.digitalproduct import DigitalProduct
 from products.physicalproduct import PhysicalProduct
 from products.subscriptionproduct import SubscriptionProduct
+
 from supplier import Supplier
 # Add these imports at the top of your file (adjust folder name if needed)
 from strategies.bulk_discount import BulkDiscount
@@ -11,6 +12,8 @@ from strategies.elderly_discount import ElderlyDiscount
 from strategies.student_discount import StudentDiscount
 from strategies.disability_discount import DisabilityDiscount
 from strategies.nsf_discount import NSFDiscount
+
+from productfactory import ProductFactory
 
 
 # Create a shared default supplier for your initial legacy laboratory test data
@@ -214,3 +217,38 @@ print(f"Total with NSFDiscount: ${nsf_total:.2f}")
 
 
 print("=== ALL DISCOUNT STRATEGY TESTS COMPLETED SUCCESSFULLY ===")
+
+
+# ==========================================
+# SUB-TASK: TASK 3.2 PRODUCT FACTORY TEST
+# ==========================================
+print("\n=== STARTING PRODUCT FACTORY TEST (TASK 3.2) ===")
+
+# 1. Test valid factory creations first
+factory_laptop = ProductFactory.create(
+    "physical", "F-001", "Factory Laptop", 1100.00, 5, default_supplier
+)
+factory_ebook = ProductFactory.create(
+    "digital", "F-002", "Factory E-Book", 19.99, 100, default_supplier
+)
+print(f"Created via Factory: {factory_laptop.name} ({type(factory_laptop).__name__})")
+print(f"Created via Factory: {factory_ebook.name} ({type(factory_ebook).__name__})")
+
+# 2. Test "service" WITH a try/except block (so your script doesn't crash prematurely)
+print("\n--- Testing Caught Exception ---")
+try:
+    invalid_product = ProductFactory.create(
+        "service", "F-003", "IT Support", 99.00, 10, default_supplier
+    )
+except ValueError as e:
+    print(f"Caught expected ValueError: {e}")
+
+# 3. Test "service" WITHOUT catching it (to observe the raw crash & traceback)
+# Put this last so all tests above finish running first!
+print("\n--- Testing Uncaught Exception (Program will terminate here) ---")
+uncaught_product = ProductFactory.create(
+    "service", "F-004", "Cloud Consulting", 150.00, 5, default_supplier
+)
+
+# This line will NEVER run because the line above crashes the program
+print("This line will never be reached.")

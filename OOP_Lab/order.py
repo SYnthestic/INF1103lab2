@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING
 from orderline import OrderLine
 from product import Product
 from strategies.discount_strategy import DiscountStrategy
-from strategies.no_strategy import NoDiscount
+from strategies.no_discount import NoDiscount
 
 if TYPE_CHECKING:
     from inventory import Inventory
@@ -15,6 +15,7 @@ class Order:
         self.order_id: str = order_id
         # Composition: The Order directly owns and manages the lifecycle of these OrderLine items. As such, they are created and destroyed with the Order.
         self.order_lines: list[OrderLine] = []
+        self.discount_strategy: DiscountStrategy = NoDiscount()
 
     def add_order_line(self, product: Product, quantity: int) -> None:
         """Creates or updates an OrderLine inside the Order, establishing Composition."""
@@ -24,16 +25,21 @@ class Order:
                 return
         order_line = OrderLine(product, quantity)
         self.order_lines.append(order_line)
-        self.discount: DiscountStrategy = NoDiscount()
 
-    def calculate_total(self) -> float: 
-        """Calculates the total cost of the order by summing the subtotals of each OrderLine."""
-        total = sum(line.calculate_subtotal() for line in self.order_lines) 
-        return self.discount.apply(total)
+    def calculate_total(self) -> float:
+        total = sum(
+            line.calculate_subtotal()
+            for line in self.order_lines
+        )
+
+        discounted_total = self.discount_strategy.apply(total)
+
+
+        return discounted_total
 
     def set_discount(self, discount_strategy: DiscountStrategy) -> None:
         """Sets the discount strategy for the order."""
-        self.discount = discount_strategy
+        self.discount_strategy = discount_strategy
 
 
     def remove_order_line(self, product_id: str) -> bool:

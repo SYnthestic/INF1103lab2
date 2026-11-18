@@ -6,6 +6,16 @@ from product import Product
 from product_registry import get_product_types
 from supplier import Supplier
 
+### The discount strategies
+from strategies.percentage_discount import PercentageDiscount
+from strategies.no_discount import NoDiscount
+from strategies.bulk_discount import BulkDiscount
+
+from strategies.student_discount import StudentDiscount
+from strategies.elderly_discount import ElderlyDiscount
+from strategies.disability_discount import DisabilityDiscount
+from strategies.nsf_discount import NSFDiscount
+
 quantity_inp = "0"
 product_id = "P001"
 
@@ -23,7 +33,6 @@ ORDER_FILE_PATH = os.path.join(BASE_DIR, "orders.json")
 
 
 repository = FileHandling(FILE_PATH)
-inventory_entry, load_status = repository.load_inventory()
 inventory_entry, load_status = repository.load_inventory()
 orders = FileHandling.load_orders(ORDER_FILE_PATH, inventory_entry)
 
@@ -111,26 +120,36 @@ def display_goodbye_message():
     Thank you for using Inventory Management System.
     Program terminated.''')
 
+
 def create_customer_order(inventory_entry, order_counter: int) -> Order:
     order_id = "ORD-" + str(order_counter).zfill(3)
     order = Order(order_id)  # 1. Create the Order
 
     while True:
-        prod_id = input("Enter Product ID to add to order (or 'done' to finish): ").strip()
+        prod_id = input(
+            "Enter Product ID to add to order (or 'done' to finish): "
+        ).strip()
+
         if prod_id.lower() == "done":
             break
 
-        # 2. Fetch existing Product from Inventory (Aggregation: OrderLine refers to it, so it doesn't own it)
+        # 2. Fetch existing Product from Inventory
+        # Aggregation: OrderLine refers to the existing Product.
         product = inventory_entry.find_product(prod_id)
+
         if product is None:
             print("Product not found in inventory.")
             continue
 
-        elif product.stock == 0: ## It can only be 0 if the product is in the inventory but has no stock left. Negative stock is not possible
+        elif product.stock == 0:
             print(f"Product '{product.name}' is out of stock.")
             continue
 
-        qty_input = input(f"Enter quantity for {product.name} (Available: {product.stock}): ").strip()
+        qty_input = input(
+            f"Enter quantity for {product.name} "
+            f"(Available: {product.stock}): "
+        ).strip()
+
         if not qty_input.isdigit():
             print("Invalid input. Please enter a valid number.")
             continue
@@ -143,27 +162,81 @@ def create_customer_order(inventory_entry, order_counter: int) -> Order:
             print(f"Insufficient stock. Only {product.stock} available.")
             continue
 
-        
-
+        # 3. Add product to order and update inventory stock
         qty = int(qty_input)
-        # 1. Order creates and manages its own OrderLine internally
         order.add_order_line(product, qty)
-        product.stock -= qty  # Deduct purchased stock from inventory
+        product.stock -= qty
+
         print(f"Added {qty} x {product.name} to {order.order_id}.")
 
-    # 3. Display line items and ask Order to calculate its total via OrderLine objects
+    # 4. Select and apply discount strategy
+    if order.order_lines:
+        discount_strategy = select_discount_strategy()
+        order.set_discount(discount_strategy)
+
+        print(
+            f"\nDiscount applied: "
+            f"{type(discount_strategy).__name__}"
+        )
+
+    # 5. Display line items and calculate the final total
     print("\n" + "=" * 60)
     print(f"ORDER SUMMARY: {order.order_id}")
     print("=" * 60)
+
     if not order.order_lines:
         print("No items in order.")
+
     else:
         for line in order.order_lines:
             line.display_information()
+
         print("-" * 60)
         print(f"Order Total: ${order.calculate_total():.2f}")
+
     print("=" * 60)
+
     return order
+
+
+def select_discount_strategy():
+    """Allows the customer to select an applicable discount strategy."""
+
+    discount_options = [
+        ("No Discount", lambda: NoDiscount()),
+        ("Bulk Discount ($20 off orders of $200 or more)",
+         lambda: BulkDiscount(200, 20)),
+        ("Percentage Discount (10%)",
+         lambda: PercentageDiscount(10)),
+        ("Student Discount", lambda: StudentDiscount()),
+        ("Elderly Discount", lambda: ElderlyDiscount()),
+        ("Disability Discount", lambda: DisabilityDiscount()),
+        ("NSF Discount", lambda: NSFDiscount())
+    ]
+
+    print("\n" + "=" * 45)
+    print("SELECT DISCOUNT STRATEGY")
+    print("=" * 45)
+
+    for number, (label, _) in enumerate(discount_options, start=1):
+        print(f"{number}. {label}")
+
+    while True:
+        choice = input(
+            f"Select discount (1-{len(discount_options)}): "
+        ).strip()
+
+        try:
+            selected = int(choice)
+
+            if 1 <= selected <= len(discount_options):
+                _, strategy_factory = discount_options[selected - 1]
+                return strategy_factory()
+
+            print("Invalid choice. Please select a valid option.")
+
+        except ValueError:
+            print("Invalid input. Please enter a number.")
 
 def show_orders(orders: list[Order]) -> None:
     """Displays all recorded orders and their line items."""
