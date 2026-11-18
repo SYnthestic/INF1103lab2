@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 0,
+    "delivery_amount": 15,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -433,6 +433,18 @@
             },
             "rental_duration_days": 365,
             "rental_area": 120.0
+        },
+        "P039": {
+            "type": "physical",
+            "name": "4.0L Army Water Bag",
+            "price": 39.99,
+            "stock": 490,
+            "supplier": {
+                "supplier_id": "S-104",
+                "name": "Singapore Armed Forces",
+                "contact_email": "saf@gmail.com"
+            },
+            "weight": 1.7
         }
     }
 }
