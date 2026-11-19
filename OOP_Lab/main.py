@@ -344,10 +344,12 @@ while key != 8:
             print("Saving inventory and Orders...")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             FileHandling.save_orders(orders, ORDER_FILE_PATH)
+            FileHandling.save_products(CSV_FILE_PATH, inventory_entry)
         case 8:
             print("Saving inventory and orders before exit.")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             FileHandling.save_orders(orders, ORDER_FILE_PATH)
+            FileHandling.save_products(CSV_FILE_PATH, inventory_entry)
             display_goodbye_message()
             break
         case _:
