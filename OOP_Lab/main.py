@@ -22,6 +22,7 @@ key = -1
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 FILE_PATH = os.path.join(BASE_DIR, "inventory.json")
 ORDER_FILE_PATH = os.path.join(BASE_DIR, "orders.json")
+CSV_FILE_PATH = os.path.join(BASE_DIR, "products.csv")
 
 repository = FileHandling(FILE_PATH)
 inventory_entry, load_status = repository.load_inventory()

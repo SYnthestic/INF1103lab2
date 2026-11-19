@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 15,
+    "delivery_amount": 0,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -365,7 +365,7 @@
             "type": "digital",
             "name": "Test 1",
             "price": 1.0,
-            "stock": 1,
+            "stock": 0,
             "supplier": {
                 "supplier_id": "1",
                 "name": "1",
@@ -377,7 +377,7 @@
             "type": "physical",
             "name": "Boeing 707",
             "price": 2930000000.0,
-            "stock": 39,
+            "stock": 25,
             "supplier": {
                 "supplier_id": "S-005",
                 "name": "Boeing",
@@ -425,7 +425,7 @@
             "type": "housing",
             "name": "Pinnacle @ Duxton 5 room flat",
             "price": 2392000.0,
-            "stock": 1,
+            "stock": 0,
             "supplier": {
                 "supplier_id": "S-101",
                 "name": "HDB",
@@ -445,6 +445,18 @@
                 "contact_email": "saf@gmail.com"
             },
             "weight": 1.7
+        },
+        "P040": {
+            "type": "physical",
+            "name": "Paigey's Ramen",
+            "price": 19.99,
+            "stock": 99,
+            "supplier": {
+                "supplier_id": "S-1996",
+                "name": "Paige Tan",
+                "contact_email": "ptgirl52@gmail.com"
+            },
+            "weight": 5.0
         }
     }
 }

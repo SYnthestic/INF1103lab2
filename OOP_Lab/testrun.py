@@ -243,12 +243,32 @@ try:
 except ValueError as e:
     print(f"Caught expected ValueError: {e}")
 
-# 3. Test "service" WITHOUT catching it (to observe the raw crash & traceback)
-# Put this last so all tests above finish running first!
-print("\n--- Testing Uncaught Exception (Program will terminate here) ---")
-uncaught_product = ProductFactory.create(
-    "service", "F-004", "Cloud Consulting", 150.00, 5, default_supplier
-)
+# # 3. Test "service" WITHOUT catching it (to observe the raw crash & traceback)
+# # Put this last so all tests above finish running first!
+# print("\n--- Testing Uncaught Exception (Program will terminate here) ---")
+# uncaught_product = ProductFactory.create(
+#     "service", "F-004", "Cloud Consulting", 150.00, 5, default_supplier
+# )
 
-# This line will NEVER run because the line above crashes the program
-print("This line will never be reached.")
+# # This line will NEVER run because the line above crashes the program
+# print("This line will never be reached.")
+
+# ==========================================
+# SUB-TASK: TASK 5.2 CSV LOADING TEST
+# ==========================================
+from filehandling import FileHandling
+import os
+
+print("\n=== STARTING CSV LOADING TEST (TASK 5.2) ===")
+
+# Create a fresh inventory so CSV products don't collide with P001/P002 above
+csv_inventory = Inventory()
+csv_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "products.csv")
+
+# Call load_products (adjust to FileHandling.load_products if it's a @staticmethod)
+FileHandling.load_products(csv_path, csv_inventory, default_supplier)
+
+print("\n--- Loaded CSV Products ---")
+csv_inventory.display_all_products()
+print("=== ALL CSV LOADING TESTS COMPLETED ===")
+

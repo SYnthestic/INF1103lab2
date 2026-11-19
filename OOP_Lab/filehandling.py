@@ -1,10 +1,13 @@
 import json
 import os
+import csv
 
 import products  # noqa: F401  (auto-imports every module in products/ so they register)
+from productfactory import ProductFactory
 from inventory import Inventory
 from order import Order
 from product_registry import get_product_types
+from supplier import Supplier
 
 
 class FileHandling:
@@ -22,6 +25,7 @@ class FileHandling:
         """Maps saved type tags ("digital", "subscription", ...) to product classes."""
         return {cls.type_name: cls for cls in get_product_types().values()}
 
+## Load .json
     def load_inventory(self) -> tuple[Inventory, str]:
         """Returns (inventory, status): "loaded", "not_found" or "invalid_file".
         The inventory is always a valid Inventory, empty if loading failed."""
@@ -75,6 +79,7 @@ class FileHandling:
 
         return inventory, "loaded"
 
+## SAve .json
     @staticmethod
     def save_inventory(inventory: Inventory, delivery_amount, file_name: str) -> None:
         product_list = inventory.inventory if hasattr(inventory, "inventory") else inventory
@@ -96,6 +101,77 @@ class FileHandling:
 
         print("Inventory saved successfully.")
 
+    # Load .csv
+    def load_products(path: str, inventory: Inventory, supplier: Supplier) -> None: 
+        try: 
+            file = open(path, newline="") 
+        except FileNotFoundError: 
+            print(f"Products file not found: {path}") 
+        else:  #This activates only if the file is proven to exist. Obviously first run the file won't exist, so we need to save it as products.csv
+            loaded = 0
+            with file: 
+            # read rows with csv.reader and skip the header row 
+                reader = csv.reader(file)
+                next(reader, None)
+            # for each row: try to create and add the product, 
+                for row in reader:
+                    try: 
+                        product_type, product_id, name, price, stock_quantity = row
+                        product = ProductFactory.create(
+                            product_type.strip().lower(),
+                            product_id.strip(),
+                            name.strip(),
+                            float(price),
+                            int(stock_quantity),
+                            supplier
+                        )
+                        inventory.add_product(product)
+                        loaded += 1
+            # except ValueError: report the row and continue 
+                    except ValueError as e:
+                        print(f"Unable to add row {row}: {e}")
+            print(f"{loaded} products loaded.") 
+        finally: 
+            print("Load attempt finished.")
+
+    # Save .csv
+    @staticmethod
+    def save_products(path: str, inventory: Inventory) -> None:
+        try:
+            file = open(path, mode="w", newline="", encoding="utf-8")
+        except OSError as e:
+            print(f"Error opening products file for saving ({path}): {e}")
+        else:
+            saved = 0
+            # Build reverse lookup: {PhysicalProduct: "physical", SubscriptionProduct: "subscription", ...}
+            type_lookup = {cls: label.lower() for label, cls in get_product_types().items()}
+
+            with file:
+                writer = csv.writer(file)
+                # 1. Write the header row (matching load_products column order)
+                writer.writerow(["product_type", "product_id", "name", "price", "stock_quantity"])
+
+                # 2. Loop through products in inventory and write each row
+                for product in inventory.inventory:
+                    product_type = type_lookup.get(
+                        type(product),
+                        type(product).__name__.replace("Product", "").lower()
+                    )
+
+                    writer.writerow([
+                        product_type,
+                        product.product_id,
+                        product.name,
+                        product.price,
+                        product.stock
+                    ])
+                    saved += 1
+
+            print(f"{saved} products saved.")
+        finally:
+            print("Save attempt finished.")
+
+## Orders
     @staticmethod
     def save_orders(orders: list[Order], file_name: str) -> None:
         serialized_orders = [order.to_dict() for order in orders]
