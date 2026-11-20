@@ -117,7 +117,6 @@ def select_product_type() -> str:
             print(f"Please enter a number between 1 and {len(types)}.")
         except ValueError:
             print("Invalid input. Please enter a number.")
-            failed_entries += 1
 
 
 def get_supplier() -> Supplier:

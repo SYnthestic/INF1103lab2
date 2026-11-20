@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 17,
+    "delivery_amount": 18,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -517,6 +517,43 @@
                 "contact_email": "ge@gmail.com"
             },
             "weight": 30590.0
+        },
+        "P046": {
+            "type": "physical",
+            "name": "Tiramisu",
+            "price": 1.99,
+            "stock": 390,
+            "supplier": {
+                "supplier_id": "S-304",
+                "name": "tiramisuprocs",
+                "contact_email": "tirami@gmail.com.jp"
+            },
+            "weight": 0.3
+        },
+        "P047": {
+            "type": "digital",
+            "name": "eBook to Heaven",
+            "price": 5.94,
+            "stock": 200,
+            "supplier": {
+                "supplier_id": "S-100",
+                "name": "Second hand",
+                "contact_email": "sechand@gmail.com"
+            },
+            "download_size": 298.39
+        },
+        "P048": {
+            "type": "housing",
+            "name": "Cozy House",
+            "price": 293000.0,
+            "stock": 1,
+            "supplier": {
+                "supplier_id": "S-2034",
+                "name": "cozyhousebuilder company",
+                "contact_email": "chb@yahoo.co.uk"
+            },
+            "rental_duration_days": 30,
+            "rental_area": 55.0
         }
     }
 }
