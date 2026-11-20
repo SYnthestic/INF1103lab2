@@ -64,6 +64,7 @@ OOP_Lab.main --> OOP_Lab.filehandling
 OOP_Lab.main --> OOP_Lab.order
 OOP_Lab.main --> OOP_Lab.product
 OOP_Lab.main --> OOP_Lab.product_registry
+OOP_Lab.main --> OOP_Lab.productfactory
 OOP_Lab.main --> OOP_Lab.strategies.bulk_discount
 OOP_Lab.main --> OOP_Lab.strategies.disability_discount
 OOP_Lab.main --> OOP_Lab.strategies.elderly_discount
@@ -79,10 +80,7 @@ OOP_Lab.order --> OOP_Lab.strategies.no_discount
 OOP_Lab.orderline --> OOP_Lab.product
 OOP_Lab.product --> OOP_Lab.supplier
 OOP_Lab.productfactory --> OOP_Lab.product
-OOP_Lab.productfactory --> OOP_Lab.products.digitalproduct
-OOP_Lab.productfactory --> OOP_Lab.products.housingproduct
-OOP_Lab.productfactory --> OOP_Lab.products.physicalproduct
-OOP_Lab.productfactory --> OOP_Lab.products.subscriptionproduct
+OOP_Lab.productfactory --> OOP_Lab.product_registry
 OOP_Lab.productfactory --> OOP_Lab.supplier
 OOP_Lab.strategies.bulk_discount --> OOP_Lab.strategies.discount_strategy
 OOP_Lab.strategies.disability_discount --> OOP_Lab.strategies.percentage_discount

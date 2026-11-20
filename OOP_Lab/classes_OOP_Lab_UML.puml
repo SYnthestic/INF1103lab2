@@ -6,23 +6,22 @@ skinparam nodesep 45
 skinparam ranksep 60
 
 abstract class Product {
-  name : str
-  price : float
-  product_id : str
-  stock : int
-  supplier : Optional[Supplier]
+  name
+  price
+  product_id
+  stock
+  supplier : Supplier | None
   type_name : str
   --
-  {abstract} display_information() -> None
-  {static} from_dict(product_id: str, details: dict) -> Product
+  display_information() -> None
+  {abstract} from_dict(product_id: str, details: dict) -> Product
   {abstract} get_fulfilment_info() -> str
   get_information_string() -> str
   to_dict() -> dict
 }
 
 abstract class CanBeShipped {
-  --
-  {abstract} calculate_shipping_cost() -> float
+  {abstract} calculate_shipping_cost()
 }
 
 class PhysicalProduct {
@@ -30,11 +29,11 @@ class PhysicalProduct {
   type_name : str
   weight : float
   --
-  calculate_shipping_cost() -> float
+  calculate_shipping_cost()
   display_information() -> None
   from_dict(product_id, details)
   from_ui(product_id, name, price, stock, supplier)
-  get_fulfilment_info() -> str
+  get_fulfilment_info()
   to_dict() -> dict
 }
 
@@ -45,7 +44,7 @@ class DigitalProduct {
   display_information() -> None
   from_dict(product_id, details)
   from_ui(product_id, name, price, stock, supplier)
-  get_fulfilment_info() -> str
+  get_fulfilment_info()
   to_dict() -> dict
 }
 
@@ -62,6 +61,9 @@ class SubscriptionProduct {
 }
 
 class HousingProduct {
+  rental_area : float
+  rental_duration_days : int
+  rental_fee : float
   type_name : str
   --
   display_information() -> None
@@ -74,15 +76,16 @@ class HousingProduct {
 class ProductFactory {
   --
   {static} create(product_type: str, product_id: str, name: str, price: float, stock_quantity: int, supplier: Supplier) -> Product
+  {static} create_from_ui(product_type: str, product_id: str, name: str, price: float, stock_quantity: int, supplier: Supplier) -> Product
 }
 
 class Supplier {
-  contact_email : str
-  name : str
-  supplier_id : str
+  contact_email
+  name
+  supplier_id
   --
   display_information() -> None
-  {static} from_dict(details: dict) -> Supplier
+  {static} from_dict(details: dict | None) -> Supplier
   to_dict() -> dict
 }
 
@@ -92,11 +95,11 @@ class Inventory {
   --
   add_product(product: Product) -> tuple[int, str]
   display_all_products() -> None
-  find_product(product_id: str) -> Optional[Product]
+  find_product(product_id: str) -> Product | None
   process_delivery() -> int
-  remove_product(product_id: str) -> bool
+  remove_product(product: Product) -> None
   total_shipping_fees() -> float
-  update_stock(product_id: str) -> bool
+  update_stock(product: Product) -> bool
 }
 
 class OrderLine {
@@ -109,59 +112,57 @@ class OrderLine {
 }
 
 class Order {
+  discount_strategy : DiscountStrategy
   order_id : str
   order_lines : list[OrderLine]
-  discount : DiscountStrategy
   --
   add_order_line(product: Product, quantity: int) -> None
   calculate_total() -> float
+  display_summary() -> None
+  {static} find_by_id(orders: list[Order], order_id: str) -> Order | None
   {static} from_dict(data: dict, inventory: Inventory) -> Order
   remove_order_line(product_id: str) -> bool
-  set_discount(discount: DiscountStrategy) -> None
+  set_discount(discount_strategy: DiscountStrategy) -> None
+  {static} show_orders(orders: list[Order]) -> None
   to_dict() -> dict
 }
 
 abstract class DiscountStrategy {
-  --
-  {abstract} apply_discount(subtotal: float) -> float
+  {abstract} apply(total: float) -> float
 }
 
 class NoDiscount {
-  --
-  apply_discount(subtotal: float) -> float
+  apply(total: float) -> float
 }
 
 class PercentageDiscount {
-  percentage : float
-  --
-  apply_discount(subtotal: float) -> float
+  percentage
+  apply(total: float) -> float
 }
 
 class BulkDiscount {
-  threshold : float
-  discount_amount : float
-  --
-  apply_discount(subtotal: float) -> float
+  amount : float
+  threshold : int
+  apply(total: float) -> float
 }
 
 class StudentDiscount {
-  --
-  apply_discount(subtotal: float) -> float
+  min_spend : float
+  rebate : float
+  apply(total: float) -> float
 }
 
 class ElderlyDiscount {
-  --
-  apply_discount(subtotal: float) -> float
+  is_pioneer : bool
 }
 
 class DisabilityDiscount {
-  --
-  apply_discount(subtotal: float) -> float
 }
 
 class NSFDiscount {
-  --
-  apply_discount(subtotal: float) -> float
+  min_spend : float
+  rebate : float
+  apply(total: float) -> float
 }
 
 class FileHandling {
@@ -170,12 +171,12 @@ class FileHandling {
   load_inventory() -> tuple[Inventory, str]
   {static} load_orders(file_name: str, inventory: Inventory) -> list[Order]
   {static} load_products(path: str, inventory: Inventory, supplier: Supplier) -> None
-  {static} save_inventory(inventory: Inventory, delivery_amount: int, file_name: str) -> None
+  {static} save_inventory(inventory: Inventory, delivery_amount, file_name: str) -> None
   {static} save_orders(orders: list[Order], file_name: str) -> None
   {static} save_products(path: str, inventory: Inventory) -> None
 }
 
-' === INHERITANCE / GENERALIZATION ===
+' === INHERITANCE / REALIZATION ===
 Product <|-- PhysicalProduct
 Product <|-- DigitalProduct
 Product <|-- SubscriptionProduct
@@ -185,10 +186,10 @@ CanBeShipped <|.. PhysicalProduct
 DiscountStrategy <|-- NoDiscount
 DiscountStrategy <|-- PercentageDiscount
 DiscountStrategy <|-- BulkDiscount
-DiscountStrategy <|-- StudentDiscount
-DiscountStrategy <|-- ElderlyDiscount
-DiscountStrategy <|-- DisabilityDiscount
-DiscountStrategy <|-- NSFDiscount
+PercentageDiscount <|-- StudentDiscount
+PercentageDiscount <|-- ElderlyDiscount
+PercentageDiscount <|-- DisabilityDiscount
+PercentageDiscount <|-- NSFDiscount
 
 ' === COMPOSITION, AGGREGATION & ASSOCIATIONS ===
 Order "1" *-- "0..*" OrderLine : composition
@@ -199,6 +200,7 @@ Order "0..*" --> "1" DiscountStrategy : uses
 
 ' === FACTORY & FILEHANDLING DEPENDENCIES ===
 ProductFactory ..> Product : <<create>>
+FileHandling ..> ProductFactory : uses
 FileHandling ..> Inventory : uses
 FileHandling ..> Order : uses
 
