@@ -293,12 +293,18 @@ while key != 8:
         case 3:
             print("Update Stock")
             target_id = input("Enter Product ID to update stock: ").strip()
+            product = inventory_entry.find_product(target_id)
 
-            if not target_id:
+            if product is None:
                 print("Product not found.")
                 failed_entries += 1
             else:
-                success = inventory_entry.update_stock(target_id)
+                print("Product Found")
+                print("-" * 60)
+                show_product_details(product)
+                print("-" * 60)
+
+                success = inventory_entry.update_stock(product)
                 if not success:
                     failed_entries += 1
                 else:

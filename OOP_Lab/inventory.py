@@ -60,12 +60,7 @@ class Inventory:
             product.display_information()
             print(product.get_fulfilment_info())
 
-    def update_stock(self, product_id: str) -> bool:
-        product = self.find_product(product_id)
-        if product is None:
-            print("Product not found.")
-            return False
-
+    def update_stock(self, product: Product) -> bool:
         while True:
             try: 
                 qty_input = input("Enter new stock quantity: ").strip()

@@ -450,7 +450,7 @@
             "type": "physical",
             "name": "Paigey's Ramen",
             "price": 19.99,
-            "stock": 117,
+            "stock": 128,
             "supplier": {
                 "supplier_id": "S-1996",
                 "name": "Paige Tan",
