@@ -486,7 +486,7 @@
             "type": "physical",
             "name": "iPhone 3",
             "price": 499.0,
-            "stock": 10,
+            "stock": 20,
             "supplier": {
                 "supplier_id": "S-101",
                 "name": "Apple",
@@ -534,7 +534,7 @@
             "type": "digital",
             "name": "eBook to Heaven",
             "price": 5.94,
-            "stock": 200,
+            "stock": 180,
             "supplier": {
                 "supplier_id": "S-100",
                 "name": "Second hand",
@@ -546,7 +546,7 @@
             "type": "housing",
             "name": "Cozy House",
             "price": 293000.0,
-            "stock": 1,
+            "stock": 0,
             "supplier": {
                 "supplier_id": "S-2034",
                 "name": "cozyhousebuilder company",

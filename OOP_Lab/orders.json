@@ -178,7 +178,7 @@
                     "subtotal": 234.53
                 }
             ],
-            "order_total": 2392234.53
+            "order_total": 2388631.178205
         },
         {
             "order_id": "ORD-011",
@@ -323,6 +323,24 @@
                 }
             ],
             "order_total": 9980.0
+        },
+        {
+            "order_id": "ORD-019",
+            "order_lines": [
+                {
+                    "product_id": "P048",
+                    "name": "Cozy House",
+                    "quantity": 1,
+                    "subtotal": 293000.0
+                },
+                {
+                    "product_id": "P047",
+                    "name": "eBook to Heaven",
+                    "quantity": 20,
+                    "subtotal": 118.80000000000001
+                }
+            ],
+            "order_total": 293098.8
         }
     ]
 }
