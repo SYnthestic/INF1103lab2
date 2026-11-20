@@ -15,6 +15,8 @@ from strategies.elderly_discount import ElderlyDiscount
 from strategies.disability_discount import DisabilityDiscount
 from strategies.nsf_discount import NSFDiscount
 
+from productfactory import ProductFactory
+
 failed_entries = 0
 delivery_amount = 0
 key = -1
@@ -100,18 +102,16 @@ def get_valid_input(inventory_entry, failed_entries: int):
     return product_id, name, price, stock, failed_entries
 
 
-def select_product_class():
-    types = list(get_product_types().items())
+def select_product_type() -> str | None:
+    types = [label.lower() for label in get_product_types()]
     print("Select Product Type:")
-    for number, (label, _) in enumerate(types, start=1):
-        print(f"{number}. {label} Product")
+    for number, label in enumerate(types, start=1):
+        print(f"{number}. {label.capitalize()} Product")
 
     choice = input(f"Enter choice (1-{len(types)}): ").strip()
     try:
         index = int(choice) - 1
-        if index < 0:
-            return None
-        return types[index][1]
+        return types[index] if index >= 0 else None
     except (ValueError, IndexError):
         return None
 
@@ -249,7 +249,7 @@ def show_orders(orders: list[Order]) -> None:
 
 
 ## Main Menu Loop
-while key != 9:
+while key != 10:
     print('''
 ----------- MENU ----------- 
 0. Show Orders
@@ -260,13 +260,14 @@ while key != 9:
 5. Remove Product
 6. Create Order
 7. Update Discount Type
-8. Save Inventory & Orders
-9. Exit 
+8. Load Products from CSV
+9. Save Inventory & Orders
+10. Exit 
 ----------------------------''')
     try:
         key = int(input("Enter option: ").strip())
     except ValueError:
-        print("Invalid input. Please enter a menu number (0-9).")
+        print("Invalid input. Please enter a menu number (0-10).")
         continue
 
     match key:
@@ -284,8 +285,8 @@ while key != 9:
             print("Adding new product...")
             product_id, name, price, stock, failed_entries = get_valid_input(inventory_entry, failed_entries)
 
-            product_class = select_product_class()
-            if product_class is None:
+            type_key = select_product_type()
+            if type_key is None:
                 print("Invalid choice.")
                 failed_entries += 1
                 continue
@@ -293,7 +294,9 @@ while key != 9:
             supplier = get_supplier()
 
             try:
-                new_product = product_class.from_ui(product_id, name, price, stock, supplier)
+                new_product = ProductFactory.create_from_ui(
+                    type_key, product_id, name, price, stock, supplier
+                )
                 delivery_amount, next_id = inventory_entry.add_product(new_product)
                 print(new_product.get_fulfilment_info())
                 print(f"Total Inventory Shipping Fees: ${inventory_entry.total_shipping_fees():.2f}")
@@ -378,12 +381,19 @@ while key != 9:
             order.set_discount(new_strategy)
             print(f"Discount updated to: {type(new_strategy).__name__}")
             print(f"New total: ${order.calculate_total():.2f}")
+
         case 8:
+            print("Load Products from CSV")
+            print("Products in the file will be assigned to the supplier you enter.")
+            supplier = get_supplier()
+            FileHandling.load_products(CSV_FILE_PATH, inventory_entry, supplier)
+            delivery_amount = inventory_entry.process_delivery()
+        case 9:
             print("Saving inventory and Orders...")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             FileHandling.save_orders(orders, ORDER_FILE_PATH)
             FileHandling.save_products(CSV_FILE_PATH, inventory_entry)
-        case 9:
+        case 10:
             print("Saving inventory and orders before exit.")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             FileHandling.save_orders(orders, ORDER_FILE_PATH)

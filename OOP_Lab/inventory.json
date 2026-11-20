@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 0,
+    "delivery_amount": 17,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -469,6 +469,42 @@
                 "contact_email": "colgate@gmail.com"
             },
             "weight": 0.55
+        },
+        "P042": {
+            "type": "physical",
+            "name": "Test 1",
+            "price": 29.0,
+            "stock": 2,
+            "supplier": {
+                "supplier_id": "S-101",
+                "name": "Test Company",
+                "contact_email": "testcoy@gmail.com"
+            },
+            "weight": 4.0
+        },
+        "P043": {
+            "type": "physical",
+            "name": "iPhone 3",
+            "price": 499.0,
+            "stock": 10,
+            "supplier": {
+                "supplier_id": "S-101",
+                "name": "Apple",
+                "contact_email": "apple@gmail.com"
+            },
+            "weight": 1.834
+        },
+        "P044": {
+            "type": "physical",
+            "name": "SAS-30",
+            "price": 44.0,
+            "stock": 490,
+            "supplier": {
+                "supplier_id": "S-20",
+                "name": "Combat Weapons Stores",
+                "contact_email": "comweaponstore@gmail.com"
+            },
+            "weight": 39.94
         }
     }
 }

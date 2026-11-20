@@ -10,7 +10,7 @@
                     "subtotal": 299.99
                 }
             ],
-            "order_total": 279.99
+            "order_total": 299.99
         },
         {
             "order_id": "ORD-002",
@@ -310,7 +310,19 @@
                     "subtotal": 79.9
                 }
             ],
-            "order_total": 64.78015
+            "order_total": 79.9
+        },
+        {
+            "order_id": "ORD-018",
+            "order_lines": [
+                {
+                    "product_id": "P043",
+                    "name": "iPhone 3",
+                    "quantity": 20,
+                    "subtotal": 9980.0
+                }
+            ],
+            "order_total": 9980.0
         }
     ]
 }

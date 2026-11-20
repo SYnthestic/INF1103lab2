@@ -137,8 +137,7 @@ class FileHandling:
                         )
                         inventory.add_product(product)
                         loaded += 1
-
-                    except ValueError as e:
+                    except (ValueError, TypeError) as e:
                         print(f"Unable to add row {row}: {e}")
             print(f"{loaded} products loaded.") 
         finally: 
