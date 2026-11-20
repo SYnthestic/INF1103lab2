@@ -18,13 +18,35 @@ package "OOP_Lab.product" as OOP_Lab.product {
 }
 package "OOP_Lab.product_registry" as OOP_Lab.product_registry {
 }
+package "OOP_Lab.productfactory" as OOP_Lab.productfactory {
+}
 package "OOP_Lab.products" as OOP_Lab.products {
 }
 package "OOP_Lab.products.digitalproduct" as OOP_Lab.products.digitalproduct {
 }
+package "OOP_Lab.products.housingproduct" as OOP_Lab.products.housingproduct {
+}
 package "OOP_Lab.products.physicalproduct" as OOP_Lab.products.physicalproduct {
 }
 package "OOP_Lab.products.subscriptionproduct" as OOP_Lab.products.subscriptionproduct {
+}
+package "OOP_Lab.strategies" as OOP_Lab.strategies {
+}
+package "OOP_Lab.strategies.bulk_discount" as OOP_Lab.strategies.bulk_discount {
+}
+package "OOP_Lab.strategies.disability_discount" as OOP_Lab.strategies.disability_discount {
+}
+package "OOP_Lab.strategies.discount_strategy" as OOP_Lab.strategies.discount_strategy {
+}
+package "OOP_Lab.strategies.elderly_discount" as OOP_Lab.strategies.elderly_discount {
+}
+package "OOP_Lab.strategies.no_discount" as OOP_Lab.strategies.no_discount {
+}
+package "OOP_Lab.strategies.nsf_discount" as OOP_Lab.strategies.nsf_discount {
+}
+package "OOP_Lab.strategies.percentage_discount" as OOP_Lab.strategies.percentage_discount {
+}
+package "OOP_Lab.strategies.student_discount" as OOP_Lab.strategies.student_discount {
 }
 package "OOP_Lab.supplier" as OOP_Lab.supplier {
 }
@@ -33,24 +55,55 @@ package "OOP_Lab.testrun" as OOP_Lab.testrun {
 OOP_Lab.filehandling --> OOP_Lab.inventory
 OOP_Lab.filehandling --> OOP_Lab.order
 OOP_Lab.filehandling --> OOP_Lab.product_registry
+OOP_Lab.filehandling --> OOP_Lab.productfactory
 OOP_Lab.filehandling --> OOP_Lab.products
+OOP_Lab.filehandling --> OOP_Lab.supplier
 OOP_Lab.inventory --> OOP_Lab.canbeshipped
 OOP_Lab.inventory --> OOP_Lab.product
 OOP_Lab.main --> OOP_Lab.filehandling
 OOP_Lab.main --> OOP_Lab.order
 OOP_Lab.main --> OOP_Lab.product
 OOP_Lab.main --> OOP_Lab.product_registry
+OOP_Lab.main --> OOP_Lab.strategies.bulk_discount
+OOP_Lab.main --> OOP_Lab.strategies.disability_discount
+OOP_Lab.main --> OOP_Lab.strategies.elderly_discount
+OOP_Lab.main --> OOP_Lab.strategies.no_discount
+OOP_Lab.main --> OOP_Lab.strategies.nsf_discount
+OOP_Lab.main --> OOP_Lab.strategies.percentage_discount
+OOP_Lab.main --> OOP_Lab.strategies.student_discount
 OOP_Lab.main --> OOP_Lab.supplier
 OOP_Lab.order --> OOP_Lab.orderline
 OOP_Lab.order --> OOP_Lab.product
+OOP_Lab.order --> OOP_Lab.strategies.discount_strategy
+OOP_Lab.order --> OOP_Lab.strategies.no_discount
 OOP_Lab.orderline --> OOP_Lab.product
 OOP_Lab.product --> OOP_Lab.supplier
+OOP_Lab.productfactory --> OOP_Lab.product
+OOP_Lab.productfactory --> OOP_Lab.products.digitalproduct
+OOP_Lab.productfactory --> OOP_Lab.products.housingproduct
+OOP_Lab.productfactory --> OOP_Lab.products.physicalproduct
+OOP_Lab.productfactory --> OOP_Lab.products.subscriptionproduct
+OOP_Lab.productfactory --> OOP_Lab.supplier
+OOP_Lab.strategies.bulk_discount --> OOP_Lab.strategies.discount_strategy
+OOP_Lab.strategies.disability_discount --> OOP_Lab.strategies.percentage_discount
+OOP_Lab.strategies.elderly_discount --> OOP_Lab.strategies.percentage_discount
+OOP_Lab.strategies.no_discount --> OOP_Lab.strategies.discount_strategy
+OOP_Lab.strategies.nsf_discount --> OOP_Lab.strategies.percentage_discount
+OOP_Lab.strategies.percentage_discount --> OOP_Lab.strategies.discount_strategy
+OOP_Lab.strategies.student_discount --> OOP_Lab.strategies.percentage_discount
+OOP_Lab.testrun --> OOP_Lab.filehandling
 OOP_Lab.testrun --> OOP_Lab.inventory
 OOP_Lab.testrun --> OOP_Lab.order
-OOP_Lab.testrun --> OOP_Lab.orderline
+OOP_Lab.testrun --> OOP_Lab.productfactory
 OOP_Lab.testrun --> OOP_Lab.products.digitalproduct
 OOP_Lab.testrun --> OOP_Lab.products.physicalproduct
 OOP_Lab.testrun --> OOP_Lab.products.subscriptionproduct
+OOP_Lab.testrun --> OOP_Lab.strategies.bulk_discount
+OOP_Lab.testrun --> OOP_Lab.strategies.disability_discount
+OOP_Lab.testrun --> OOP_Lab.strategies.elderly_discount
+OOP_Lab.testrun --> OOP_Lab.strategies.nsf_discount
+OOP_Lab.testrun --> OOP_Lab.strategies.percentage_discount
+OOP_Lab.testrun --> OOP_Lab.strategies.student_discount
 OOP_Lab.testrun --> OOP_Lab.supplier
 OOP_Lab.order ..> OOP_Lab.inventory
 @enduml

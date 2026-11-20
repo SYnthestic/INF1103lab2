@@ -66,14 +66,18 @@ class Inventory:
             print("Product not found.")
             return False
 
-        qty_input = input("Enter new stock quantity: ").strip()
-        if not qty_input.isdigit() or not (0 <= int(qty_input) <= 500):
-            print("Invalid stock quantity.")
-            return False
+        while True:
+            try: 
+                qty_input = input("Enter new stock quantity: ").strip()
+                if not qty_input.isdigit() or not (0 <= int(qty_input) <= 500):
+                    raise ValueError("Stock must be between 0 and 500.")
 
-        product.stock = int(qty_input)
-        print("Stock updated successfully.")
-        return True
+                product.stock = int(qty_input)
+                print("Stock updated successfully.")
+                return True
+
+            except ValueError:
+                print("Invalid stock quantity. Please enter a whole number between 0 and 500.")
 
     def total_shipping_fees(self) -> float:
         total = 0.0
