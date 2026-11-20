@@ -10,7 +10,7 @@
                     "subtotal": 299.99
                 }
             ],
-            "order_total": 299.99
+            "order_total": 279.99
         },
         {
             "order_id": "ORD-002",
@@ -148,7 +148,7 @@
                     "subtotal": 273.7
                 }
             ],
-            "order_total": 67960609570.299995
+            "order_total": 67960609570.3
         },
         {
             "order_id": "ORD-009",
@@ -286,7 +286,31 @@
                     "subtotal": 7578.0
                 }
             ],
-            "order_total": 13865.11
+            "order_total": 13885.11
+        },
+        {
+            "order_id": "ORD-016",
+            "order_lines": [
+                {
+                    "product_id": "P001",
+                    "name": "Laptop",
+                    "quantity": 1,
+                    "subtotal": 1989.59
+                }
+            ],
+            "order_total": 1989.59
+        },
+        {
+            "order_id": "ORD-017",
+            "order_lines": [
+                {
+                    "product_id": "P009",
+                    "name": "Shin Ramyun",
+                    "quantity": 10,
+                    "subtotal": 79.9
+                }
+            ],
+            "order_total": 64.78015
         }
     ]
 }

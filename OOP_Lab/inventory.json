@@ -5,7 +5,7 @@
             "type": "physical",
             "name": "Laptop",
             "price": 1989.59,
-            "stock": 270,
+            "stock": 269,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -89,7 +89,7 @@
             "type": "physical",
             "name": "Shin Ramyun",
             "price": 7.99,
-            "stock": 345,
+            "stock": 335,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",

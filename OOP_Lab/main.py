@@ -28,6 +28,8 @@ repository = FileHandling(FILE_PATH)
 inventory_entry, load_status = repository.load_inventory()
 orders = FileHandling.load_orders(ORDER_FILE_PATH, inventory_entry)
 
+BULK_THRESHOLD = 200
+
 if load_status == "not_found":
     print("File not found. Starting a fresh inventory.")
 elif load_status == "invalid_file":
@@ -170,7 +172,7 @@ def create_customer_order(inventory_entry, order_counter: int) -> Order:
         print(f"Added {qty} x {product.name} to {order.order_id}.")
 
     if order.order_lines:
-        discount_strategy = select_discount_strategy()
+        discount_strategy = select_discount_strategy(order)
         order.set_discount(discount_strategy)
         print(f"\nDiscount applied: {type(discount_strategy).__name__}")
 
@@ -190,20 +192,28 @@ def create_customer_order(inventory_entry, order_counter: int) -> Order:
     return order
 
 
-def select_discount_strategy():
-    """Allows the customer to select an applicable discount strategy."""
-    discount_options = [
-        ("No Discount", lambda: NoDiscount()),
-        ("Bulk Discount ($20 off orders of $200 or more)", lambda: BulkDiscount(200, 20)),
-        ("Percentage Discount (10%)", lambda: PercentageDiscount(10)),
-        ("Student Discount", lambda: StudentDiscount()),
-        ("Elderly Discount", lambda: ElderlyDiscount()),
-        ("Disability Discount", lambda: DisabilityDiscount()),
-        ("NSF Discount", lambda: NSFDiscount())
+
+
+def select_discount_strategy(order: Order):
+    """Lets the customer pick a discount, offering only those the order qualifies for."""
+    subtotal = sum(line.calculate_subtotal() for line in order.order_lines)
+    # (label, factory, minimum subtotal required)
+    all_options = [
+        ("No Discount", lambda: NoDiscount(), 0),
+        (f"Bulk Discount ($20 off orders of ${BULK_THRESHOLD} or more)",
+         lambda: BulkDiscount(BULK_THRESHOLD, 20), BULK_THRESHOLD),
+        ("Percentage Discount (10%)", lambda: PercentageDiscount(10), 0),
+        ("Student Discount", lambda: StudentDiscount(), 0),
+        ("Elderly Discount", lambda: ElderlyDiscount(), 0),
+        ("Disability Discount", lambda: DisabilityDiscount(), 0),
+        ("NSF Discount", lambda: NSFDiscount(), 0),
     ]
+    discount_options = [(label, factory) for label, factory, minimum in all_options
+                        if subtotal >= minimum]
 
     print("\n" + "=" * 45)
     print("SELECT DISCOUNT STRATEGY")
+    print(f"Order subtotal: ${subtotal:.2f}")
     print("=" * 45)
 
     for number, (label, _) in enumerate(discount_options, start=1):
@@ -239,7 +249,7 @@ def show_orders(orders: list[Order]) -> None:
 
 
 ## Main Menu Loop
-while key != 8:
+while key != 9:
     print('''
 ----------- MENU ----------- 
 0. Show Orders
@@ -249,13 +259,14 @@ while key != 8:
 4. Search Product 
 5. Remove Product
 6. Create Order
-7. Save Inventory & Orders
-8. Exit 
+7. Update Discount Type
+8. Save Inventory & Orders
+9. Exit 
 ----------------------------''')
     try:
         key = int(input("Enter option: ").strip())
     except ValueError:
-        print("Invalid input. Please enter a menu number (0-8).")
+        print("Invalid input. Please enter a menu number (0-9).")
         continue
 
     match key:
@@ -347,14 +358,32 @@ while key != 8:
             else:
                 next_order_num = max((int(o.order_id.split("-")[1]) for o in orders), default=0) + 1
                 new_order = create_customer_order(inventory_entry, next_order_num)
-            if new_order.order_lines:
-                orders.append(new_order)
+                if new_order.order_lines:
+                    orders.append(new_order)
         case 7:
+            print("Update Discount Type")
+            if not orders:
+                print("No orders found.")
+                continue
+
+            order_id = input("Enter Order ID (e.g. ORD-001): ").strip().upper()
+            order = Order.find_by_id(orders, order_id)
+            if order is None:
+                print("Order not found.")
+                failed_entries += 1
+                continue
+
+            print(f"Current total: ${order.calculate_total():.2f}")
+            new_strategy = select_discount_strategy(order)
+            order.set_discount(new_strategy)
+            print(f"Discount updated to: {type(new_strategy).__name__}")
+            print(f"New total: ${order.calculate_total():.2f}")
+        case 8:
             print("Saving inventory and Orders...")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             FileHandling.save_orders(orders, ORDER_FILE_PATH)
             FileHandling.save_products(CSV_FILE_PATH, inventory_entry)
-        case 8:
+        case 9:
             print("Saving inventory and orders before exit.")
             FileHandling.save_inventory(inventory_entry, delivery_amount, FILE_PATH)
             FileHandling.save_orders(orders, ORDER_FILE_PATH)

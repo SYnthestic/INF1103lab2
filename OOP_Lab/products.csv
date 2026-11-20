@@ -1,12 +1,12 @@
 product_type,product_id,name,price,stock_quantity
-physical,P001,Laptop,1989.59,270
+physical,P001,Laptop,1989.59,269
 physical,P003,Wires,19.0,280
 physical,P004,Spoons,19.99,70
 physical,P005,Ramen,5.56,100
 physical,P006,Forks,3.99,385
 physical,P007,Ramen,5.56,40
 physical,P008,KitKat,6.75,193
-physical,P009,Shin Ramyun,7.99,345
+physical,P009,Shin Ramyun,7.99,335
 physical,P010,PTC1030,93020.0,7
 physical,P011,PXA190,29100.0,3
 physical,P012,PXC390,32900.0,3

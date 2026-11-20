@@ -57,6 +57,13 @@ class Order:
             "order_total": self.calculate_total(),
         }
 
+    @staticmethod
+    def find_by_id(orders: list["Order"], order_id: str) -> "Order | None":
+        for order in orders:
+            if order.order_id == order_id:
+                return order
+        return None
+
     @classmethod
     def from_dict(cls, data: dict, inventory: "Inventory") -> "Order":
         order = cls(data["order_id"])
