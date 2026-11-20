@@ -72,3 +72,25 @@ class Order:
             if product is not None:
                 order.add_order_line(product, line_data["quantity"])
         return order
+
+    def display_summary(self) -> None:
+        print("\n" + "=" * 60)
+        print(f"ORDER SUMMARY: {self.order_id}")
+        print("=" * 60)
+        if not self.order_lines:
+            print("No items in order.")
+        else:
+            for line in self.order_lines:
+                line.display_information()
+            print("-" * 60)
+            print(f"Order Total: ${self.calculate_total():.2f}")
+        print("=" * 60)
+
+    @staticmethod
+    def show_orders(orders: list["Order"]) -> None:
+        """Displays all recorded orders and their line items."""
+        if not orders:
+            print("No orders found.")
+            return
+        for order in orders:
+            order.display_summary()

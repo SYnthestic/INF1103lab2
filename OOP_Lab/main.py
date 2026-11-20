@@ -102,18 +102,22 @@ def get_valid_input(inventory_entry, failed_entries: int):
     return product_id, name, price, stock, failed_entries
 
 
-def select_product_type() -> str | None:
+def select_product_type() -> str:
     types = [label.lower() for label in get_product_types()]
     print("Select Product Type:")
     for number, label in enumerate(types, start=1):
         print(f"{number}. {label.capitalize()} Product")
 
-    choice = input(f"Enter choice (1-{len(types)}): ").strip()
-    try:
-        index = int(choice) - 1
-        return types[index] if index >= 0 else None
-    except (ValueError, IndexError):
-        return None
+    while True:
+        choice = input(f"Enter choice (1-{len(types)}): ").strip()
+        try:
+            index = int(choice)
+            if 1 <= index <= len(types):
+                return types[index - 1]
+            print(f"Please enter a number between 1 and {len(types)}.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+            failed_entries += 1
 
 
 def get_supplier() -> Supplier:
@@ -178,17 +182,7 @@ def create_customer_order(inventory_entry, order_counter: int) -> Order:
 
     print("\n" + "=" * 60)
     print(f"ORDER SUMMARY: {order.order_id}")
-    print("=" * 60)
-
-    if not order.order_lines:
-        print("No items in order.")
-    else:
-        for line in order.order_lines:
-            line.display_information()
-        print("-" * 60)
-        print(f"Order Total: ${order.calculate_total():.2f}")
-
-    print("=" * 60)
+    order.display_summary()
     return order
 
 
@@ -230,24 +224,6 @@ def select_discount_strategy(order: Order):
         except ValueError:
             print("Invalid input. Please enter a number.")
 
-
-def show_orders(orders: list[Order]) -> None:
-    """Displays all recorded orders and their line items."""
-    if not orders:
-        print("No orders found.")
-        return
-
-    for order in orders:
-        print("\n" + "=" * 60)
-        print(f"ORDER SUMMARY: {order.order_id}")
-        print("=" * 60)
-        for line in order.order_lines:
-            line.display_information()
-        print("-" * 60)
-        print(f"Order Total: ${order.calculate_total():.2f}")
-        print("=" * 60)
-
-
 ## Main Menu Loop
 while key != 10:
     print('''
@@ -272,7 +248,7 @@ while key != 10:
 
     match key:
         case 0:
-            show_orders(orders)
+            Order.show_orders(orders)
 
         case 1:
             if not inventory_entry.inventory:
@@ -286,11 +262,6 @@ while key != 10:
             product_id, name, price, stock, failed_entries = get_valid_input(inventory_entry, failed_entries)
 
             type_key = select_product_type()
-            if type_key is None:
-                print("Invalid choice.")
-                failed_entries += 1
-                continue
-
             supplier = get_supplier()
 
             try:

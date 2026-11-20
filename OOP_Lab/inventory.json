@@ -505,6 +505,18 @@
                 "contact_email": "comweaponstore@gmail.com"
             },
             "weight": 39.94
+        },
+        "P045": {
+            "type": "physical",
+            "name": "GE90 Engine",
+            "price": 329400000.0,
+            "stock": 10,
+            "supplier": {
+                "supplier_id": "S-203",
+                "name": "General Electirc",
+                "contact_email": "ge@gmail.com"
+            },
+            "weight": 30590.0
         }
     }
 }
