@@ -24,7 +24,7 @@ physical,P023,T-34 Tank,19029000.0,89
 physical,P024,Panzer Tiger Tank,42901900.0,1
 physical,P025,Panzer V Panther Tank,37294090.0,0
 digital,P026,Panther Tank eBook operations manual,187.39,455
-physical,P027,Kar-98k,189.45,49
+physical,P027,Kar-98k,189.45,9
 subscription,P028,Class Subscription,12.12,2
 digital,P029,FocusTown App,1.19,128
 physical,P030,SAS-10,293000.0,140
@@ -33,8 +33,8 @@ digital,P032,Test 1,1.0,0
 physical,P033,Boeing 707,2930000000.0,39
 physical,P034,P-1 Seagap,2930000.0,14
 physical,P035,AK-47,199.0,180
-physical,P037,ROK-SWC Patch,4.99,68
+physical,P037,ROK-SWC Patch,4.99,1
 housing,P038,Pinnacle @ Duxton 5 room flat,2392000.0,0
 physical,P039,4.0L Army Water Bag,39.99,490
-physical,P040,Paigey's Ramen,19.99,370
-physical,P041,Toothbrush,12.5,6
+physical,P040,Paigey's Ramen,19.99,77
+physical,P041,Toothbrush,3.99,466

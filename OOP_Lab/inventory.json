@@ -1,5 +1,5 @@
 {
-    "delivery_amount": 15,
+    "delivery_amount": 0,
     "inventory": {
         "P001": {
             "type": "physical",
@@ -305,7 +305,7 @@
             "type": "physical",
             "name": "Kar-98k",
             "price": 189.45,
-            "stock": 49,
+            "stock": 9,
             "supplier": {
                 "supplier_id": "UNKNOWN",
                 "name": "Unknown Supplier",
@@ -413,7 +413,7 @@
             "type": "physical",
             "name": "ROK-SWC Patch",
             "price": 4.99,
-            "stock": 68,
+            "stock": 1,
             "supplier": {
                 "supplier_id": "S-1948",
                 "name": "ROKA Association",
@@ -450,7 +450,7 @@
             "type": "physical",
             "name": "Paigey's Ramen",
             "price": 19.99,
-            "stock": 370,
+            "stock": 77,
             "supplier": {
                 "supplier_id": "S-1996",
                 "name": "Paige Tan",
@@ -461,8 +461,8 @@
         "P041": {
             "type": "physical",
             "name": "Toothbrush",
-            "price": 12.5,
-            "stock": 6,
+            "price": 3.99,
+            "stock": 466,
             "supplier": {
                 "supplier_id": "S-30",
                 "name": "Colgate",

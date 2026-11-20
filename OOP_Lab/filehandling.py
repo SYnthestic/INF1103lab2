@@ -115,19 +115,29 @@ class FileHandling:
                 next(reader, None)
             # for each row: try to create and add the product, 
                 for row in reader:
-                    try: 
-                        product_type, product_id, name, price, stock_quantity = row
+                    try:
+                        product_type, product_id, name, price, stock_quantity, *extra = row
+                        product_type = product_type.strip().lower()
+
+                        kwargs = {}
+                        if product_type == "housing":
+                            # housing rows must have two extra columns
+                            rental_area, rental_duration_days = extra[:2]
+                            kwargs["rental_area"] = float(rental_area)
+                            kwargs["rental_duration_days"] = int(rental_duration_days)
+
                         product = ProductFactory.create(
-                            product_type.strip().lower(),
+                            product_type,
                             product_id.strip(),
                             name.strip(),
                             float(price),
                             int(stock_quantity),
-                            supplier
+                            supplier,
+                            **kwargs
                         )
                         inventory.add_product(product)
                         loaded += 1
-            # except ValueError: report the row and continue 
+
                     except ValueError as e:
                         print(f"Unable to add row {row}: {e}")
             print(f"{loaded} products loaded.") 

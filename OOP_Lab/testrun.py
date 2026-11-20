@@ -94,7 +94,9 @@ inventory_a.add_product(standalone_product)
 print(f"Added to Inventory A. Size of A: {len(inventory_a.inventory)}")
 
 # • Remove it from Inventory A and confirm that the Product object can still be used.
-removed_item = inventory_a.remove_product("P-999")
+removed_item = inventory_a.find_product("P-999")   # lookup is now a separate step
+assert removed_item is not None, "P-999 should be in Inventory A"
+inventory_a.remove_product(removed_item)           # remove_product now takes the Product itself
 print(f"Removed from Inventory A. Size of A now: {len(inventory_a.inventory)}")
 print(f"Confirming removed item is fully operational: Name: {removed_item.name} | Stock: {removed_item.stock}")
 
@@ -231,8 +233,18 @@ factory_laptop = ProductFactory.create(
 factory_ebook = ProductFactory.create(
     "digital", "F-002", "Factory E-Book", 19.99, 100, default_supplier
 )
+factory_house = ProductFactory.create(
+    "housing", "F-003", "Luxury House", 390000000, 1, default_supplier,
+    rental_area=180, rental_duration_days=365
+)
+factory_subscription = ProductFactory.create(
+    "subscription", "F-004", "Epic History TV Subscription", 8.99, 190, default_supplier,
+    duration_months=12   # use the actual parameter name from SubscriptionProduct
+)
 print(f"Created via Factory: {factory_laptop.name} ({type(factory_laptop).__name__})")
 print(f"Created via Factory: {factory_ebook.name} ({type(factory_ebook).__name__})")
+print(f"Created via Factory: {factory_house.name} ({type(factory_house).__name__})")
+print(f"Created via Factory: {factory_subscription.name} ({type(factory_subscription).__name__})")
 
 # 2. Test "service" WITH a try/except block (so your script doesn't crash prematurely)
 print("\n--- Testing Caught Exception ---")
