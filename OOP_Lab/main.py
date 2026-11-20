@@ -327,18 +327,20 @@ while key != 8:
                 print("Inventory is empty.")
                 continue
 
-            product_id = input("Enter Product ID to remove: ").strip()
-            if not product_id:
+            target_id = input("Enter Product ID to remove: ").strip()
+            if not target_id:
                 print("Error! Product ID cannot be blank.")
                 failed_entries += 1
-            else:
-                removed = inventory_entry.remove_product(product_id)
-            if removed is None:
+                continue
+
+            product = inventory_entry.find_product(target_id)
+            if product is None:
                 print("Product not found.")
                 failed_entries += 1
             else:
+                inventory_entry.remove_product(product)
                 delivery_amount = inventory_entry.process_delivery()
-                print(f"Product '{removed.name}' ({removed.product_id}) removed successfully.")
+                print(f"Product '{product.name}' ({product.product_id}) removed successfully.")
         case 6:
             if not inventory_entry.inventory:
                 print("Inventory is empty. Add products before creating an order.")

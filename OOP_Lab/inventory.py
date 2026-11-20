@@ -13,7 +13,7 @@ class Inventory:
 
         and returns the next delivery amount along with the lowest unused product ID.
         """
-    # 1. Enforce unique ID constraint (prevents index corruption)
+        # 1. Enforce unique ID constraint (prevents index corruption)
         for existing in self.inventory:
             if existing.product_id == product.product_id:
                 raise ValueError(f"Product ID {product.product_id} already exists.")
@@ -48,12 +48,8 @@ class Inventory:
 
 
     #Remove product
-    def remove_product(self, product_id: str):
-        product = self.find_product(product_id)
-        if product is None:
-            return None
+    def remove_product(self, product: Product) -> None:
         self.inventory.remove(product)
-        return product
 
     def display_all_products(self) -> None:
         for product in self.inventory:
@@ -82,5 +78,4 @@ class Inventory:
         return total
 
     def process_delivery(self) -> int:
-        # Replace with your existing delivery calculation logic
         return sum(1 for product in self.inventory if product.stock < 10)
